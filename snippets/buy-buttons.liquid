@@ -190,7 +190,27 @@
 
                     if (selectedColor.toLowerCase() === 'black' && selectedSize.toLowerCase() === 'medium') {
                       // Add free gift to cart
-                      Shopify.addItem(40281855262795, 1); // Replace 1234567890 with the variant ID of your free gift
+                      fetch('/cart/add.js', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          items: [
+                            {
+                              id: '40281855262795', // actual variant ID of Soft Winter Jacket
+                              quantity: 1,
+                            },
+                          ],
+                        }),
+                      })
+                        .then(response => response.json())
+                        .then(data => {
+                          console.log(data);
+                        })
+                        .catch(error => {
+                          console.error('Error adding Soft Winter Jacket to the cart', error);
+                        });
                       
                       // Add $0.01 to the total
                       var originalTotal = parseFloat('{{ cart.total_price | money_without_currency }}');
