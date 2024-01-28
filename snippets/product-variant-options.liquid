@@ -107,11 +107,11 @@
 {% if product.title == 'Handbag' %}
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var addToCartButton = document.querySelector('#AddToCart');
+      var addToCartButton = getElementById('ProductSubmitButton-{{ section_id }}');
       
       addToCartButton.addEventListener('click', function () {
-        var selectedColor = document.querySelector('[name="color"]').value;
-        var selectedSize = document.querySelector('[name="size"]').value;
+        var selectedColor = document.querySelector('input[name="Color"]:checked').value;
+        var selectedSize = document.getElementById('size').value;
 
         if (selectedColor.toLowerCase() === 'black' && selectedSize.toLowerCase() === 'medium') {
           // Add free gift to cart
