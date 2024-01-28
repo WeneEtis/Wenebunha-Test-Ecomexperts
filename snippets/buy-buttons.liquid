@@ -178,28 +178,55 @@
               checkAndAddSoftWinterJacket();
             });*/
 
-            
-          
-            document.addEventListener('DOMContentLoaded', function () {
-      var addToCartButton = document.querySelector('#AddToCart');
-      
-      addToCartButton.addEventListener('click', function () {
-        var selectedColor = document.querySelector('[name="color"]').value;
-        var selectedSize = document.querySelector('[name="size"]').value;
+            // Function to check if the added item is a black medium-sized bag
+            function isBlackMediumBag(item) {
+                return (
+                    item.variant.title.toLowerCase().includes('black') &&
+                    item.variant.title.toLowerCase().includes('medium')
+                );
+            }
 
-        if (selectedColor.toLowerCase() === 'black' && selectedSize.toLowerCase() === 'medium') {
-          // Add free gift to cart
-          Shopify.addItem(40281855262795, 1); // Replace 1234567890 with the variant ID of your free gift
-          
-          // Add $0.01 to the total
-          var originalTotal = parseFloat('{{ cart.total_price | money_without_currency }}');
-          var newTotal = originalTotal + 0.01;
-          
-          // Display the new total
-          document.querySelector('.cart__total-price').textContent = Shopify.formatMoney(newTotal, '{{ shop.money_format }}');
-        }
-      });
-    });
+            // Function to add or remove the free gift based on the added item
+            function updateFreeGift(cart) {
+                const blackMediumBag = cart.items.find(isBlackMediumBag);
+
+                // Check if a black medium-sized bag is in the cart
+                if (blackMediumBag) {
+                    const freeGiftVariantId = '40281855262795'; // Replace with your free gift variant ID
+                    const freeGiftAlreadyInCart = cart.items.some(
+                        (item) => item.variant_id === freeGiftVariantId
+                    );
+
+                    // Add the free gift if not already in the cart
+                    if (!freeGiftAlreadyInCart) {
+                        const addItemUrl = `/cart/add.js?id=${freeGiftVariantId}&quantity=1`;
+                        fetch(addItemUrl, { method: 'POST' });
+                    }
+                } else {
+                    // Remove the free gift if the black medium-sized bag is removed
+                    const freeGiftInCart = cart.items.find(
+                        (item) => item.variant_id === 'your_free_gift_variant_id'
+                    );
+
+                    if (freeGiftInCart) {
+                        const removeItemUrl = `/cart/change.js?quantity=0&id=${freeGiftInCart.key}`;
+                        fetch(removeItemUrl, { method: 'POST' });
+                    }
+                }
+            }
+
+            // Listen for changes in the cart
+            document.addEventListener('cart-page:loaded', function (event) {
+                const cart = event.detail.cart;
+                updateFreeGift(cart);
+            });
+
+            // Listen for changes in the cart on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                const cart = JSON.parse(localStorage.getItem('cart'));
+                updateFreeGift(cart);
+            });
+
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
