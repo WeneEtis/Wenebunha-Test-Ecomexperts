@@ -82,11 +82,12 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
+            data-color="{{ product.selected_or_first_available_variant.option1 }}"
+            data-size="{{ product.selected_or_first_available_variant.option2 }}"
             class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
             {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
               disabled
             {% endif %}
-            
           >
             <span>
               {%- if product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
@@ -96,7 +97,8 @@
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
-          </button>
+        </button>
+
          
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
@@ -177,18 +179,9 @@
             document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
               checkAndAddSoftWinterJacket();
             });*/
-
-            // Function to check if the added item is a black medium-sized bag
-            function isBlackMediumBag(item) {
-              var selectedColor = document.querySelector('input[name="Color"]:checked');
-              var selectedSize = document.getElementById('size');
-                return (
-                    item.variant.title.toLowerCase().includes('handbag') 
-                );
-            }
-
+        
             // Function to add or remove the free gift based on the added item
-            function updateFreeGift(cart) {
+            function updateFreeGift() {
               var selectedColor = document.querySelector('input[name="Color"]:checked');
               var selectedSize = document.getElementById('size');
 
@@ -220,7 +213,7 @@
             // Listen for changes in the cart
             document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('cart-page:loaded', function (event) {
                 const cart = event.detail.cart;
-                updateFreeGift(cart);
+                updateFreeGift();
             });
 
             // Listen for changes in the cart on page load
