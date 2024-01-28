@@ -179,9 +179,7 @@
             });*/
 
             
-            {% if product.selected_or_first_available_variant.available == 'Handbag' %}
-             
-                document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', function () {
                   var addToCartButton = getElementById('ProductSubmitButton-{{ section_id }}');
                   
                   addToCartButton.addEventListener('click', function () {
@@ -220,8 +218,7 @@
                       document.querySelector('.cart__total-price').textContent = Shopify.formatMoney(newTotal, '{{ shop.money_format }}');
                     }
                   });
-                });
-            {% endif %}
+                });    
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
