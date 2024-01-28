@@ -179,40 +179,68 @@
             document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
               checkAndAddSoftWinterJacket();
             });*/
-
-            document.addEventListener('DOMContentLoaded', function () {
-            const addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
-            const sizeSelect = document.getElementById('size');
-
+            
+             // Function to disable/enable the add to cart button
             function modifyAddToCartBtn() {
-              const selectedVariant = document.querySelector('input[name="Color"]:checked');
+              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+              var sizeSelect = document.getElementById("size");
 
-              if (selectedVariant && selectedVariant.value === 'Black' && sizeSelect.value === 'Medium') {
-                addToCartBtn.addEventListener('click', function (event) {
-                  event.preventDefault();
+              // Check if both Leather Bag variant options are selected
+              var blackSelected = document.querySelector('input[name="Color"][value="Black"]:checked');
+              var mediumSelected = document.querySelector('input[name="Size"][value="Medium"]:checked');
 
-                  // Add the "Soft Winter Jacket" to the cart with an additional price of 0.01
-                  const jacketVariantId = '40281855262795'; // Replace with the actual variant ID
-                  const quantity = 1;
-                  const additionalPrice = 0.01;
-
-                  // Adjust the line below to add the jacket variant to the cart
-                  Shopify.addItem(jacketVariantId, quantity, { price: additionalPrice });
-
-                  // Trigger the default add to cart functionality for the "Leather Bag"
-                  document.getElementById('{{ product_form_id }}').submit();
-                });
+              if (blackSelected && mediumSelected) {
+                addToCartBtn.removeAttribute("disabled");
               } else {
-                addToCartBtn.removeEventListener('click', function () {});
+                addToCartBtn.setAttribute("disabled", true);
+              }
+
+              // Check if size is "Medium", and Leather Bag variant options are selected
+              if (sizeSelect.value === "Medium" && blackSelected && mediumSelected) {
+                // Automatically add Soft Winter Jacket to the cart with additional price of 0.01
+                addToCartBtn.addEventListener("click", function() {
+                  // Add Soft Winter Jacket variant to the cart
+                  // Note: Replace the following line with your actual code to add the Soft Winter Jacket to the cart
+                  fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    items: [
+                      {
+                        id: '40281855262795', // actual variant ID of Soft Winter Jacket
+                        quantity: 1,
+                      },
+                    ],
+                  }),
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    // Handle the response if needed
+                    console.log(data);
+                  })
+                  .catch(error => {
+                    console.error('Error adding Soft Winter Jacket to the cart', error);
+                  });
+                  console.log("Adding Soft Winter Jacket to the cart with additional price of 0.01");
+                });
               }
             }
 
-            // Attach the event listener to the size select
-            sizeSelect.addEventListener('change', modifyAddToCartBtn);
+            // Add event listeners for input change and size select change
+            document.addEventListener("DOMContentLoaded", function() {
+              var colorInputs = document.querySelectorAll('input[name="Color"]');
+              var sizeSelect = document.getElementById("size");
 
-            // Trigger the function on page load in case a pre-selected variant matches the criteria
-            modifyAddToCartBtn();
-          });
+              colorInputs.forEach(function(input) {
+                input.addEventListener("change", modifyAddToCartBtn);
+              });
+
+              if (sizeSelect) {
+                sizeSelect.addEventListener("change", modifyAddToCartBtn);
+              }
+            });
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
