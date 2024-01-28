@@ -135,7 +135,7 @@
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
             });
-
+/*
              // Function to check for Leather Bag variant and automatically add Soft Winter Jacket
             function checkAndAddSoftWinterJacket() {
               var selectedColor = document.querySelector('input[name="Color"]:checked');
@@ -148,7 +148,7 @@
                 selectedSize.value == 'Medium'
               ) {
                 /* when the Leather Bag with Black color and Medium size is selected
-                Automatically add the Soft Winter Jacket to the cart*/
+                Automatically add the Soft Winter Jacket to the cart
                 fetch('/cart/add.js', {
                   method: 'POST',
                   headers: {
@@ -176,7 +176,7 @@
             // event listener to call the function when the Add to Cart button is clicked
             document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
               checkAndAddSoftWinterJacket();
-            });
+            });*/
 
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
