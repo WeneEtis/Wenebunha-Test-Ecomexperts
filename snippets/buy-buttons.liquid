@@ -147,8 +147,8 @@
                 selectedColor.value == 'Black' &&
                 selectedSize.value == 'Medium'
               ) {
-                // The Leather Bag with Black color and Medium size is selected
-                // Automatically add the Soft Winter Jacket to the cart
+                /* when the Leather Bag with Black color and Medium size is selected
+                Automatically add the Soft Winter Jacket to the cart*/
                 fetch('/cart/add.js', {
                   method: 'POST',
                   headers: {
@@ -173,58 +173,10 @@
               }
             }
             
-            // Add event listener to call the function when the Add to Cart button is clicked
+            // event listener to call the function when the Add to Cart button is clicked
             document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
               checkAndAddSoftWinterJacket();
             });
-
-            document.addEventListener("DOMContentLoaded", function () {
-            //disableAddToCartBtn();
-            addRemoveEventListeners(); // Add event listeners for remove buttons
-            });
-
-            function addRemoveEventListeners() {
-              // Add event listeners for remove buttons of "Black" and "Medium" products
-              var removeBlackButton = document.getElementById('input[name="Color"]');
-              var removeMediumButton = document.getElementById('size');
-
-              if (removeBlackButton) {
-                removeBlackButton.addEventListener('click', function() {
-                  removeSoftWinterJacket();
-                });
-              }
-
-              if (removeMediumButton) {
-                removeMediumButton.addEventListener('click', function() {
-                  removeSoftWinterJacket();
-                });
-              }
-            }
-
-            function removeSoftWinterJacket() {
-              // Call Shopify API to remove the Soft Winter Jacket from the cart
-              fetch('/cart/update.js', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  updates: {
-                    '40281855262795': 0, // Set the quantity of Soft Winter Jacket to 0 for removal
-                  },
-                }),
-              })
-                .then(response => response.json())
-                .then(data => {
-                  console.log(data);
-                })
-                .catch(error => {
-                  console.error('Error removing Soft Winter Jacket from the cart', error);
-                });
-            }
-
-            // ... (rest of your existing code)
-
 
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
