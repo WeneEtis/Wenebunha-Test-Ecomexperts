@@ -244,18 +244,3 @@ if (!customElements.get('cart-note')) {
     }
   );
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-  var removeButton = document.querySelectorAll('.cart__remove');
-
-  removeButton.forEach(function (button) {
-    button.addEventListener('click', function () {
-      // Check if the item being removed is the black medium-sized bag
-      var itemTitle = button.closest('.cart__row').querySelector('.cart__product-title').textContent.trim();
-      if (itemTitle === 'Handbag') {
-        // Remove the free gift from the cart
-        Shopify.removeItem(40281855262795); // Replace 9876543210 with the variant ID of your free gift
-      }
-    });
-  });
-});
