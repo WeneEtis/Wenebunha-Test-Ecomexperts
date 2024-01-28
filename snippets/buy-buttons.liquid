@@ -179,68 +179,7 @@
             document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
               checkAndAddSoftWinterJacket();
             });*/
-            
-             // Function to disable/enable the add to cart button
-            function modifyAddToCartBtn() {
-              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-              var sizeSelect = document.getElementById("size");
 
-              // Check if both Leather Bag variant options are selected
-              var blackSelected = document.querySelector('input[name="Color"][value="Black"]:checked');
-              var mediumSelected = document.querySelector('input[name="Size"][value="Medium"]:checked');
-
-              if (blackSelected && mediumSelected) {
-                addToCartBtn.removeAttribute("disabled");
-              } else {
-                addToCartBtn.setAttribute("disabled", true);
-              }
-
-              // Check if size is "Medium", and Leather Bag variant options are selected
-              if (sizeSelect.value === "Medium" && blackSelected && mediumSelected) {
-                // Automatically add Soft Winter Jacket to the cart with additional price of 0.01
-                addToCartBtn.addEventListener("click", function() {
-                  // Add Soft Winter Jacket variant to the cart
-                  // Note: Replace the following line with your actual code to add the Soft Winter Jacket to the cart
-                  fetch('/cart/add.js', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    items: [
-                      {
-                        id: '40281855262795', // actual variant ID of Soft Winter Jacket
-                        quantity: 1,
-                      },
-                    ],
-                  }),
-                })
-                  .then(response => response.json())
-                  .then(data => {
-                    // Handle the response if needed
-                    console.log(data);
-                  })
-                  .catch(error => {
-                    console.error('Error adding Soft Winter Jacket to the cart', error);
-                  });
-                  console.log("Adding Soft Winter Jacket to the cart with additional price of 0.01");
-                });
-              }
-            }
-
-            // Add event listeners for input change and size select change
-            document.addEventListener("DOMContentLoaded", function() {
-              var colorInputs = document.querySelectorAll('input[name="Color"]');
-              var sizeSelect = document.getElementById("size");
-
-              colorInputs.forEach(function(input) {
-                input.addEventListener("change", modifyAddToCartBtn);
-              });
-
-              if (sizeSelect) {
-                sizeSelect.addEventListener("change", modifyAddToCartBtn);
-              }
-            });
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
