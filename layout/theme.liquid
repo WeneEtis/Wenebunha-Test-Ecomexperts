@@ -305,6 +305,46 @@
     </ul>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+      const sizeDropdown = document.getElementById('size');
+
+      function disableAddToCartBtn() {
+        addToCartButton.disabled = sizeDropdown.value === 'Unselected';
+      }
+
+      function updateCart() {
+        const selectedVariant = document.querySelector('input[name="id"]:checked');
+        const selectedSize = sizeDropdown.value;
+
+        // Check if the selected product and variant match the conditions
+        if (
+          selectedVariant &&
+          selectedVariant.value == 'Black' &&  // Replace with the actual variant ID
+          selectedSize == 'Medium'  // Replace with the desired size
+        ) {
+          // Add Soft Winter Jacket to the cart with a price increase of 0.01
+          Shopify.addItemFromForm('product-form', {
+            id: '{{ 40281855262795 }}',  // Replace with the actual Soft Winter Jacket variant ID
+            quantity: 1,
+            properties: {
+              addedByLeatherBag: true
+            },
+            price: {{ product.price | plus: 0.01 | json }},
+          });
+        } else {
+          // Remove Soft Winter Jacket from the cart
+          Shopify.removeItem('{{ 40281855262795 }}');  // Replace with the actual Soft Winter Jacket variant ID
+        }
+      }
+
+      addToCartButton.addEventListener('click', updateCart);
+      sizeDropdown.addEventListener('change', disableAddToCartBtn);
+    });
+  </script>
+
+
+    <script>
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',
