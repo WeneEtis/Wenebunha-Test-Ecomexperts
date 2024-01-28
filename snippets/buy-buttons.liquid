@@ -179,46 +179,27 @@
             });*/
 
             
+          
             document.addEventListener('DOMContentLoaded', function () {
-                  var addToCartButton = getElementById('ProductSubmitButton-{{ section_id }}');
-                  
-                  addToCartButton.addEventListener('click', function () {
-                    var selectedColor = document.querySelector('input[name="Color"]:checked').value;
-                    var selectedSize = document.getElementById('size').value;
+      var addToCartButton = document.querySelector('#AddToCart');
+      
+      addToCartButton.addEventListener('click', function () {
+        var selectedColor = document.querySelector('[name="color"]').value;
+        var selectedSize = document.querySelector('[name="size"]').value;
 
-                    if (selectedColor.toLowerCase() === 'black' && selectedSize.toLowerCase() === 'medium') {
-                      // Add free gift to cart
-                      fetch('/cart/add.js', {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                          items: [
-                            {
-                              id: '40281855262795', // actual variant ID of Soft Winter Jacket
-                              quantity: 1,
-                            },
-                          ],
-                        }),
-                      })
-                        .then(response => response.json())
-                        .then(data => {
-                          console.log(data);
-                        })
-                        .catch(error => {
-                          console.error('Error adding Soft Winter Jacket to the cart', error);
-                        });
-                      
-                      // Add $0.01 to the total
-                      var originalTotal = parseFloat('{{ cart.total_price | money_without_currency }}');
-                      var newTotal = originalTotal + 0.01;
-                      
-                      // Display the new total
-                      document.querySelector('.cart__total-price').textContent = Shopify.formatMoney(newTotal, '{{ shop.money_format }}');
-                    }
-                  });
-                });    
+        if (selectedColor.toLowerCase() === 'black' && selectedSize.toLowerCase() === 'medium') {
+          // Add free gift to cart
+          Shopify.addItem(40281855262795, 1); // Replace 1234567890 with the variant ID of your free gift
+          
+          // Add $0.01 to the total
+          var originalTotal = parseFloat('{{ cart.total_price | money_without_currency }}');
+          var newTotal = originalTotal + 0.01;
+          
+          // Display the new total
+          document.querySelector('.cart__total-price').textContent = Shopify.formatMoney(newTotal, '{{ shop.money_format }}');
+        }
+      });
+    });
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
