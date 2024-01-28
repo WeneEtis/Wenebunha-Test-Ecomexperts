@@ -180,7 +180,7 @@
 
             
             {% if product.title == 'Handbag' %}
-              <script>
+             
                 document.addEventListener('DOMContentLoaded', function () {
                   var addToCartButton = getElementById('ProductSubmitButton-{{ section_id }}');
                   
@@ -201,7 +201,6 @@
                     }
                   });
                 });
-              </script>
             {% endif %}
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
