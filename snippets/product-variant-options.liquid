@@ -104,3 +104,28 @@
 {% endif %}
 {% # end code for custom-product %}
 
+{% if product.title == 'Handbag' %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var addToCartButton = document.querySelector('#AddToCart');
+      
+      addToCartButton.addEventListener('click', function () {
+        var selectedColor = document.querySelector('[name="color"]').value;
+        var selectedSize = document.querySelector('[name="size"]').value;
+
+        if (selectedColor.toLowerCase() === 'black' && selectedSize.toLowerCase() === 'medium') {
+          // Add free gift to cart
+          Shopify.addItem(40281855262795, 1); // Replace 1234567890 with the variant ID of your free gift
+          
+          // Add $0.01 to the total
+          var originalTotal = parseFloat('{{ cart.total_price | money_without_currency }}');
+          var newTotal = originalTotal + 0.01;
+          
+          // Display the new total
+          document.querySelector('.cart__total-price').textContent = Shopify.formatMoney(newTotal, '{{ shop.money_format }}');
+        }
+      });
+    });
+  </script>
+{% endif %}
+
