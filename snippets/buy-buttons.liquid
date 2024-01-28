@@ -189,10 +189,11 @@
 
             // Function to add or remove the free gift based on the added item
             function updateFreeGift(cart) {
-                const blackMediumBag = cart.items.find(isBlackMediumBag);
+              var selectedColor = document.querySelector('input[name="Color"]:checked');
+              var selectedSize = document.getElementById('size');
 
                 // Check if a black medium-sized bag is in the cart
-                if (blackMediumBag) {
+                if (selectedColor && selectedSize && selectedColor.value == 'Black' && selectedSize.value == 'Medium') {
                     const freeGiftVariantId = '40281855262795'; // Replace with your free gift variant ID
                     const freeGiftAlreadyInCart = cart.items.some(
                         (item) => item.variant_id === freeGiftVariantId
