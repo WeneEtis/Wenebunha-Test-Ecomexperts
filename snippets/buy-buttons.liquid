@@ -180,9 +180,10 @@
 
             // Function to check if the added item is a black medium-sized bag
             function isBlackMediumBag(item) {
+              var selectedColor = document.querySelector('input[name="Color"]:checked');
+              var selectedSize = document.getElementById('size');
                 return (
-                    item.variant.title.toLowerCase().includes('black') &&
-                    item.variant.title.toLowerCase().includes('medium')
+                    item.variant.title.toLowerCase().includes('handbag') 
                 );
             }
 
