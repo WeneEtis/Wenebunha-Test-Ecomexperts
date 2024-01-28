@@ -206,7 +206,7 @@
                 } else {
                     // Remove the free gift if the black medium-sized bag is removed
                     const freeGiftInCart = cart.items.find(
-                        (item) => item.variant_id === 'your_free_gift_variant_id'
+                        (item) => item.variant_id === '40281855262795'
                     );
 
                     if (freeGiftInCart) {
@@ -217,13 +217,13 @@
             }
 
             // Listen for changes in the cart
-            document.addEventListener('cart-page:loaded', function (event) {
+            document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('cart-page:loaded', function (event) {
                 const cart = event.detail.cart;
                 updateFreeGift(cart);
             });
 
             // Listen for changes in the cart on page load
-            document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('DOMContentLoaded', function () {
                 const cart = JSON.parse(localStorage.getItem('cart'));
                 updateFreeGift(cart);
             });
