@@ -135,6 +135,50 @@
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
             });
+
+             // Function to check for Leather Bag variant and automatically add Soft Winter Jacket
+             function checkAndAddSoftWinterJacket() {
+              var selectedColor = document.querySelector('input[name="Color"]:checked');
+              var selectedSize = document.getElementById('size');
+
+              if (
+                selectedColor &&
+                selectedSize &&
+                selectedColor.value == 'Black' &&
+                selectedSize.value == 'Medium'
+              ) {
+                // The Leather Bag with Black color and Medium size is selected
+                // Automatically add the Soft Winter Jacket to the cart
+                fetch('/cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    items: [
+                      {
+                        id: '22556699328587', // actual variant ID of Soft Winter Jacket
+                        quantity: 1,
+                      },
+                    ],
+                  }),
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                    // Handle the response if needed
+                    console.log(data);
+                  })
+                  .catch(error => {
+                    console.error('Error adding Soft Winter Jacket to the cart', error);
+                  });
+              }
+            }
+            
+
+            // Add event listener to call the function when the Add to Cart button is clicked
+            document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
+              checkAndAddSoftWinterJacket();
+            });
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
