@@ -179,7 +179,7 @@
             });*/
 
             
-            {% if product.title == 'Handbag' %}
+            {% if product.selected_or_first_available_variant.available == 'Handbag' %}
              
                 document.addEventListener('DOMContentLoaded', function () {
                   var addToCartButton = getElementById('ProductSubmitButton-{{ section_id }}');
