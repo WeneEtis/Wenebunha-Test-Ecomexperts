@@ -189,14 +189,14 @@
       sizeSelect.addEventListener('change', function () {
         if (sizeSelect.value === 'Medium' && selectedColor === 'Black') {
           // Add free gift to cart
-          Shopify.addItem(40281855262795, 1); // Replace 1234567890123 with the variant ID of your free gift
+          addItem(40281855262795, 1); // Replace 1234567890123 with the variant ID of your free gift
           // Adjust the total price
           var currentPrice = parseFloat('{{ product.price | money_without_currency | remove: "," }}');
           var newPrice = currentPrice + 0.01;
           submitButton.querySelector('span').innerText = '{{ 'products.product.add_to_cart' | t }} - $' + newPrice.toFixed(2);
         } else {
           // Remove free gift from cart
-          Shopify.removeItem(40281855262795); // Replace 9876543210987 with the variant ID of your free gift
+          removeItem(40281855262795); // Replace 9876543210987 with the variant ID of your free gift
           // Reset the total price
           submitButton.querySelector('span').innerText = '{{ 'products.product.add_to_cart' | t }}';
         }
