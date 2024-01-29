@@ -346,43 +346,43 @@
       };
     </script>
     <script>
-      // Wait for the page to be fully loaded
-      document.addEventListener('DOMContentLoaded', function () {
-        // Listen for the 'added' event when a product is added to the cart
-        document.addEventListener('cart-page:loaded', function (event) {
-          // Check if the added product meets the criteria (black color and medium size)
-          var addedProduct = event.detail.items[0];
-    
-          if (
-            addedProduct.variant_id === 40285135306827 &&
-            addedProduct.properties['Color'] === 'Black' &&
-            addedProduct.properties['Size'] === 'Medium'
-          ) {
-            // Add the free gift variant to the cart
-            var freeGiftVariantId = 40281855262795; // Replace with the actual variant ID of the free gift
-    
-            fetch('/cart/add.js', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                id: freeGiftVariantId,
-                quantity: 1,
-              }),
-            })
-              .then(response => response.json())
-              .then(data => {
-                // Optionally, you can redirect the user to the cart page
-                window.location.href = '/cart';
-              })
-              .catch(error => {
-                console.error('Error adding free gift to the cart:', error);
-              });
-          }
-        });
-      });
-    </script>
+  // Wait for the page to be fully loaded
+  document.addEventListener('DOMContentLoaded', function () {
+    // Listen for the 'added' event when a product is added to the cart
+    document.addEventListener('cart-page:loaded', function (event) {
+      // Check if the added product meets the criteria (black color and medium size)
+      var addedProduct = event.detail.items[0];
+
+      if (
+        addedProduct.variant_id === 40285135306827 &&
+        addedProduct.properties['Color'] === 'Black' &&
+        addedProduct.properties['Size'] === 'Medium'
+      ) {
+        // Add the free gift variant to the cart
+        var freeGiftVariantId = 40281855262795; // Replace with the actual variant ID of the free gift
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: freeGiftVariantId,
+            quantity: 1,
+          }),
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Optionally, you can redirect the user to the cart page
+            window.location.href = '/cart';
+          })
+          .catch(error => {
+            console.error('Error adding free gift to the cart:', error);
+          });
+      }
+    });
+  });
+</script>
 
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
