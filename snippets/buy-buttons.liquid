@@ -188,29 +188,24 @@
                   
                   // Check if the added product is the trigger product
                   if (addedVariantId == 40285135306827) {
-                    fetch('/cart/add.js', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      items: [
-                        {
-                          id: '40281855262795', // actual variant ID of Soft Winter Jacket
-                          quantity: 1,
-                        },
-                      ],
-                    }),
-                  })
-                  .then(response => response.json())
-                  .then(data => {
-                    console.log(data);
-                  })
-                  .catch(error => {
-                    console.error('Error adding Soft Winter Jacket to the cart', error);
-                  });
-                    // Use Shopify AJAX API to add the free gift product to the cart
                     
+                    // Use Shopify AJAX API to add the free gift product to the cart
+                    $.ajax({
+                      type: 'POST',
+                      url: '/cart/add.js',
+                      data: {
+                        quantity: 1,
+                        id: 40281855262795  // Variant ID of the free gift product
+                      },
+                      dataType: 'json',
+                      success: function(data) {
+                        // Optionally, you can update the cart preview or provide a success message
+                        console.log('Free gift added to the cart!');
+                      },
+                      error: function(xhr, status, error) {
+                        console.error(error);
+                      }
+                    });
                   }
                 });
               });
