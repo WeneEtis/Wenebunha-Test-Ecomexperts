@@ -90,23 +90,7 @@
   {%- endif -%}
 {%- endfor -%}
 
-{% # begin code: customized product template size dropdown list %}
-{% comment %}
-  esthetic-ignore
- 
-{% if product.template_suffix == 'custom-product' %}
-  <p class="cart-attribute__field">
-    <label>Size</label><br>
-    <select required class="required" id="size" name="attributes[Size]" onchange="disableAddToCartBtn()"> {%# onchange function that disables the buttons when size is Unselected and vice versa%}
-      <option value="Unselected" {% if cart.attributes["Size"] == "Unselected" %} selected {% endif %}>Unselected</option>
-      <option value="Small" {% if cart.attributes["Size"] == "Small" %} selected{% endif %}>Small</option>
-      <option value="Medium" {% if cart.attributes["Size"] == "Medium" %} selected{% endif %}>Medium</option>
-      <option value="Large" {% if cart.attributes["Size"] == "Large" %} selected{% endif %}>Large</option>
-    </select>
-  </p>
-{% endif %}
-{% # end code for custom-product %}
-{% endcomment %}
+{% # begin code: customized product template size dropdown list %} 
 {% if product.template_suffix == 'custom-product' %}
   <div class="product-form__input product-form__input--dropdown">
   <label class="form__label-dropdown">Size</label>
@@ -124,5 +108,8 @@
   </path></svg>
   </div></div>
 {% endif %}
+{% # end code for custom-product %}
+
+
 
 
