@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectedSize = sizeSelect.value;
     
     // Get the selected color (assuming you have a way to get it)
-    var selectedColor = getSelectedColor(); // Replace this with your actual function to get the selected color
+    var selectedColor = document.querySelectorAll('input[name="Color"]:checked'); // Replace this with your actual function to get the selected color
     
     // Check if the conditions for the free gift are met
     if (selectedSize === 'Medium' && selectedColor === 'Black') {
