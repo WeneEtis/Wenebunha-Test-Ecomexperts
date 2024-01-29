@@ -183,7 +183,7 @@
     var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
     var selectedVariantId = '40281855262795'; // Replace with the variant ID of the free gift
     var blackMediumOption = document.querySelector('[name="attributes[Color]"][value="Black"]:checked') &&
-                            document.getElementById('size');
+                            document.querySelector('[name="attributes[Size]"][value="Medium"]:checked');
 
     addToCartButton.addEventListener('click', function (event) {
       if (blackMediumOption) {
