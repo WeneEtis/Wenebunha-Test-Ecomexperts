@@ -91,6 +91,9 @@
 {%- endfor -%}
 
 {% # begin code: customized product template size dropdown list %}
+{% comment %}
+  esthetic-ignore
+ 
 {% if product.template_suffix == 'custom-product' %}
   <p class="cart-attribute__field">
     <label>Size</label><br>
@@ -103,5 +106,5 @@
   </p>
 {% endif %}
 {% # end code for custom-product %}
-
+{% endcomment %}
 
