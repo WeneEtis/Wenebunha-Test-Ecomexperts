@@ -344,45 +344,48 @@
         recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
       };
-    </script>
-    <script>
-  // Wait for the page to be fully loaded
-  document.addEventListener('DOMContentLoaded', function () {
-    // Listen for the 'added' event when a product is added to the cart
-    document.addEventListener('cart-page:loaded', function (event) {
-      // Check if the added product meets the criteria (black color and medium size)
-      var addedProduct = event.detail.items[0];
 
-      if (
-        addedProduct.variant_id === 40285135306827 &&
-        addedProduct.properties['Color'] === 'Black' &&
-        addedProduct.properties['Size'] === 'Medium'
-      ) {
-        // Add the free gift variant to the cart
-        var freeGiftVariantId = 40281855262795; // Replace with the actual variant ID of the free gift
+      // Add this script in your theme's JavaScript file
 
-        fetch('/cart/add.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: freeGiftVariantId,
-            quantity: 1,
-          }),
-        })
-          .then(response => response.json())
-          .then(data => {
-            // Optionally, you can redirect the user to the cart page
-            window.location.href = '/cart';
-          })
-          .catch(error => {
-            console.error('Error adding free gift to the cart:', error);
-          });
-      }
-    });
+document.addEventListener('DOMContentLoaded', function () {
+  var productForm = document.getElementById('product_form_id'); // replace with your actual form ID
+  var productSubmitButton = getElementById('ProductSubmitButton-{{ section_id }}'); // replace with your actual button ID
+  var sizeSelect = document.getElementById('size');
+  
+  productForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    // Get the selected size
+    var selectedSize = sizeSelect.value;
+    
+    // Get the selected color (assuming you have a way to get it)
+    var selectedColor = getSelectedColor(); // Replace this with your actual function to get the selected color
+    
+    // Check if the conditions for the free gift are met
+    if (selectedSize === 'Medium' && selectedColor === 'Black') {
+      // Add the free gift to the cart
+      Shopify.addItem(40281855262795, 1); // Replace 123456789 with the actual variant ID of your free gift
+    }
+    
+    // Submit the form
+    productForm.submit();
   });
-</script>
+});
+
+// Function to get the selected color (replace this with your actual implementation)
+function getSelectedColor() {
+  var colorInputs = document.getElementsByName('Color');
+  for (var i = 0; i < colorInputs.length; i++) {
+    if (colorInputs[i].checked) {
+      return colorInputs[i].value;
+    }
+  }
+  return null;
+}
+
+    </script>
+    
+    
 
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
