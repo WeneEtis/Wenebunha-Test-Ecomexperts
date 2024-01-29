@@ -180,36 +180,6 @@
         
             // Function to add or remove the free gift based on the added item
          
-          
-              $(document).ready(function() {
-                $('body').on('click', '[data-action="add-to-cart"]', function(event) {
-                  // Get the variant ID of the product being added to the cart
-                  var addedVariantId = $(this).data('variant-id');
-                  
-                  // Check if the added product is the trigger product
-                  if (addedVariantId == 40285135306827) {
-                    
-                    // Use Shopify AJAX API to add the free gift product to the cart
-                    $.ajax({
-                      type: 'POST',
-                      url: '/cart/add.js',
-                      data: {
-                        quantity: 1,
-                        id: 40281855262795  // Variant ID of the free gift product
-                      },
-                      dataType: 'json',
-                      success: function(data) {
-                        // Optionally, you can update the cart preview or provide a success message
-                        console.log('Free gift added to the cart!');
-                      },
-                      error: function(xhr, status, error) {
-                        console.error(error);
-                      }
-                    });
-                  }
-                });
-              });
-
 
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
