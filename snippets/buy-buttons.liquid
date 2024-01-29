@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check if the conditions for the free gift are met
     if (selectedSize === 'Medium' && selectedColor === 'Black') {
       // Add the free gift to the cart
-      Shopify.addItem(40281855262795, 1); // Replace 123456789 with the actual variant ID of your free gift
+      addItem(40281855262795, 1); // Replace 123456789 with the actual variant ID of your free gift
     }
     
     // Submit the form
@@ -217,6 +217,7 @@ function getSelectedColor() {
   return null;
 }
 
+//
 
 let cartBtn =  document.getElementById('ProductSubmitButton-{{ section_id }}')
 const form =  document.getElementById("product_form_id")
