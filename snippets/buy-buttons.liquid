@@ -179,49 +179,37 @@
             });*/
         
             // Function to add or remove the free gift based on the added item
-         
-
-          </script>
-          <script>
-            // Wait for the page to be fully loaded
             document.addEventListener('DOMContentLoaded', function () {
-              // Listen for the 'added' event when a product is added to the cart
-              document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('cart-page:loaded', function (event) {
-                // Check if the added product meets the criteria (black color and medium size)
-                var addedProduct = event.detail.items[0];
-                var selectedColor = document.querySelector('input[name="Color"]:checked');
-              var selectedSize = document.getElementById('size');
-          
-                if (
-                  selectedColor &&
-                  selectedSize &&
-                  selectedColor.value == 'Black' &&
-                  selectedSize.value == 'Medium'
-                ) {
-                  // Add the free gift variant to the cart
-                  var freeGiftVariantId = 40281855262795; // Replace with the actual variant ID of the free gift
-          
-                  fetch('/cart/add.js', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      id: freeGiftVariantId,
-                      quantity: 1,
-                    }),
-                  })
-                    .then(response => response.json())
-                    .then(data => {
-                      // Optionally, you can redirect the user to the cart page
-                      window.location.href = '/cart';
-                    })
-                    .catch(error => {
-                      console.error('Error adding free gift to the cart:', error);
-                    });
-                }
-              });
-            });
+    var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+    var selectedVariantId = '40281855262795'; // Replace with the variant ID of the free gift
+    var blackMediumOption = document.querySelector('[name="attributes[Color]"][value="Black"]:checked') &&
+                            document.getElementById('size');
+
+    addToCartButton.addEventListener('click', function (event) {
+      if (blackMediumOption) {
+        // The product with black color and medium size is being added to the cart
+        // Add the free gift variant to the cart
+        var formData = new FormData(document.getElementById('{{ product_form_id }}'));
+        formData.append('id', selectedVariantId);
+        
+        fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Check if the free gift was successfully added to the cart
+          if (data.success) {
+            console.log('Free gift added to the cart!');
+          } else {
+            console.error('Failed to add the free gift to the cart.');
+          }
+        })
+        .catch(error => console.error('Error adding free gift to the cart:', error));
+      }
+    });
+  });
+
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
