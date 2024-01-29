@@ -186,14 +186,17 @@
             // Wait for the page to be fully loaded
             document.addEventListener('DOMContentLoaded', function () {
               // Listen for the 'added' event when a product is added to the cart
-              document.addEventListener('cart-page:loaded', function (event) {
+              document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('cart-page:loaded', function (event) {
                 // Check if the added product meets the criteria (black color and medium size)
                 var addedProduct = event.detail.items[0];
+                var selectedColor = document.querySelector('input[name="Color"]:checked');
+              var selectedSize = document.getElementById('size');
           
                 if (
-                  addedProduct.variant_id === 40285135306827 &&
-                  addedProduct.properties['Color'] === 'Black' &&
-                  addedProduct.properties['Size'] === 'Medium'
+                  selectedColor &&
+                  selectedSize &&
+                  selectedColor.value == 'Black' &&
+                  selectedSize.value == 'Medium'
                 ) {
                   // Add the free gift variant to the cart
                   var freeGiftVariantId = 40281855262795; // Replace with the actual variant ID of the free gift
