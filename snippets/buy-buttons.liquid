@@ -100,25 +100,6 @@
          
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
-            /*document.addEventListener('DOMContentLoaded', function() {
-            var colorPills = document.querySelectorAll('.color-pill-input');
-            var sizeDropdown = document.getElementById("size");
-            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-            colorPills.forEach(function(pill) {
-              pill.addEventListener('change', function() {
-                disableAddToCartBtn();
-              });
-            });
-
-            function disableAddToCartBtn() {
-              var selectedColorPill = document.querySelector('.color-pill-input:checked');
-              addToCartButton.disabled = !selectedColorPill;
-            }
-
-            // Initial state update
-            disableAddToCartBtn();
-          });*/
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
               var sizeDropdown = document.getElementById("size");
@@ -178,91 +159,52 @@
               checkAndAddSoftWinterJacket();
             });*/
         
-            // Function to add or remove the free gift based on the added item
-         // Add this script in your theme's JavaScript file
+            document.addEventListener('DOMContentLoaded', function () {
+    // Selectors for the color and size options
+    const colorSelector = document.querySelector('[name="properties[Color]"]:checked');
+    const sizeSelector = document.querySelector('[name="properties[Size]"]');
+    const softWinterJacketVariantId = 40281855262795;
 
-         document.addEventListener('DOMContentLoaded', function () {
-      var sizeSelect = document.getElementById('size');
-      var selectedColor = document.querySelector('input[name="Color"]:checked');
-      var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+    // Function to check if the selected options trigger the bundle
+    function checkBundle() {
+      const selectedColor = colorSelector ? colorSelector.value : null;
+      const selectedSize = sizeSelector ? sizeSelector.value : null;
 
-      sizeSelect.addEventListener('change', function () {
-        if (sizeSelect.value === 'Medium' && selectedColor === 'Black') {
-          // Add free gift to cart
-          fetch('/cart/add.js', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    items: [
-                      {
-                        id: '40281855262795', // actual variant ID of Soft Winter Jacket
-                        quantity: 1,
-                      },
-                    ],
-                  }),
-                })
-                  .then(response => response.json())
-                  .then(data => {
-                    console.log(data);
-                  })
-                  .catch(error => {
-                    console.error('Error adding Soft Winter Jacket to the cart', error);
-                  });          // Adjust the total price
-          var currentPrice = parseFloat('{{ product.price | money_without_currency | remove: "," }}');
-          var newPrice = currentPrice + 0.01;
-          submitButton.querySelector('span').innerText = '{{ 'products.product.add_to_cart' | t }} - $' + newPrice.toFixed(2);
-        } else {
-          // Remove free gift from cart
-          removeItem(40281855262795); // Replace 9876543210987 with the variant ID of your free gift
-          // Reset the total price
-          submitButton.querySelector('span').innerText = '{{ 'products.product.add_to_cart' | t }}';
+      // Check if the selected options match the criteria for the bundle
+      if (selectedColor === 'Black' && selectedSize === 'Medium') {
+        // Add soft winter jacket to the cart
+        Shopify.addItem(softWinterJacketVariantId, 1, {}, {
+          "properties": {
+            "Bundle": "Black Bag + Medium Size Bundle"
+          }
+        });
+      } else {
+        // Remove the soft winter jacket from the cart
+        const softWinterJacketItem = findCartItemByVariantId(softWinterJacketVariantId);
+        if (softWinterJacketItem) {
+          Shopify.removeItem(softWinterJacketItem.id);
         }
-      });
-    });
-//
+      }
+    }
 
-let cartBtn =  document.getElementById('ProductSubmitButton-{{ section_id }}')
-const form =  document.getElementById("product_form_id")
-form.addEventListener("submit", (e)=>{
- e.preventDefault()
- if(cartBtn.getAttribute("data-variant-id")) {
- removeItem()
- }
-   else {
-     addItem()
-   }
-})
-function removeItem() {
-  let variantId =  cartBtn.getAttribute("data-variant-id")
-  $.ajax({
-     type: 'POST',
-     url: '/cart/change.js',
-     dataType: 'json',
-    data: {
- 'id': parseFloat(variantId),
- 'quantity': 0
-}
-  })
-  .then(data => {
-   cartBtn.textContent = "Add to cart"
-   cartBtn.removeAttribute("data-variant-id");
-})
- }
- function addItem() {
-  $.ajax({
-     type: 'POST',
-     url: '/cart/add.js',
-     dataType: 'json',
-     data: $('#'+"product_form_id").serialize()
-  })
-  .then(data => {
-   cartBtn.textContent = "Remove from cart"
-   cartBtn.setAttribute("data-variant-id", data.variant_id);
-})
-         }
+    // Event listeners for color and size changes
+    if (colorSelector) {
+      colorSelector.addEventListener('change', checkBundle);
+    }
 
+    if (sizeSelector) {
+      sizeSelector.addEventListener('change', checkBundle);
+    }
+
+    // Function to find a cart item by variant ID
+    function findCartItemByVariantId(variantId) {
+      const cart = Shopify.checkout;
+      return cart.lineItems.find(item => item.variant_id === variantId);
+    }
+
+    // Soft winter jacket variant ID (replace with your actual variant ID)
+    const softWinterJacketVariantId = 'your_soft_winter_jacket_variant_id';
+  });
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
 
