@@ -345,6 +345,52 @@
         recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
       };
 
+         
+      document.addEventListener('DOMContentLoaded', function () {
+    // Selectors for the color and size options
+    const colorSelector = document.querySelector('[name="properties[Color]"]:checked');
+    const sizeSelector = document.querySelector('[name="properties[Size]"]');
+
+    // Function to check if the selected options trigger the bundle
+    function checkBundle() {
+      const selectedColor = colorSelector ? colorSelector.value : null;
+      const selectedSize = sizeSelector ? sizeSelector.value : null;
+
+      // Check if the selected options match the criteria for the bundle
+      if (selectedColor === 'Black' && selectedSize === 'Medium') {
+        // Add soft winter jacket to the cart
+        Shopify.addItem(softWinterJacketVariantId, 1, {}, {
+          "properties": {
+            "Bundle": "Black Bag + Medium Size Bundle"
+          }
+        });
+      } else {
+        // Remove the soft winter jacket from the cart
+        const softWinterJacketItem = findCartItemByVariantId(softWinterJacketVariantId);
+        if (softWinterJacketItem) {
+          Shopify.removeItem(softWinterJacketItem.id);
+        }
+      }
+    }
+
+    // Event listeners for color and size changes
+    if (colorSelector) {
+      colorSelector.addEventListener('change', checkBundle);
+    }
+
+    if (sizeSelector) {
+      sizeSelector.addEventListener('change', checkBundle);
+    }
+
+    // Function to find a cart item by variant ID
+    function findCartItemByVariantId(variantId) {
+      const cart = Shopify.checkout;
+      return cart.lineItems.find(item => item.variant_id === variantId);
+    }
+
+    // Soft winter jacket variant ID (replace with your actual variant ID)
+    const softWinterJacketVariantId = 'your_soft_winter_jacket_variant_id';
+  });
     </script>
     
     
