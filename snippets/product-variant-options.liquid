@@ -65,7 +65,7 @@
       {% # add the bag images into the pill %}
       <label
         for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
-        onclick="disableAddToCartBtn()"
+        onchange="disableAddToCartBtn()"
       >{{ value -}}<span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
       </label>
     {%- else -%}
