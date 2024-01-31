@@ -94,7 +94,7 @@
 
 
 {% # begin code: customized product template size dropdown list %} 
-{% if product.template_suffix == 'custom-product' %}
+{%- if product.template_suffix == 'custom-product' and option.name == 'Size' -%}
   <div class="product-form__input product-form__input--dropdown">
   <label class="form__label-dropdown">Size</label>
   <div class="select">
@@ -113,19 +113,6 @@
 {% endif %}
 {% # end code for custom-product %}
 
-{% if product.title == "Handbag Bundle" %}
-  {% if product.variants.size == "Medium" and product.variants.color == "Black" %}
-    <form action="/cart/add" method="post" id="product-form">
-      <select name="id" id="product-select">
-        <!-- Add options for bag -->
-        <option value="{{ bag_variant_id }}">Black Medium Bag</option>
-        <!-- Add options for soft winter jacket -->
-        <option value="{{ jacket_variant_id }}">Soft Winter Jacket</option>
-      </select>
-      <input type="submit" value="Add to Cart" />
-    </form>
-  {% endif %}
-{% endif %}
 
 
 
