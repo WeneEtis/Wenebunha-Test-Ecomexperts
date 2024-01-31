@@ -87,6 +87,41 @@ if (!customElements.get('product-form')) {
             } else {
               this.cart.renderContents(response);
             }
+
+            // start script for free gifts
+            let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
+            let freeGiftId = localStorage.getItem("freeGiftId");
+            let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
+            if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId) {
+              console.log({freeGiftParentIDs, freeGiftId})
+              const ADD_FREE_GIFT = freeGiftParentIDs.includes(response.id);
+              console.log("ADD FREE GIFT", ADD_FREE_GIFT)
+
+              fetch(window.Shopify.routes.root + 'cart/add.js', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  'items': [{
+                    'id': freeGiftId,
+                    'quantity': 1
+                  }]
+                })
+              })
+              .then(response => {
+                return response.json();
+              })
+              .then(response => {
+                console.log({response})
+                localStorage.setItem("giftItemAvailableInCart", true)
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+                
+            }
+            // end script for free gifts
           })
           .catch((e) => {
             console.error(e);
