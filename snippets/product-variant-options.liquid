@@ -59,14 +59,14 @@
         class="disabled"
       {% endif %}
     >
-  
+  {% #         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
+ %}
     {%- if product.variants[forloop.index0].image != blank and option.name == 'Color' -%}
       {% # add the bag images into the pill %}
       <label
         for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
-        style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
         onclick="disableAddToCartBtn()"
-      ><span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
+      >{{ value -}}<span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
       </label>
     {%- else -%}
       <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" >
