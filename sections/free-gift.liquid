@@ -1,0 +1,50 @@
+<script>
+  let freeGiftParentIDs = [];
+  let freeGiftId = null;
+  
+  freeGiftParentIDs = "
+    {%- for product in section.settings.free_gift_parents -%}
+      {{ product.selected_or_first_available_variant.id }} {%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}";
+  
+  freeGiftId = "{{ section.settings.free_gift.selected_or_first_available_variant.id }}";
+  console.log({freeGiftParentIDs, freeGiftId})
+  if(freeGiftParentIDs.length && freeGiftId) {
+    var blackMediumOption = document.querySelector('[name="attributes[Color]"][value="Black"]:checked') &&
+                            document.querySelector('[name="attributes[Size]"][value="Medium"]:checked');
+    if(blackMediumOption){
+        localStorage.setItem("freeGiftParentIDs", freeGiftParentIDs)
+        localStorage.setItem("freeGiftId", freeGiftId)
+    }                        
+    
+  } else {
+    localStorage.removeItem("freeGiftParentIDs")
+    localStorage.removeItem("freeGiftId")
+  }
+</script>
+
+{% schema %}
+  {
+    "name": "Free Gift",
+    "enabled_on": {
+      "groups": ["footer"]
+    },
+    "settings": [
+      {
+        "type": "product_list",
+        "id": "free_gift_parents",
+        "label": "Gift Parents"
+      },
+      {
+        "type": "product",
+        "id": "free_gift",
+        "label": "Free Gift"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Free Gift"
+      }
+    ]
+  }
+{% endschema %}
