@@ -61,8 +61,9 @@
     >
   
     {%- if product.variants[forloop.index0].image != blank and option.name == 'Color' -%}
+      {% # add the bag images into the pill %}
       <label
-        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
         onclick="disableAddToCartBtn()"
       ></label>
@@ -73,6 +74,7 @@
       </label>
     {%- endif -%}
   
+    {%  comment  %}  
   {%- elsif block.settings.picker_type == 'dropdown' -%}
     <option
       value="{{ value | escape }}"
@@ -87,8 +89,9 @@
         {{- value -}}
       {%- endif %}
     </option>
-  {%- endif -%}
+  {%- endif -%}{% endcomment %}
 {%- endfor -%}
+
 
 {% # begin code: customized product template size dropdown list %} 
 {% if product.template_suffix == 'custom-product' %}
@@ -110,6 +113,19 @@
 {% endif %}
 {% # end code for custom-product %}
 
+{% if product.title == "Handbag Bundle" %}
+  {% if product.variants.size == "Medium" and product.variants.color == "Black" %}
+    <form action="/cart/add" method="post" id="product-form">
+      <select name="id" id="product-select">
+        <!-- Add options for bag -->
+        <option value="{{ bag_variant_id }}">Black Medium Bag</option>
+        <!-- Add options for soft winter jacket -->
+        <option value="{{ jacket_variant_id }}">Soft Winter Jacket</option>
+      </select>
+      <input type="submit" value="Add to Cart" />
+    </form>
+  {% endif %}
+{% endif %}
 
 
 
