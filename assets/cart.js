@@ -181,7 +181,7 @@ class CartItems extends HTMLElement {
   async updateQuantity(line, quantity, name, variantId) {
     this.enableLoading(line);
     
-    // FREE GIFT SCRIPT STARTS
+    // start code to remove the free gift when the parent item is removed
     let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
     let freeGiftId = localStorage.getItem("freeGiftId");
     if (freeGiftParentIDs) {
@@ -215,7 +215,7 @@ class CartItems extends HTMLElement {
         }
       }
     }
-    // FREE GIFT SCRIPT ENDS
+    // end code to remove the free gift when the parent item is removed
   
     const body = JSON.stringify({
       line,
