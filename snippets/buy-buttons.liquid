@@ -160,40 +160,8 @@
             });
     */
           </script>
-          {% # end code:  function to disable buttons when size value is unselected and vice versa%}
-          {%- if product_option.selected_value == 40281855262795 -%}
-            <span>{{ hello }}</span>
-          {% endif %}
-{% assign jacketProductId = 40281855262795 %}
-{% assign discountAmount = 0.01 %}
 
-{% for item in cart.items %}
-  {% if item.product_id == jacketProductId %}
-    {% assign jacketAdded = true %}
-  {% endif %}
-{% endfor %}
-
-{% if jacketAdded %}
-  {% assign totalDiscount = 0 %}
-
-  {% for item in cart.items %}
-    {% if item.product_id != jacketProductId %}
-      {% assign totalDiscount = totalDiscount | plus: item.final_line_price | minus: item.original_line_price %}
-    {% endif %}
-  {% endfor %}
-
-  {% assign totalDiscount = totalDiscount | times: discountAmount %}
-
-  {% for item in cart.items %}
-    {% if item.product_id != jacketProductId %}
-      {% assign discountedPrice = item.final_line_price | minus: totalDiscount %}
-      {% assign discountedPrice = discountedPrice | money %}
-      {% assign originalPrice = item.original_line_price | money %}
-
-      {{ item.title }} - {{ originalPrice }} -> {{ discountedPrice }}
-    {% endif %}
-  {% endfor %}
-{% endif %}
+          <!-- Ensure the code is placed within a <script> tag in your Shopify theme.liquid or a relevant template file -->
 
 
           {%- if show_dynamic_checkout -%}
