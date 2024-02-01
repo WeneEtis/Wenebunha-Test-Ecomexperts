@@ -89,8 +89,11 @@ if (!customElements.get('product-form')) {
             }
 
             // start script to add free gifts
-            const isBlackColor = document.querySelector('input[name="Color"]:checked').value === 'black';
-            const isMediumSize = document.getElementById('size').value === 'medium';
+           // const isBlackColor = document.querySelector('input[name="Color"]:checked').value === 'black';
+            //const isMediumSize = document.getElementById('size').value === 'medium';
+            const isBlackColor = response.color === 'black';
+            const isMediumSize = response.size === 'medium';
+
             let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
             let freeGiftId = localStorage.getItem("freeGiftId");
             let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
