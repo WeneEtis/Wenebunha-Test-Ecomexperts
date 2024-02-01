@@ -11,7 +11,7 @@
   console.log({freeGiftParentIDs, freeGiftId})
   if(freeGiftParentIDs.length && freeGiftId) {
     var blackMediumOption = document.querySelector('[name="attributes[Color]"][value="Black"]:checked') &&
-                            document.querySelector('[name="attributes[Size]"][value="Medium"]:checked');
+                            document.getElementById('size');
     if(blackMediumOption){
         localStorage.setItem("freeGiftParentIDs", freeGiftParentIDs)
         localStorage.setItem("freeGiftId", freeGiftId)
