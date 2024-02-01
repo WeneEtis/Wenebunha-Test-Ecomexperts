@@ -101,16 +101,19 @@ if (!customElements.get('product-form')) {
               let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
             
               if (freeGiftId) {
-                fetch(window.Shopify.routes.root + `cart/change.js?line=${freeGiftLineItemId}`, {
+                fetch(window.Shopify.routes.root + 'cart/add.js', {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'
                   },
                   body: JSON.stringify({
-                    'quantity': 1,
-                    'properties': {
-                      'TotalPrice': '0.01'
-                    }
+                    'items': [{
+                      'id': freeGiftId,
+                      'quantity': 1,
+                      'properties': {
+                        'TotalPrice': '0.01'// Set the price of the free gift to $0.01
+                      }
+                    }]
                   })
                 })
                 .then(response => response.json())
