@@ -119,6 +119,8 @@ if (!customElements.get('product-form')) {
                   console.log({ response });
             
                   // Update free gift total to $0.01
+                  let lineItem = document.getElementById('main-cart-items').querySelectorAll("tr")[line]
+                  let price = lineItem.price
                   fetch(window.Shopify.routes.root + 'cart/update.js', {
                     method: 'POST',
                     headers: {
@@ -126,7 +128,7 @@ if (!customElements.get('product-form')) {
                     },
                     body: JSON.stringify({
                       'updates': {
-                        [freeGiftId]: 0.01 // Set the total to $0.01
+                        [freeGiftId]: price // Set the total to $0.01
                       }
                     })
                   })
