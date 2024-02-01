@@ -94,15 +94,23 @@ if (!customElements.get('product-form')) {
             
             console.log(isBlackBagSelected);
             console.log(isMediumSizeSelected);
-            
-            var pricePrint = `{{ product.price | money }}`;
-
-            console.log(pricePrint);
 
             if (isBlackBagSelected && isMediumSizeSelected) {
               // Add soft winter jacket to the cart
               const freeGiftId = localStorage.getItem("freeGiftId");
-              let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
+              let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart");
+
+              cart = document.getElementById(`CartItem-${line}`) || document.getElementById(`CartDrawer-Item-${line}`);
+
+line_item = cart.line_items.find(line_item_id);
+
+total_price = line_item.variant.price + 0.01;
+
+line_item.price = total_price;
+line_item.save;
+              var pricePrint = freeGiftId.price;
+
+              console.log(pricePrint);
 
             
               if (freeGiftId) {
