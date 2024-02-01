@@ -125,7 +125,7 @@ if (!customElements.get('product-form')) {
               }
                // Update free gift total in the cart
       const updateFreeGiftTotal = () => {
-        const cartItems = this.find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
+        const cartItems = find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
 
         const freeGiftIndex = cartItems.findIndex(item => item.id === freeGiftId);
         
