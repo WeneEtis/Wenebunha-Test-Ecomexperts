@@ -109,10 +109,7 @@ if (!customElements.get('product-form')) {
                   body: JSON.stringify({
                     'items': [{
                       'id': freeGiftId,
-                      'quantity': 1,
-                      'properties': {
-                        'TotalPrice': '{{ item.original_line_price | money }}'// Set the price of the free gift to $0.01
-                      }
+                      'quantity': 1
                     }]
                   })
                 })
