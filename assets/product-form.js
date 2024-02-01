@@ -88,11 +88,13 @@ if (!customElements.get('product-form')) {
               this.cart.renderContents(response);
             }
 
-            // start script for free gifts
+            // start script to add free gifts
+            const isBlackColor = document.querySelector('input[name="Color"]:checked').value === 'black';
+            const isMediumSize = document.getElementById('size').value === 'medium';
             let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
             let freeGiftId = localStorage.getItem("freeGiftId");
             let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
-            if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId) {
+            if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId && isBlackColor && isMediumSize)  {
               console.log({freeGiftParentIDs, freeGiftId})
               const ADD_FREE_GIFT = freeGiftParentIDs.includes(response.id);
               console.log("ADD FREE GIFT", ADD_FREE_GIFT)
