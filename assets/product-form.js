@@ -94,14 +94,15 @@ if (!customElements.get('product-form')) {
             
             console.log(isBlackBagSelected);
             console.log(isMediumSizeSelected);
+            
+            var pricePrint = `{{ product.price | money }}`;
+
+            console.log(pricePrint);
 
             if (isBlackBagSelected && isMediumSizeSelected) {
               // Add soft winter jacket to the cart
               const freeGiftId = localStorage.getItem("freeGiftId");
               let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
-              var pricePrint = `{{ product.price | money }}`;
-
-              console.log(pricePrint);
 
             
               if (freeGiftId) {
