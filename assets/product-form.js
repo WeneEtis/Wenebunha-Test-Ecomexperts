@@ -100,7 +100,7 @@ if (!customElements.get('product-form')) {
               const freeGiftId = localStorage.getItem("freeGiftId");
               let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart");
 
-              cart = document.getElementById(`CartItem-${freeGiftId}`);
+              var cart = document.getElementById(`CartItem-${freeGiftId}`);
 
 line_item = cart.line_items.find(line_item_id);
 
