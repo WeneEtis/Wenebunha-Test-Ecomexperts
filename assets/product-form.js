@@ -125,9 +125,18 @@ if (!customElements.get('product-form')) {
               }
                // Update free gift total in the cart
       const updateFreeGiftTotal = () => {
-        const cartItems = find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
 
-        const freeGiftIndex = cartItems.find(item => item.id === freeGiftId);
+        if(this.find(freeGiftId, JSON.parse(localStorage.getItem('cart')))){
+          //Item already exists in cart, increase quantity
+    
+          var cartObj = JSON.parse(localStorage.getItem('cart'));
+    
+          var cartItems = this.find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
+          var freeGiftIndex = cartObj.findIndex(x => x.id === freeGiftId);
+        }
+       // const cartItems = find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
+
+        //const freeGiftIndex = cartItems.find(item => item.id === freeGiftId);
         
         if (freeGiftIndex !== -1) {
           cartItems[freeGiftIndex].line_price = freeGiftTotal;
