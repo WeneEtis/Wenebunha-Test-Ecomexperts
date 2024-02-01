@@ -111,13 +111,22 @@
                 addToCartBtn.disabled = true;
               }
             }
-            
+
+            //begin code: customized product template to disable add to cart button for soft winter jacket 
+            {%- if product.template_suffix == 'custom' -%}
+              addToCartBtn.disabled = false;
+            {% endif %}
+            //end code for custom-product 
+
             // Call the function on page load if a default size is selected
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
             });
 
+           
           </script>
+
+
 
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
