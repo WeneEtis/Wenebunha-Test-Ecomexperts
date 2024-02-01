@@ -117,34 +117,32 @@ if (!customElements.get('product-form')) {
                 .then(response => response.json())
                 .then(response => {
                   console.log({ response });
-                  localStorage.setItem("giftItemAvailableInCart", true);
+            
+                  // Update free gift total to $0.01
+                  fetch(window.Shopify.routes.root + 'cart/update.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      'updates': {
+                        [freeGiftId]: 0.01 // Set the total to $0.01
+                      }
+                    })
+                  })
+                  .then(updateResponse => updateResponse.json())
+                  .then(updateResponse => {
+                    console.log({ updateResponse });
+                    localStorage.setItem("giftItemAvailableInCart", true);
+                  })
+                  .catch((error) => {
+                    console.error('Error updating total:', error);
+                  });
                 })
                 .catch((error) => {
-                  console.error('Error:', error);
+                  console.error('Error adding free gift:', error);
                 });
               }
-               // Update free gift total in the cart
-      const updateFreeGiftTotal = () => {
-
-        if(this.find(freeGiftId, JSON.parse(localStorage.getItem('cart')))){
-          //Item already exists in cart, increase quantity
-    
-          var cartObj = JSON.parse(localStorage.getItem('cart'));
-    
-          var cartItems = this.find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
-          var freeGiftIndex = cartObj.findIndex(x => x.id === freeGiftId);
-        }
-       // const cartItems = find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
-
-        //const freeGiftIndex = cartItems.find(item => item.id === freeGiftId);
-        
-        if (freeGiftIndex !== -1) {
-          cartItems[freeGiftIndex].line_price = freeGiftTotal;
-          localStorage.setItem('cart', JSON.stringify(cartItems));
-        }
-      };
-
-      updateFreeGiftTotal();
             }
             // end script for free gifts
             
