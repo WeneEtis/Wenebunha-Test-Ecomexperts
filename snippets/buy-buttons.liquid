@@ -78,6 +78,7 @@
             endif
           -%}
          
+          {% # line 91 to 93 contains the custom code to disable the add to cart button for the soft winter jacket   %}
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
@@ -87,7 +88,7 @@
               disabled
             {% endif %}
             
-            {%- if product.template_suffix == 'custom' -%}
+            {%- if product.template_suffix == 'custom' -%} 
               disabled
             {% endif %}
             
