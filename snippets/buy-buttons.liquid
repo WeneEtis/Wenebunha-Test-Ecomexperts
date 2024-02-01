@@ -116,53 +116,8 @@
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
             });
-/*
-             // Function to check for Leather Bag variant and automatically add Soft Winter Jacket
-            function checkAndAddSoftWinterJacket() {
-              var selectedColor = document.querySelector('input[name="Color"]:checked');
-              var selectedSize = document.getElementById('size');
 
-              if (
-                selectedColor &&
-                selectedSize &&
-                selectedColor.value == 'Black' &&
-                selectedSize.value == 'Medium'
-              ) {
-                /* when the Leather Bag with Black color and Medium size is selected
-                Automatically add the Soft Winter Jacket to the cart
-                fetch('/cart/add.js', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    items: [
-                      {
-                        id: '40281855262795', // actual variant ID of Soft Winter Jacket
-                        quantity: 1,
-                      },
-                    ],
-                  }),
-                })
-                  .then(response => response.json())
-                  .then(data => {
-                    console.log(data);
-                  })
-                  .catch(error => {
-                    console.error('Error adding Soft Winter Jacket to the cart', error);
-                  });
-              }
-            }
-            
-            // event listener to call the function when the Add to Cart button is clicked
-            document.getElementById('ProductSubmitButton-{{ section_id }}').addEventListener('click', function() {
-              checkAndAddSoftWinterJacket();
-            });
-    */
           </script>
-
-          <!-- Ensure the code is placed within a <script> tag in your Shopify theme.liquid or a relevant template file -->
-
 
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
