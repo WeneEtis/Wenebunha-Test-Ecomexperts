@@ -111,7 +111,7 @@ if (!customElements.get('product-form')) {
                     'items': [{
                       'id': freeGiftId,
                       'quantity': 1,
-                      'price': 0.01
+                      'product.price':0.01
                     }]
                   })
                 })
