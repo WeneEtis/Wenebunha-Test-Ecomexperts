@@ -121,12 +121,8 @@
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
             });
-
-           
           </script>
-
-
-
+          
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
