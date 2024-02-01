@@ -1,8 +1,7 @@
 <script>
+    //script to create the bundle
   let freeGiftParentIDs = [];
   let freeGiftId = null;
-  var addedProduct = event.detail.items[0];
-
   
   freeGiftParentIDs = "
     {%- for product in section.settings.free_gift_parents -%}
@@ -11,21 +10,13 @@
   
   freeGiftId = "{{ section.settings.free_gift.selected_or_first_available_variant.id }}";
   console.log({freeGiftParentIDs, freeGiftId})
-  if(freeGiftParentIDs.length && freeGiftId && addedProduct.variant_id === 40285135306827 &&
-        addedProduct.properties['Color'] === 'Black' &&
-        addedProduct.properties['Size'] === 'Medium') {
-    var blackMediumOption = document.querySelector('[name="attributes[Color]"][value="Black"]:checked') &&
-                            document.getElementById('size');
-        localStorage.setItem("freeGiftParentIDs", freeGiftParentIDs)
-        localStorage.setItem("freeGiftId", freeGiftId)
-                           
-    
+  if(freeGiftParentIDs.length && freeGiftId) {
+    localStorage.setItem("freeGiftParentIDs", freeGiftParentIDs)
+    localStorage.setItem("freeGiftId", freeGiftId)
   } else {
     localStorage.removeItem("freeGiftParentIDs")
     localStorage.removeItem("freeGiftId")
   }
-
-  
 </script>
 
 {% schema %}
@@ -43,7 +34,8 @@
       {
         "type": "product",
         "id": "free_gift",
-        "label": "Free Gift"
+        "label": "Free Gift",
+        
       }
     ],
     "presets": [
