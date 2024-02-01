@@ -110,40 +110,23 @@ if (!customElements.get('product-form')) {
                   body: JSON.stringify({
                     'items': [{
                       'id': freeGiftId,
-                      'quantity': 1
+                      'quantity': 1,
+                      'updates': {
+                        [freeGiftId]: 0.01
+                      }
                     }]
                   })
                 })
                 .then(response => response.json())
                 .then(response => {
                   console.log({ response });
-            
-                  // Update free gift total to $0.01
-                  let lineItem = document.getElementById('main-cart-items').querySelectorAll("tr")[line]
-                  let price = lineItem.price
-                  fetch(window.Shopify.routes.root + 'cart/update.js', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                      'updates': {
-                        [freeGiftId]: price // Set the total to $0.01
-                      }
-                    })
-                  })
-                  .then(updateResponse => updateResponse.json())
-                  .then(updateResponse => {
-                    console.log({ updateResponse });
-                    localStorage.setItem("giftItemAvailableInCart", true);
-                  })
-                  .catch((error) => {
-                    console.error('Error updating total:', error);
-                  });
+                  localStorage.setItem("giftItemAvailableInCart", true);
                 })
                 .catch((error) => {
-                  console.error('Error adding free gift:', error);
+                  console.error('Error:', error);
                 });
+
+                
               }
             }
             // end script for free gifts
