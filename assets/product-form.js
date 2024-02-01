@@ -99,10 +99,6 @@ if (!customElements.get('product-form')) {
               // Add soft winter jacket to the cart
               const freeGiftId = localStorage.getItem("freeGiftId");
               let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
-              var pricePrint = localStorage.getItem("freeGiftId");
-
-              console.log(pricePrint);
-
             
               if (freeGiftId) {
                 fetch(window.Shopify.routes.root + 'cart/add.js', {
