@@ -89,11 +89,45 @@ if (!customElements.get('product-form')) {
             }
 
             // start script to add free gifts
-            const isBlackColor = document.querySelector('input[name="Color"]:checked').value === 'black';
-            const isMediumSize = document.getElementById('size').value === 'medium';
-            console.log(isBlackColor);
-            console.log(isMediumSize);
-            let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
+            const isBlackBagSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+            const isMediumSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Medium';
+            
+            console.log(isBlackBagSelected);
+            console.log(isMediumSizeSelected);
+
+            if (isBlackBagSelected && isMediumSizeSelected) {
+              // Add soft winter jacket to the cart
+              const freeGiftId = localStorage.getItem("freeGiftId");
+              let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
+
+            
+              if (freeGiftId) {
+                fetch(window.Shopify.routes.root + 'cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    'items': [{
+                      'id': freeGiftId,
+                      'quantity': 1
+                    }]
+                  })
+                })
+                .then(response => response.json())
+                .then(response => {
+                  console.log({ response });
+                  localStorage.setItem("giftItemAvailableInCart", true);
+                })
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+              }
+            }
+            
+
+
+            /*let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
             let freeGiftId = localStorage.getItem("freeGiftId");
             let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
             if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId)  {
@@ -124,7 +158,7 @@ if (!customElements.get('product-form')) {
                 console.error('Error:', error);
               });
                 
-            }
+            }*/
             // end script for free gifts
           })
           .catch((e) => {
