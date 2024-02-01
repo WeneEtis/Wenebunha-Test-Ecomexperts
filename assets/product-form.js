@@ -127,7 +127,7 @@ if (!customElements.get('product-form')) {
       const updateFreeGiftTotal = () => {
         const cartItems = find(freeGiftId, JSON.parse(localStorage.getItem('cart')));
 
-        const freeGiftIndex = cartItems.findIndex(item => item.id === freeGiftId);
+        const freeGiftIndex = cartItems.find(item => item.id === freeGiftId);
         
         if (freeGiftIndex !== -1) {
           cartItems[freeGiftIndex].line_price = freeGiftTotal;
