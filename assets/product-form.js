@@ -102,7 +102,7 @@ if (!customElements.get('product-form')) {
 
               var cart = document.getElementById(`CartItem-${freeGiftId}`);
 
-line_item = cart.line_items.find(line_item_id);
+line_item = cart.line_items.find(freeGiftId);
 
 total_price = line_item.variant.price + 0.01;
 
