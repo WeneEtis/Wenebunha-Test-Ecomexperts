@@ -242,6 +242,37 @@
                               </span>
                             {%- endif -%}
 
+{% assign jacketProductId = 40281855262795 %}
+{% assign discountAmount = 0.01 %}
+
+{% for item in cart.items %}
+  {% if item.product_id == jacketProductId %}
+    {% assign jacketAdded = true %}
+  {% endif %}
+{% endfor %}
+
+{% if jacketAdded %}
+  {% assign totalDiscount = 0 %}
+
+  {% for item in cart.items %}
+    {% if item.product_id != jacketProductId %}
+      {% assign totalDiscount = totalDiscount | plus: item.final_line_price | minus: item.original_line_price %}
+    {% endif %}
+  {% endfor %}
+
+  {% assign totalDiscount = totalDiscount | times: discountAmount %}
+
+  {% for item in cart.items %}
+    {% if item.product_id != jacketProductId %}
+      {% assign discountedPrice = item.final_line_price | minus: totalDiscount %}
+      {% assign discountedPrice = discountedPrice | money %}
+      {% assign originalPrice = item.original_line_price | money %}
+
+      {{ item.title }} - {{ originalPrice }} -> {{ discountedPrice }}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
                             {%- if item.variant.available and item.unit_price_measurement -%}
                               <div class="unit-price caption">
                                 <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
