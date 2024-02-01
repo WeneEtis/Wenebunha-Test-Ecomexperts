@@ -161,7 +161,9 @@
     */
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
-          
+          {%- if product_option.selected_value == value -%}
+            <span>{{ value = 0.01 }}</span>
+          {% endif %}
 {% assign jacketProductId = 40281855262795 %}
 {% assign discountAmount = 0.01 %}
 
