@@ -97,7 +97,7 @@ if (!customElements.get('product-form')) {
             let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
             let freeGiftId = localStorage.getItem("freeGiftId");
             let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
-            if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId && isBlackColor)  {
+            if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId)  {
               console.log({freeGiftParentIDs, freeGiftId})
               const ADD_FREE_GIFT = freeGiftParentIDs.includes(response.id);
               console.log("ADD FREE GIFT", ADD_FREE_GIFT)
