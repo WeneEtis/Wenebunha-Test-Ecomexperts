@@ -131,25 +131,47 @@
         }
       }
     },
+    "content_for_index": [
+
+    ],
+    "blocks": {
+      "7280966411886983154": {
+        "type": "shopify:\/\/apps\/monk\/blocks\/app-embed\/e949adb6-87ca-4b97-8f31-0e51bf507f2d",
+        "disabled": false,
+        "settings": {
+        }
+      },
+      "16477348613150133823": {
+        "type": "shopify:\/\/apps\/unlimited-bundles-discounts\/blocks\/script-app-block\/d33d0f48-dee0-42a0-b156-2a5dce91814a",
+        "disabled": false,
+        "settings": {
+          "reload_on_line_item_properties": false,
+          "disable_reload_on_cart_update": false,
+          "disable_cart_attribute_tracker": false,
+          "disable_facebook_events": false,
+          "enable_reload_on_bundle_auto_match": false
+        }
+      }
+    },
     "color_schemes": {
       "background-1": {
         "settings": {
-          "background": "#FFFFFF",
+          "background": "#ffffff",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
-          "button_label": "#FFFFFF",
+          "button_label": "#ffffff",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
       },
       "background-2": {
         "settings": {
-          "background": "#F3F3F3",
+          "background": "#f3f3f3",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
-          "button_label": "#F3F3F3",
+          "button_label": "#f3f3f3",
           "secondary_button_label": "#121212",
           "shadow": "#121212"
         }
@@ -158,10 +180,10 @@
         "settings": {
           "background": "#242833",
           "background_gradient": "",
-          "text": "#FFFFFF",
-          "button": "#FFFFFF",
+          "text": "#ffffff",
+          "button": "#ffffff",
           "button_label": "#000000",
-          "secondary_button_label": "#FFFFFF",
+          "secondary_button_label": "#ffffff",
           "shadow": "#121212"
         }
       },
@@ -169,21 +191,21 @@
         "settings": {
           "background": "#121212",
           "background_gradient": "",
-          "text": "#FFFFFF",
-          "button": "#FFFFFF",
+          "text": "#ffffff",
+          "button": "#ffffff",
           "button_label": "#121212",
-          "secondary_button_label": "#FFFFFF",
+          "secondary_button_label": "#ffffff",
           "shadow": "#121212"
         }
       },
       "accent-2": {
         "settings": {
-          "background": "#334FB4",
+          "background": "#334fb4",
           "background_gradient": "",
-          "text": "#FFFFFF",
-          "button": "#FFFFFF",
-          "button_label": "#334FB4",
-          "secondary_button_label": "#FFFFFF",
+          "text": "#ffffff",
+          "button": "#ffffff",
+          "button_label": "#334fb4",
+          "secondary_button_label": "#ffffff",
           "shadow": "#121212"
         }
       }
