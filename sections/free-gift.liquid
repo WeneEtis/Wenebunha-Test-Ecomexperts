@@ -1,5 +1,8 @@
 <script>
-    //script to create the bundle
+  /*
+    This section is used to select the free gift parent items and 
+    actual free gift and store them in the local storage of the browser.
+  */
   let freeGiftParentIDs = [];
   let freeGiftId = null;
   
@@ -19,11 +22,12 @@
   }
 </script>
 
+{% # the section is added to the footer which is where the bag (giftparents) and the jacket (actual gift item) are selected %}
 {% schema %}
   {
     "name": "Free Gift",
     "enabled_on": {
-      "groups": ["footer"]
+      "groups": ["footer"] 
     },
     "settings": [
       {
