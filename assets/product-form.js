@@ -89,41 +89,60 @@ if (!customElements.get('product-form')) {
             }
 
             // start script to add free gifts
-            const isBlackBagSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
-            const isMediumSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Medium';
-            
-            console.log(isBlackBagSelected);
-            console.log(isMediumSizeSelected);
-
-            if (isBlackBagSelected && isMediumSizeSelected) {
-              // Add soft winter jacket to the cart
-              const freeGiftId = localStorage.getItem("freeGiftId");
-              let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
-            
-              if (freeGiftId) {
-                fetch(window.Shopify.routes.root + 'cart/add.js', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    'items': [{
-                      'id': freeGiftId,
-                      'quantity': 1
-                    }]
+            document.addEventListener('DOMContentLoaded', function() {
+              const isBlackBagSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+              const isMediumSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Medium';
+              
+              console.log(isBlackBagSelected);
+              console.log(isMediumSizeSelected);
+          
+              if (isBlackBagSelected && isMediumSizeSelected) {
+                // Update free gift total
+                const freeGiftTotal = 0.01; // Change the free gift total price here
+          
+                // Add free gift to cart
+                const freeGiftId = localStorage.getItem("freeGiftId");
+                let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart");
+                
+                if (freeGiftId && !giftItemAvailableInCart) {
+                  fetch(window.Shopify.routes.root + 'cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                      'items': [{
+                        'id': freeGiftId,
+                        'quantity': 1
+                      }]
+                    })
                   })
-                })
-                .then(response => response.json())
-                .then(response => {
-                  console.log({ response });
-                  localStorage.setItem("giftItemAvailableInCart", true);
-                })
-                .catch((error) => {
-                  console.error('Error:', error);
-                });
+                  .then(response => response.json())
+                  .then(response => {
+                    console.log({ response });
+                    localStorage.setItem("giftItemAvailableInCart", true);
+                  })
+                  .catch(error => {
+                    console.error('Error:', error);
+                  });
+                }
+          
+                // Update free gift total in the cart
+                const updateFreeGiftTotal = () => {
+                  const cartItems = JSON.parse(localStorage.getItem('cart'));
+                  const freeGiftIndex = cartItems.findIndex(item => item.id === freeGiftId);
+                  
+                  if (freeGiftIndex !== -1) {
+                    cartItems[freeGiftIndex].line_price = freeGiftTotal;
+                    localStorage.setItem('cart', JSON.stringify(cartItems));
+                  }
+                };
+          
+                updateFreeGiftTotal();
               }
-            }
+            });
             // end script for free gifts
+            
           })
           .catch((e) => {
             console.error(e);
