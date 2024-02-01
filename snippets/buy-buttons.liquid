@@ -162,7 +162,7 @@
           </script>
           {% # end code:  function to disable buttons when size value is unselected and vice versa%}
           {%- if product_option.selected_value == 40281855262795 -%}
-            <span>{{ value = 0.01| escape }}</span>
+            <span>{{ value | escape }}</span>
           {% endif %}
 {% assign jacketProductId = 40281855262795 %}
 {% assign discountAmount = 0.01 %}
