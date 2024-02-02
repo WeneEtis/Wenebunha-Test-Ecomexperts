@@ -121,7 +121,8 @@
                 // Add an event listener to the dropdown
                 sizeDropdown.addEventListener('change', function () {
                 // Check if a valid size is selected
-                if (sizeDropdown.value !== 'Unselected') {
+                
+                if (variant.options[optionIndex] == value && sizeDropdown.value !== 'Unselected') {
                     // Enable the "Add to Cart" button
                     addToCartBtn.disabled = false;
                 } else {
@@ -132,8 +133,6 @@
             });
          </script>
          
-          
-          
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
