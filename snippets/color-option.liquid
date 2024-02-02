@@ -125,7 +125,6 @@
       id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
       name="{{ option.name }}"
       value="{{ value | escape }}"
-      onclick="disableAddToCartBtn()"
       form="{{ product_form_id }}"
       {% if option.selected_value == value %}
         checked
@@ -214,7 +213,7 @@
     <div class="product-form__input product-form__input--dropdown">
     <label class="form__label-dropdown">Size</label>
     <div class="select">
-    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()">
+    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}">
             <option value="Unselected">Unselected</option>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
