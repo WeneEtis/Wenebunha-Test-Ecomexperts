@@ -125,7 +125,7 @@
       id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
       name="{{ option.name }}"
       value="{{ value | escape }}"
-      onclick="handleRadioChange(this)"
+      onclick="handleRadioChange()"
       form="{{ product_form_id }}"
       {% if option.selected_value == value %}
         checked
@@ -230,7 +230,7 @@
   {% # end code for custom-product %}
 
   <script>
-function handleRadioChange(radio) {
+function handleRadioChange() {
     // Get the dropdown element
     var dropdown = document.getElementById('size'); // Replace with the actual ID of your dropdown
     var defRadio = document.querySelector('input[name="Color"]:checked');
@@ -247,7 +247,6 @@ function handleRadioChange(radio) {
 
 // Set a default radio button selection
 document.addEventListener("DOMContentLoaded", function () {
-    var defaultRadio = document.querySelector('input[name="Color"]:checked'); // Replace with the actual name of your radio button group
-    handleRadioChange(defaultRadio);
+    handleRadioChange();
 });
 </script>
