@@ -11,41 +11,51 @@
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
   {%- if block.settings.picker_type == 'button' -%}
-    <variant-radios
-      id="variant-radios-{{ section.id }}"
-      class="no-js-hidden"
-      data-section="{{ section.id }}"
-      data-url="{{ product.url }}"
-      {% if update_url == false %}
-        data-update-url="false"
-      {% endif %}
-      {{ block.shopify_attributes }}
-    >
-      {%- for option in product.options_with_values -%}
-        <fieldset class="js product-form__input">
-            {%- liquid
-                assign optionNames = settings.optionName | split:","
-                assign useColor = false 
-                for optionColor in optionNames 
-                  if optionColor == option.name 
-                      assign useColor = true 
-                      break
-                  endif 
-                endfor
-            -%}
-          {%- if useColor -%}
-             <legend class="form__label ">{{ option.name }}:<span id="selected-{{ option.name }}"> {{ option.selected_value }}</span></legend>
-              {% render 'color-option', product: product, option: option, block: block %}
-              {%- else -%}
-            <legend class="form__label">{{ option.name }}</legend>
-            {% render 'product-variant-options', product: product, option: option, block: block %}
-          {%- endif -%}
-          </fieldset>
-      {%- endfor -%}
-      <script type="application/json">
-        {{ product.variants | json }}
-      </script>
-    </variant-radios>
+    <variant-radios class="no-js-hidden" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+                  {%- for option in product.options_with_values -%}
+                      <fieldset class="js product-form__input">
+                        <legend class="form__label">{{ option.name }}</legend>
+                        {%- for value in option.values -%}
+                        
+                        {%- comment -%}
+                        Custom code for hiding unavailable variants only for 1 option
+                        {%- endcomment -%}
+                        {%- if product.options.size == 1 and block.settings.hide_unavailable_variants -%}
+                            {%- for variant in product.variants -%} 
+                            {%- if value == variant.title and variant.available -%}
+                            <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                   name="{{ option.name }}"
+                                   value="{{ value | escape }}"
+                                   form="{{ product_form_id }}"
+                                   {% if option.selected_value == value %}checked{% endif %}
+                                   >
+                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                              {{ value }}
+                            </label>
+                            {%- endif -%}
+                            {%- endfor -%}
+                          {%- else -%}
+                          <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                 name="{{ option.name }}"
+                                 value="{{ value | escape }}"
+                                 form="{{ product_form_id }}"
+                                 {% if option.selected_value == value %}checked{% endif %}
+                                 >
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                            {{ value }}
+                          </label>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </fieldset>
+                    {%- comment -%}
+                        END part 1 - Custom code for hiding unavailable variants only for 1 option
+                    {%- endcomment -%}
+
+                  {%- endfor -%}
+                  <script type="application/json">
+                    {{ product.variants | json }}
+                  </script>
+                </variant-radios>
   {%- else -%}
     <variant-selects
       id="variant-selects-{{ section.id }}"
@@ -135,3 +145,4 @@
     </div>
   </div>
 </noscript>
+
