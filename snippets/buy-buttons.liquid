@@ -110,11 +110,25 @@
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              if (sizeDropdown.value !== 'Unselected') {
+              // Get all radio buttons with the specified name
+              var radioButtons = document.getElementsByName('{{ option.name }}');
+          
+              // Loop through all radio buttons to find the active one
+              for (var i = 0; i < radioButtons.length; i++) {
+                if (radioButtons[i].checked) {
+                  // This radio button is active, you can perform actions accordingly
+                  console.log('Active radio button:', radioButtons[i]);
+                  
+                  if (sizeDropdown.value !== 'Unselected') {
                 addToCartBtn.disabled = false;
               } else {
                 addToCartBtn.disabled = true;
               }
+                  
+                  break; // Exit the loop once the active radio button is found
+                }
+              }
+              
             }
 
             // Call the function on page load if a default size is selected
@@ -122,6 +136,8 @@
               disableAddToCartBtn();
             });
           </script>
+         
+          
           
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
