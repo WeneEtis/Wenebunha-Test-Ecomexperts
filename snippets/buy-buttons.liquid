@@ -106,9 +106,26 @@
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
             function disableAddToCartBtn() {
+              
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+
+               // Get all radio buttons with the specified name
+               var radioButtons = document.getElementsByName('{{ option.name }}');
+          
+          // Loop through all radio buttons to find the active one
+          for (var i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+              // This radio button is active, you can perform actions accordingly
+              console.log('Active radio button:', radioButtons[i]);
+              
+              // Add your additional logic here
+              
+              break; // Exit the loop once the active radio button is found
+            }
+          }
+      
 
               if (sizeDropdown.value !== 'Unselected') {
                 addToCartBtn.disabled = false;
@@ -122,28 +139,6 @@
               disableAddToCartBtn();
             });
           </script>
-          <script>
-            function disableAddToCartBtn() {
-              // Get all radio buttons with the specified name
-              var radioButtons = document.getElementsByName('{{ option.name }}');
-          
-              // Loop through all radio buttons to find the active one
-              for (var i = 0; i < radioButtons.length; i++) {
-                if (radioButtons[i].checked) {
-                  // This radio button is active, you can perform actions accordingly
-                  console.log('Active radio button:', radioButtons[i]);
-                  
-                  // Add your additional logic here
-                  
-                  break; // Exit the loop once the active radio button is found
-                }
-              }
-          
-              // Rest of your existing code for disabling add to cart button
-              // ...
-            }
-          </script>
-          
           
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
