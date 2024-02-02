@@ -214,7 +214,7 @@
     <div class="product-form__input product-form__input--dropdown">
     <label class="form__label-dropdown">Size</label>
     <div class="select">
-    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()">
+    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange=" handleRadioChange();">
             <option value="Unselected">Unselected</option>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
@@ -233,10 +233,10 @@
 function handleRadioChange() {
     // Get the dropdown element
     var dropdown = document.getElementById('size'); // Replace with the actual ID of your dropdown
-    var defRadio = document.querySelectorAll('input[name="Color"]:checked');
+    var defRadio = document.querySelector('input[name="Color"]:checked');
 console.log(defRadio);
     // Check if the radio button is selected and dropdown is unselected
-    if (defRadio && dropdown.value === "Unselected") {
+    if (dropdown.value === "Unselected") {
         // Disable the "Add to Cart" button
         document.getElementById('ProductSubmitButton-{{ section_id }}').disabled = true; // Replace with the actual ID of your Add to Cart button
     } else {
