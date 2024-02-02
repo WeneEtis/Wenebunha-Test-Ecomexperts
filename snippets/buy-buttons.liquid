@@ -110,6 +110,20 @@
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
+              if (sizeDropdown.value !== 'Unselected') {
+                addToCartBtn.disabled = false;
+              } else {
+                addToCartBtn.disabled = true;
+              }
+            }
+
+            // Call the function on page load if a default size is selected
+            document.addEventListener("DOMContentLoaded", function () {
+              disableAddToCartBtn();
+            });
+          </script>
+          <script>
+            function disableAddToCartBtn() {
               // Get all radio buttons with the specified name
               var radioButtons = document.getElementsByName('{{ option.name }}');
           
@@ -119,24 +133,16 @@
                   // This radio button is active, you can perform actions accordingly
                   console.log('Active radio button:', radioButtons[i]);
                   
-                  if (sizeDropdown.value !== 'Unselected') {
-                addToCartBtn.disabled = false;
-              } else {
-                addToCartBtn.disabled = true;
-              }
+                  // Add your additional logic here
                   
                   break; // Exit the loop once the active radio button is found
                 }
               }
-              
+          
+              // Rest of your existing code for disabling add to cart button
+              // ...
             }
-
-            // Call the function on page load if a default size is selected
-            document.addEventListener("DOMContentLoaded", function () {
-              disableAddToCartBtn();
-            });
           </script>
-         
           
           
           {%- if show_dynamic_checkout -%}
