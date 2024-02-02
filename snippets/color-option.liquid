@@ -207,3 +207,23 @@
     })
   })
 </script>
+
+{% # begin code: customized product template size dropdown list %} 
+{%- if product.template_suffix == 'custom-product' -%}
+    <div class="product-form__input product-form__input--dropdown">
+    <label class="form__label-dropdown">Size</label>
+    <div class="select">
+    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()">
+            <option value="Unselected">Unselected</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+    </select>
+    <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
+    <path fill-rule="evenodd" clip-rule="evenodd" 
+    d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" 
+    fill="currentColor">
+    </path></svg>
+    </div></div>
+  {% endif %}
+  {% # end code for custom-product %}
