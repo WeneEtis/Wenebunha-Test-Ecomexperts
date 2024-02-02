@@ -230,23 +230,5 @@
   {% # end code for custom-product %}
 
   <script>
-function handleRadioChange(radio) {
-    // Get the dropdown element
-    var dropdown = document.getElementById('size'); // Replace with the actual ID of your dropdown
 
-    // Check if the radio button is selected and dropdown is unselected
-    if (radio.checked && dropdown.value === "Unselected") {
-        // Disable the "Add to Cart" button
-        document.getElementById('ProductSubmitButton-{{ section_id }}').disabled = true; // Replace with the actual ID of your Add to Cart button
-    } else {
-        // Enable the "Add to Cart" button
-        document.getElementById('ProductSubmitButton-{{ section_id }}').disabled = false; // Replace with the actual ID of your Add to Cart button
-    }
-}
-
-// Set a default radio button selection
-document.addEventListener("DOMContentLoaded", function () {
-    var defaultRadio = document.querySelector('input[name="{{ option.name }}"]:checked'); // Replace with the actual name of your radio button group
-    handleRadioChange(defaultRadio);
-});
 </script>
