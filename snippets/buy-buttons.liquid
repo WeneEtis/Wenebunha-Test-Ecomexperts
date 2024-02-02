@@ -119,8 +119,10 @@
               var addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
           
               // Disable the button if both conditions are met
-              if (colorRadioButton && selectedSize === 'Unselected') {
-                addToCartBtn.disabled = true;
+              if (selectedSize === 'Unselected') {
+                if(colorRadioButton){
+                  addToCartBtn.disabled = true;
+                }
               } else {
                 addToCartBtn.disabled = false;
               }
