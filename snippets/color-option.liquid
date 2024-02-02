@@ -233,7 +233,7 @@
 function handleRadioChange() {
     // Get the dropdown element
     var dropdown = document.getElementById('size'); // Replace with the actual ID of your dropdown
-    var defRadio = document.querySelector('input[name="Color"]:checked');
+    var defRadio = document.querySelectorAll('input[name="Color"]:checked');
 console.log(defRadio);
     // Check if the radio button is selected and dropdown is unselected
     if (dropdown.value === "Unselected") {
