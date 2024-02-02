@@ -135,6 +135,7 @@
     >
     {%- if swatchType == "variantImage" -%}
       <label 
+      onchange="disableAddToCartBtn()"
       data-{{ option.name }}="{{value}}"
       style="background-image:url(
       {%- liquid
