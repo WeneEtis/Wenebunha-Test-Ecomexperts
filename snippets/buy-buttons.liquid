@@ -105,34 +105,38 @@
          
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                // Get the dropdown element
-                var sizeDropdown = document.getElementById('size');
-                var colorRadio = document.getElementById('{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}');
-
-                console.log(colorRadio);
-                // Get the "Add to Cart" button and its wrapper
-                //var addToCartBtnWrapper = document.getElementById('add-to-cart-btn-wrapper');
-                var addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
-                
-                // Disable the button initially
+            function disableAddToCartBtn() {
+              
+              // Check if the radio button with color is selected
+              var colorRadioButton = document.querySelector('input[name="Color"]:checked');
+              console.log(colorRadioButton)
+              
+              // Check if the dropdown value is "Unselected"
+              var sizeDropdown = document.getElementById('size');
+              var selectedSize = sizeDropdown.value;
+          
+              // Get the "Add to Cart" button
+              var addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
+          
+              // Disable the button if both conditions are met
+              if (colorRadioButton && selectedSize === 'Unselected') {
                 addToCartBtn.disabled = true;
+              } else {
+                addToCartBtn.disabled = false;
+              }
+            }
 
-                // Add an event listener to the dropdown
-                sizeDropdown.addEventListener('change', function () {
-                // Check if a valid size is selected
-                
-                if (variant.options[optionIndex] == value && sizeDropdown.value !== 'Unselected') {
-                    // Enable the "Add to Cart" button
-                    addToCartBtn.disabled = false;
-                } else {
-                    // Disable the "Add to Cart" button if no size is selected
-                    addToCartBtn.disabled = true;
-                }
-                });
+            // Call the function on page load if a default size is selected
+            document.addEventListener("DOMContentLoaded", function () {
+              disableAddToCartBtn();
             });
-         </script>
+
+            document.querySelector('input[name="Color"]').addEventListener("change", disableAddToCartBtn);
+
+          </script>
          
+          
+          
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
