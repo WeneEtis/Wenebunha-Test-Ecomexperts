@@ -124,6 +124,7 @@
       type="radio"
       id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
       name="{{ option.name }}"
+      onclick="disableAddToCartBtn()"
       value="{{ value | escape }}"
       form="{{ product_form_id }}"
       {% if option.selected_value == value %}
@@ -135,7 +136,6 @@
     >
     {%- if swatchType == "variantImage" -%}
       <label 
-      onchange="disableAddToCartBtn()"
       data-{{ option.name }}="{{value}}"
       style="background-image:url(
       {%- liquid
