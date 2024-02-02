@@ -133,6 +133,33 @@
         class="disabled"
       {% endif %}
     >
+    <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get the dropdown element
+                var sizeDropdown = document.getElementById('size');
+                var colorRadio = document.getElementById('{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}');
+
+                console.log(colorRadio);
+                // Get the "Add to Cart" button and its wrapper
+                //var addToCartBtnWrapper = document.getElementById('add-to-cart-btn-wrapper');
+                var addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
+                
+                // Disable the button initially
+                addToCartBtn.disabled = true;
+
+                // Add an event listener to the dropdown
+                sizeDropdown.addEventListener('change', function () {
+                // Check if a valid size is selected
+                if (sizeDropdown.value !== 'Unselected') {
+                    // Enable the "Add to Cart" button
+                    addToCartBtn.disabled = false;
+                } else {
+                    // Disable the "Add to Cart" button if no size is selected
+                    addToCartBtn.disabled = true;
+                }
+                });
+            });
+         </script>
     {%- if swatchType == "variantImage" -%}
       <label 
       data-{{ option.name }}="{{value}}"
