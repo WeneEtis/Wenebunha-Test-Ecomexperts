@@ -103,34 +103,7 @@
             {%- render 'loading-spinner' -%}
           </button>
          
-          {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
-          <script>
-            function disableAddToCartBtn() {
-              
-              // Check if the radio button with color is selected
-              var colorRadioButton = document.querySelector('input[name="Color"]:checked');
-              console.log(colorRadioButton)
-              
-              // Check if the dropdown value is "Unselected"
-              var sizeDropdown = document.getElementById('size');
-              var selectedSize = sizeDropdown.value;
-          
-              // Get the "Add to Cart" button
-              var addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
-          
-              // Disable the button if both conditions are met
-              if (colorRadioButton && selectedSize === 'Unselected') {
-                addToCartBtn.disabled = true;
-              } else {
-                addToCartBtn.disabled = false;
-              }
-            }
-
-            // Call the function on page load if a default size is selected
-            document.addEventListener("DOMContentLoaded", function () {
-              disableAddToCartBtn();
-            });
-          </script>
+       
          
           
           
