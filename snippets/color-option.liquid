@@ -122,15 +122,15 @@
   {%- if block.settings.picker_type == 'button' -%}
     <input
       type="radio"
-      id=""
+      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
       name="{{ option.name }}"
       value="{{ value | escape }}"
-      onclick="handleRadioChange()"
+      onclick="handleRadioChange(this)"
       form="{{ product_form_id }}"
       {% if option.selected_value == value %}
         checked
       {% endif %}
-      {% if option_disabled %}{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}
+      {% if option_disabled %}
         class="disabled"
       {% endif %}
     >
@@ -214,7 +214,7 @@
     <div class="product-form__input product-form__input--dropdown">
     <label class="form__label-dropdown">Size</label>
     <div class="select">
-    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange=" handleRadioChange();">
+    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()">
             <option value="Unselected">Unselected</option>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
@@ -230,11 +230,11 @@
   {% # end code for custom-product %}
 
   <script>
-function handleRadioChange() {
+function handleRadioChange(radio) {
     // Get the dropdown element
     var dropdown = document.getElementById('size'); // Replace with the actual ID of your dropdown
     var defRadio = document.querySelector('input[name="Color"]:checked');
-console.log(defRadio);
+
     // Check if the radio button is selected and dropdown is unselected
     if (dropdown.value === "Unselected") {
         // Disable the "Add to Cart" button
@@ -247,6 +247,7 @@ console.log(defRadio);
 
 // Set a default radio button selection
 document.addEventListener("DOMContentLoaded", function () {
-    handleRadioChange();
+    var defaultRadio = document.querySelector('input[name="Color"]:checked'); // Replace with the actual name of your radio button group
+    handleRadioChange(defaultRadio);
 });
 </script>
