@@ -107,30 +107,21 @@
           <script>
             function disableAddToCartBtn() {
               
-              var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-              var sizeDropdown = document.getElementById("size");
-              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-               // Get all radio buttons with the specified name
-               var radioButtons = document.getElementsByName('{{ option.name }}');
+              // Check if the radio button with color is selected
+              var colorRadioButton = document.querySelector('input[name="Color"]:checked');
+              
+              // Check if the dropdown value is "Unselected"
+              var sizeDropdown = document.getElementById('size');
+              var selectedSize = sizeDropdown.value;
           
-          // Loop through all radio buttons to find the active one
-          for (var i = 0; i < radioButtons.length; i++) {
-            if (radioButtons[i].checked) {
-              // This radio button is active, you can perform actions accordingly
-              console.log('Active radio button:', radioButtons[i]);
-              
-              // Add your additional logic here
-              
-              break; // Exit the loop once the active radio button is found
-            }
-          }
-      
-
-              if (sizeDropdown.value !== 'Unselected' && colorPills) {
-                addToCartBtn.disabled = false;
-              } else {
+              // Get the "Add to Cart" button
+              var addToCartBtn = document.getElementById('ProductSubmitButton-{{ section_id }}');
+          
+              // Disable the button if both conditions are met
+              if (colorRadioButton && selectedSize === 'Unselected') {
                 addToCartBtn.disabled = true;
+              } else {
+                addToCartBtn.disabled = false;
               }
             }
 
@@ -139,6 +130,8 @@
               disableAddToCartBtn();
             });
           </script>
+         
+          
           
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
