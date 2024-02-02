@@ -108,7 +108,7 @@
             function disableAddToCartBtn() {
               
               // Check if the radio button with color is selected
-              var colorRadioButton = document.getElementById('{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}');
+              var colorRadioButton = document.querySelector('input[name="Color"]:checked');
               console.log(colorRadioButton);
               
               // Check if the dropdown value is "Unselected"
