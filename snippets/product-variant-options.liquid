@@ -71,23 +71,7 @@
        
       ><span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
       </label>
-      <script>
-
-        const isColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
-        const isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-        const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-        console.log(isColorSelected);
-        console.log(isSizeSelected);
-
-        if( isColorSelected && isSizeSelected){
-           // Call the function on page load if a default size is selected
-          document.addEventListener("DOMContentLoaded", function () {
-            addToCartBtn.disabled = true;
-          });
-        }
-
-      </script>
+    
     {%- else -%}
       <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" >
         {{ value -}}
