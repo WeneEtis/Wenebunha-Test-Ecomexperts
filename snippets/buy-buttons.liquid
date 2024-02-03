@@ -127,10 +127,10 @@
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              if (sizeDropdown.value !== 'Unselected') {
-                addToCartBtn.disabled = false;
-              } else {
+              if (sizeDropdown.value === 'Unselected') {
                 addToCartBtn.disabled = true;
+              } else {
+                addToCartBtn.disabled = false;
               }
             }
 
