@@ -103,8 +103,8 @@
             {%- render 'loading-spinner' -%}
           </button>
          
-          {% unless product.selected_variant %}
-            {% if product.variants.size > 1 %}
+          {% unless product.selected_or_first_available_variant %}
+            {% if product.variants[forloop.index0].image != blank and option.name == 'Color'  %}
               {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
               <script>
                 function disableAddToCartBtn() {
