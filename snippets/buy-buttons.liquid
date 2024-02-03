@@ -132,57 +132,9 @@
             });
 
             document.querySelector('input[name="Color"]').addEventListener("change", disableAddToCartBtn);*/
-            // Wait for the DOM to be ready
-            document.addEventListener('DOMContentLoaded', function() {
-              // Find the radio buttons and the dropdown
-              var radioButtons = document.querySelectorAll('[type="radio"]');
-              var dropdown = document.getElementById('size');
-              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}'); // Replace 'add-to-cart-button' with the actual ID of your Add to Cart button
-
-              // Disable the Add to Cart button initially
-              addToCartButton.disabled = true;
-
-              // Add event listener to each radio button
-              radioButtons.forEach(function(radioButton) {
-                radioButton.addEventListener('change', function() {
-                  // Check if a radio button is selected and a dropdown option is selected
-                  if (isRadioButtonSelected() && isDropdownSelected()) {
-                    // Enable the Add to Cart button
-                    addToCartButton.disabled = false;
-                  } else {
-                    // Disable the Add to Cart button
-                    addToCartButton.disabled = true;
-                  }
-                });
-              });
-
-              console.log(isRadioButtonSelected());
-              // Add event listener to the dropdown
-              dropdown.addEventListener('change', function() {
-                // Check if a radio button is selected and a dropdown option is selected
-                if (isDropdownSelected()) {
-                  // Enable the Add to Cart button
-                  addToCartButton.disabled = false;
-                } else {
-                  // Disable the Add to Cart button
-                  addToCartButton.disabled = true;
-                }
-              });
-
-              // Function to check if a radio button is selected
-              function isRadioButtonSelected() {
-                return document.querySelector('[type="radio"]') === null;
-              }
-
-              // Function to check if the dropdown has a selected option other than "Unselected"
-              function isDropdownSelected() {
-                return dropdown.value !== 'Unselected';
-              }
-            });
-
-
+            
           </script>
-         <!--script>
+         <script>
           document.addEventListener('DOMContentLoaded', function () {
               // Get the dropdown element
               var sizeDropdown = document.getElementById('size');
@@ -209,7 +161,7 @@
               }
               });
           });
-       </script-->
+       </script>
           
           
           {%- if show_dynamic_checkout -%}
