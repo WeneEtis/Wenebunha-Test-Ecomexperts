@@ -126,8 +126,8 @@
       name="{{ option.name }}"
       value="{{ value | escape }}"
       form="{{ product_form_id }}"
-      {% if option.selected_value != value %}
-        disabled
+      {% if option.selected_value == value %}
+        checked
       {% endif %}
      
       {% if option_disabled %}
@@ -191,9 +191,6 @@
       value="{{ value | escape }}"
       {% if option.selected_value == value %}
         selected="selected"
-      {% endif %}
-      {% if option.selected_value == "Unselected" %}
-        disabled
       {% endif %}
     >
       {% if option_disabled -%}
