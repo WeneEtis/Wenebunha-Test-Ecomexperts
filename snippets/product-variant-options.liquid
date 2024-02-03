@@ -78,7 +78,10 @@
         console.log(isSizeSelected);
 
         if(freeGiftParentIDs?.length && isColorSelected && isSizeSelected){
-          addToCartBtn.disabled = false;
+           // Call the function on page load if a default size is selected
+           document.addEventListener("DOMContentLoaded", function () {
+              disableAddToCartBtn();
+            });
         }
 
       </script>
