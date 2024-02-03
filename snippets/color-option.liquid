@@ -129,7 +129,9 @@
       {% if option.selected_value == value %}
         checked
       {% endif %}
-     
+      {% if option.selected_value == "Unselected" %}
+        {{ 'products.product.variant_sold_out_or_unavailable' }}
+      {% endif %}
       {% if option_disabled %}
         class="disabled"
       {% endif %}
