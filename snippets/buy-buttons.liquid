@@ -91,7 +91,6 @@
             {%- if product.template_suffix == 'custom' -%} 
               disabled
             {% endif %}
-
             
           >
             <span>
@@ -172,7 +171,7 @@
 
               // Function to check if a radio button is selected
               function isRadioButtonSelected() {
-                return document.querySelector('[type="radio"]:checked') !== null;
+                return document.querySelector('[type="radio"]') !== null;
               }
 
               // Function to check if the dropdown has a selected option other than "Unselected"
