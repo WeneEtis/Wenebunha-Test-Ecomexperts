@@ -125,7 +125,6 @@
       id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
       name="{{ option.name }}"
       value="{{ value | escape }}"
-      onclick="disableAddToCartBtn()"
       form="{{ product_form_id }}"
       {% if option.selected_value == value %}
         checked
