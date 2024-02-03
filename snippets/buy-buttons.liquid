@@ -103,7 +103,7 @@
             {%- render 'loading-spinner' -%}
           </button>
          
-          {% if product.variants[forloop.index0].image != blank and option.name == 'Color'  %}
+          {%# if product.variants[forloop.index0].image != blank and option.name == 'Color'  %}
             {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
             <script>
               function disableAddToCartBtn() {
@@ -135,7 +135,7 @@
               document.querySelector('input[name="Color"]').addEventListener("change", disableAddToCartBtn);
               
             </script>
-          {% endif %}
+          {%# endif %}
           
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
