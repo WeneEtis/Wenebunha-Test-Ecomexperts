@@ -129,9 +129,7 @@
       {% if option.selected_value == value %}
         checked
       {% endif %}
-      {% if option.name == "Unselected" %}
-        {{ 'products.product.variant_sold_out_or_unavailable' }}
-      {% endif %}
+    
       {% if option_disabled %}
         class="disabled"
       {% endif %}
