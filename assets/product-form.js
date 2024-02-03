@@ -99,20 +99,6 @@ if (!customElements.get('product-form')) {
             console.log(isBlackBagSelected);
             console.log(isMediumSizeSelected);
 
-            const isColorSelected = document.querySelector('input[name="Color"]:checked');
-            const isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-            const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-            console.log(isColorSelected);
-            console.log(isSizeSelected);
-
-            if(freeGiftParentIDs?.length && isColorSelected && isSizeSelected){
-              addToCartBtn.disabled = true;
-            }
-
-
-
-
             if (isBlackBagSelected && isMediumSizeSelected) {
               // Add soft winter jacket to the cart
               const freeGiftId = localStorage.getItem("freeGiftId");
