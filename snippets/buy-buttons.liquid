@@ -108,24 +108,33 @@
 
             
             
-            const isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+            /*const isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
             const isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
             const isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
 
             const isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-            const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+            //const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");*/
 
             console.log(isBlackColorSelected);
             console.log(isSizeSelected);
+            console.log(isBlackColorSelected);
 
-            if( isBlackColorSelected && isSizeSelected){
-              // Call the function on page load if a default size is selected
-              console.log(isBlackColorSelected);
-            }
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+
+              const isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+            const isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
+            const isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
+
+            const isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+            
+              
+              if( isBlackColorSelected && isSizeSelected || isRedColorSelected && isSizeSelected || isTanColorSelected && isSizeSelected){
+                // Call the function on page load if a default size is selected
+                addToCartBtn.disabled = true;
+              }
 
               if (sizeDropdown.value === 'Unselected') {
                 addToCartBtn.disabled = true;
