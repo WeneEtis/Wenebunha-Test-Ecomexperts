@@ -214,12 +214,12 @@
     <div class="product-form__input product-form__input--dropdown">
     <label class="form__label-dropdown">Size</label>
     <div class="select">
-        <select class="product-variants" name="id" id="product-variants-{{ product.id }}">
-            <option selected="selected" disabled>Unselected</option>
-    {% for variant in product.variants %}
-    <option value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money }}</option>
-{% endfor %}
-     </select>
+    <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}">
+            <option selected="selected" value="Unselected" disabled>Unselected</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+    </select>
     <svg aria-hidden="true" focusable="false" class="icon icon-caret" viewBox="0 0 10 6">
     <path fill-rule="evenodd" clip-rule="evenodd" 
     d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" 
