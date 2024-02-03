@@ -106,7 +106,7 @@ if (!customElements.get('product-form')) {
             console.log(isColorSelected);
             console.log(isSizeSelected);
 
-            if(isColorSelected && isSizeSelected){
+            if(freeGiftParentIDs?.length && isColorSelected && isSizeSelected){
               addToCartBtn.disabled = true;
             }
 
