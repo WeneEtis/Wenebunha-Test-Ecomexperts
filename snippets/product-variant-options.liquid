@@ -82,9 +82,9 @@
 
         if( isColorSelected && isSizeSelected){
            // Call the function on page load if a default size is selected
-           document.addEventListener("DOMContentLoaded", function () {
-            addToCartBtn = false;
-            });
+          document.addEventListener("DOMContentLoaded", function () {
+            addToCartBtn.disabled = true;
+          });
         }
 
       </script>
