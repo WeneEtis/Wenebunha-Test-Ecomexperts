@@ -121,7 +121,7 @@
 
             if( isBlackColorSelected && isSizeSelected || isRedColorSelected && isSizeSelected || isTanColorSelected && isSizeSelected){
               // Call the function on page load if a default size is selected
-              addToCartBtn.disabled = true;
+              disableAddToCartBtn();
             }
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
