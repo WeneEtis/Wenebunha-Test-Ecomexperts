@@ -87,10 +87,6 @@
             {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
               disabled
             {% endif %}
-
-            {% if product.template_suffix == 'custom-product' %}
-              disabled
-            {% endif %}
             
             {%- if product.template_suffix == 'custom' -%} 
               disabled
@@ -125,6 +121,12 @@
               // Call the function on page load if a default size is selected
               addToCartBtn.disabled = true;
             }
+
+            
+            {% if product.template_suffix == 'custom-product' %}
+              addToCartBtn.disabled = true;
+            {% endif %}
+
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
               var sizeDropdown = document.getElementById("size");
