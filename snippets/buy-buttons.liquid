@@ -106,25 +106,19 @@
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
 
-            const isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
-            const isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
-            const isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
-
-            const isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-            const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+            var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              
-            
-            {% if product.template_suffix == 'custom-product' %}
-              addToCartBtn.disabled = true;
-            {% endif %}
+              var isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+              var isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
+              var isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
 
-              if (sizeDropdown.value === 'Unselected') {
+              if (sizeDropdown.value === 'Unselected' && isBlackColorSelected) {
                 addToCartBtn.disabled = true;
               } else {
                 addToCartBtn.disabled = false;
