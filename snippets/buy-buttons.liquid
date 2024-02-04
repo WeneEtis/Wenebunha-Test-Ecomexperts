@@ -113,24 +113,16 @@
             const isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
             const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-            console.log(isBlackColorSelected);
-            console.log(isSizeSelected);
-            console.log(isBlackColorSelected);
-
-            if( isBlackColorSelected && isSizeSelected || isRedColorSelected && isSizeSelected || isTanColorSelected && isSizeSelected){
-              // Call the function on page load if a default size is selected
-              addToCartBtn.disabled = true;
-            }
-
-            
-            {% if product.template_suffix == 'custom-product' %}
-              addToCartBtn.disabled = true;
-            {% endif %}
-
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+
+              
+            
+            {% if product.template_suffix == 'custom-product' %}
+              addToCartBtn.disabled = true;
+            {% endif %}
 
               if (sizeDropdown.value === 'Unselected') {
                 addToCartBtn.disabled = true;
