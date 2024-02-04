@@ -87,6 +87,10 @@
             {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
               disabled
             {% endif %}
+
+            {% if product.selected_or_first_available_variant.available == "Black" and product.selected_or_first_available_variant.available == "Unselected" %}
+              disabled
+            {% endif %}
             
             {%- if product.template_suffix == 'custom' -%} 
               disabled
