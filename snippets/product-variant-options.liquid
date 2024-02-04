@@ -118,6 +118,26 @@
 {% endif %}
 {% # end code for custom-product %}
 
+<script>
+  
+  const isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+            const isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
+            const isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
+            const addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+
+            function setMode(){
+              if(isBlackColorSelected && sizeDropdown.value === 'Unselected')
+                addToCartBtn.disabled = true;
+
+              if(isRedColorSelected && sizeDropdown.value === 'Unselected')
+                addToCartBtn.disabled = true;
+
+              if(isTanColorSelected && sizeDropdown.value === 'Unselected')
+                addToCartBtn.disabled = true;
+
+              //document.getElementById("textOutput").value = options;
+            }
+</script>
 
 
 
