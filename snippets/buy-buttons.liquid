@@ -132,24 +132,6 @@
               disableAddToCartBtn();
             });*/
 
-            $(document).addEventListener("DOMContentLoaded", function() {
-    // Function to check if any of the specified colors are selected
-    function isColorOptionSelected() {
-      var selectedColor = $('input[name="Color"]:checked').val();
-      var disabledColors = ["Black", "Red", "Tan"];
-
-      return disabledColors.includes(selectedColor);
-    }
-
-    // Disable/Enable Add to Cart button based on color selection
-    $('input[name="Color"]').change(function() {
-      if (isColorOptionSelected()) {
-        $('#ProductSubmitButton-{{ section_id }}').prop('disabled', true);
-      } else {
-        $('#ProductSubmitButton-{{ section_id }}').prop('disabled', false);
-      }
-    });
-  });
             
 
           </script>
