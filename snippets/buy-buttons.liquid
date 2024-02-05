@@ -129,39 +129,33 @@
             
     // Function to check if any color option is selected and size is unselected
     // Function to check and disable the Add to Cart button
-    
-  document.addEventListener("DOMContentLoaded", function() {
-    var colorOptions = ["Black", "Red", "Tan"];
+    document.addEventListener('DOMContentLoaded', function () {
     var sizeDropdown = document.getElementById('size');
     var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-
-    function updateAddToCartButton() {
+    
+    sizeDropdown.addEventListener('change', function () {
       var selectedColor = getSelectedColor();
       var selectedSize = sizeDropdown.value;
 
-      if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+      // Check if one of the specified colors is selected and size is unselected
+      if ((selectedColor === 'Black' || selectedColor === 'Red' || selectedColor === 'Tan') && selectedSize === 'Unselected') {
         addToCartButton.disabled = true;
-        //addToCartButton.setAttribute('disabled', 'disabled');
-        //addToCartButton.classList.add('disabled');
       } else {
-        addToCartButton.removeAttribute('disabled');
-        addToCartButton.classList.remove('disabled');
+        addToCartButton.disabled = false;
       }
-    }
-
-    function getSelectedColor() {
-      var colorRadios = document.querySelectorAll('[name="Color"]:checked');
-      return colorRadios.length > 0 ? colorRadios[0].value : null;
-    }
-
-    // Listen for changes in the color options and size dropdown
-    document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-      radio.addEventListener('change', updateAddToCartButton);
     });
 
-    sizeDropdown.addEventListener('change', updateAddToCartButton);
+    // Function to get the selected color from variant radios
+    function getSelectedColor() {
+      var variantRadios = document.querySelectorAll('[name="Color"]');
+      for (var i = 0; i < variantRadios.length; i++) {
+        if (variantRadios[i].checked) {
+          return variantRadios[i].value;
+        }
+      }
+      return null;
+    }
   });
-
  
           </script>
             
