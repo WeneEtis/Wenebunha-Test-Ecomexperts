@@ -102,40 +102,7 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
-          <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              // Function to check if any color option is selected and size is unselected
-              function isAddToCartDisabled() {
-                var colorInputs = document.querySelectorAll('input[name="Color"]');
-                var sizeDropdown = document.getElementById('size');
-                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-          
-                // Check if any color option is selected and size is unselected
-                var isColorSelected = Array.from(colorInputs).some(function (input) {
-                  return input.checked;
-                });
-          
-                var isSizeUnselected = sizeDropdown.value === 'Unselected';
-          
-                // Disable or enable the Add to Cart button accordingly
-                addToCartButton.disabled = isColorSelected && isSizeUnselected;
-              }
-          
-              // Attach event listeners to color inputs and size dropdown
-              var colorInputs = document.querySelectorAll('input[name="Color"]');
-              var sizeDropdown = document.getElementById('size');
-          
-              colorInputs.forEach(function (input) {
-                input.addEventListener('change', isAddToCartDisabled);
-              });
-          
-              sizeDropdown.addEventListener('change', isAddToCartDisabled);
-          
-              // Initial check on page load
-              isAddToCartDisabled();
-            });
-          </script>
-          
+         
           
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
