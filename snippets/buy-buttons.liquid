@@ -176,7 +176,7 @@
     var sizeSelect = document.getElementById('size');
     var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
     var dynamicCheckoutButton = document.getElementById('show_dynamic_checkout'); // Replace with the actual ID of your dynamic checkout button
-
+      console.log(dynamicCheckoutButton);
     var btns = addToCartBtn && dynamicCheckoutButton;
     function updateButtons() {
       if (sizeSelect.value === 'Unselected') {
