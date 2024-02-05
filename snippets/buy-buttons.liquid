@@ -177,18 +177,24 @@
     var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
     var dynamicCheckoutButton = document.getElementById('checkout'); // Replace with the actual ID of your dynamic checkout button
 
+    var btns = addToCartBtn && dynamicCheckoutButton;
     function updateButtons() {
       if (sizeSelect.value === 'Unselected') {
-        addToCartButton.disabled = true;
-        dynamicCheckoutButton.disabled = true; // Disable the dynamic checkout button
+        btns.setAttribute('disabled', 'disabled');
+        btns.classList.add('disabled');
+ // Disable the dynamic checkout button
       } else {
-        addToCartButton.disabled = false;
-        dynamicCheckoutButton.disabled = false; // Enable the dynamic checkout button
+        btns.removeAttribute('disabled', 'disabled');
+        btns.classList.add('disabled'); // Enable the dynamic checkout button
       }
     }
 
-    sizeSelect.addEventListener('change', updateButtons);
+    document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                radio.addEventListener('change', updateButtons);
+              });
 
+    sizeSelect.addEventListener('change', updateButtons);
+              
     // Disable buttons initially if size is 'Unselected'
     updateButtons();
   });
