@@ -29,7 +29,7 @@
 <!--label class="form__label-options">Color</label-->
 <div class="custom-radio">
         <div>
-            <input type="radio" id="Black" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Black" required checked>
+            <input type="radio" id="Black" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Black"  onchange="disableAddToCartBtn()" required>
             <label class="form__label-radio" for="Black" 
             style="background-image: url('Wenebunha-Test-Ecomexperts\assets\download.jfif');height:40px;width:40px;background-size: cover;"
             
