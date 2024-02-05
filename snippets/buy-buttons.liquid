@@ -133,9 +133,6 @@
               var sizeDropdown = document.getElementById('size');
               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
-              var productForm = document.getElementById('product-form');
-              var dynamicCheckoutButton = productForm.querySelector('[name="checkout"]');
-
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
                 var selectedSize = sizeDropdown.value;
@@ -167,7 +164,7 @@
               });
 
               sizeDropdown.addEventListener('change', updateAddToCartButton);
-
+              
             });
           </script>
 
