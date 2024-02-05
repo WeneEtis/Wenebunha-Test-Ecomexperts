@@ -133,7 +133,8 @@
               var sizeDropdown = document.getElementById('size');
               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
-              var elements = document.getElementById('ProductSubmitButton-{{ section_id }}');
+              var productForm = document.getElementById('product-form');
+              var dynamicCheckoutButton = productForm.querySelector('[name="checkout"]');
 
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
@@ -158,10 +159,10 @@
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
 
-                  elements.disabled = true;
+                  dynamicCheckoutButton.setAttribute('disabled', 'disabled');
 
                 } else {
-                  elements.disabled = false;
+                  dynamicCheckoutButton.removeAttribute('disabled');
                 }
               }
 
@@ -186,6 +187,14 @@
               });
 
               sizeDropdown.addEventListener('change', updateBuyButton);
+
+              productForm.addEventListener('change', function () {
+                if (/* Check if an item is selected */) {
+                  dynamicCheckoutButton.removeAttribute('disabled');
+                } else {
+                  dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                }
+              });
             });
           </script>
 
