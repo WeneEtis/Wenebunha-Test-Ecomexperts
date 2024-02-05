@@ -72,7 +72,7 @@
       </label>
     <script>
       document.document.getElementById("ProductSubmitButton-{{ section_id }}").onclick = function() {
-          var selected = document.querySelector('input[type=radio][{{ option.name }}]:checked');
+          var selected = document.querySelector('input[type=radio][name=Color]:checked');
           console.log(selected.value);
       }</script>
     {%- else -%}
