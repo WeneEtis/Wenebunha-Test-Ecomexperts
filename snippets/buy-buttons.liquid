@@ -114,13 +114,13 @@
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              var blackColor = document.getElementById('Black');
+              var blackColor = document.getElementById('Black')
 
               var isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
               var isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
               var isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
 
-              if (sizeDropdown.value === 'Unselected' && blackColor) {
+              if (sizeDropdown.value === 'Unselected') {
                 addToCartBtn.disabled = true;
               } else {
                 addToCartBtn.disabled = false;
