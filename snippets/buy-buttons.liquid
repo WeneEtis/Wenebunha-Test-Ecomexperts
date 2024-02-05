@@ -102,7 +102,37 @@
             </span>
             {%- render 'loading-spinner' -%}
           </button>
-         
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var colorRadios = document.querySelectorAll('input[name="Color"]');
+              var sizeDropdown = document.getElementById('size');
+              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+          
+              function updateAddToCartButtonState() {
+                var selectedColor = Array.from(colorRadios).find(radio => radio.checked);
+                var isSizeSelected = sizeDropdown.value !== 'Unselected';
+          
+                if (selectedColor && selectedColor.value && selectedColor.value.toLowerCase() === 'black' ||
+                    selectedColor.value.toLowerCase() === 'red' || selectedColor.value.toLowerCase() === 'tan' &&
+                    isSizeSelected) {
+                  addToCartButton.disabled = true;
+                } else {
+                  addToCartButton.disabled = false;
+                }
+              }
+          
+              // Attach change event listeners to color radios and size dropdown
+              colorRadios.forEach(function (radio) {
+                radio.addEventListener('change', updateAddToCartButtonState);
+              });
+          
+              sizeDropdown.addEventListener('change', updateAddToCartButtonState);
+          
+              // Initial state check
+              updateAddToCartButtonState();
+            });
+          </script>
+          
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
 
@@ -135,26 +165,7 @@
             
 
           </script>
-            <script>
-              $(document).ready(function() {
-                // Function to check if any of the specified colors are selected
-                function isColorOptionSelected() {
-                  var selectedColor = $('input[name="Color"]:checked').val();
-                  var disabledColors = ["Black", "Red", "Tan"];
             
-                  return disabledColors.includes(selectedColor);
-                }
-            
-                // Disable/Enable Add to Cart button based on color selection
-                $('input[name="Color"]').change(function() {
-                  if (isColorOptionSelected()) {
-                    $('#ProductSubmitButton-{{ section_id }}').prop('disabled', true);
-                  } else {
-                    $('#ProductSubmitButton-{{ section_id }}').prop('disabled', false);
-                  }
-                });
-              });
-            </script>
           
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
