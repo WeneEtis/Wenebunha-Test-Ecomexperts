@@ -24,20 +24,18 @@
 -%}
 <style>.custom-radio{margin-top:0; display:flex; gap:5px; flex-wrap:wrap}.custom-radio div{display:flex;}.custom-radio label{margin-bottom:0}</style>
 <div class="product-form__input">
-<label class="form__label-options">Color2</label>
+<label class="form__label-options">Color</label>
 <div class="custom-radio">
         <div>
-            <input type="radio" id="Black" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Black" required>
-            <label class="form__label-radio" for="Black"
-            style="background-image: url('download.jfif');height:40px;width:40px;background-size: cover;"
-            >Black</label>
+            <input type="radio" id="Black" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Black" required>
+            <label class="form__label-radio" for="Black">Black</label>
         </div>
         <div>
-            <input type="radio" id="Red" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
+            <input type="radio" id="Red" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
             <label class="form__label-radio" for="Red">Red</label>
         </div>
         <div>
-            <input type="radio" id="Tan" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Tan" required>
+            <input type="radio" id="Tan" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Tan" required>
             <label class="form__label-radio" for="Tan">Tan</label>
         </div>
 </div>
