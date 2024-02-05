@@ -114,8 +114,6 @@
               var sizeDropdown = document.getElementById("size");
               var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              var blackColor = document.getElementById('Black')
-
               var isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
               var isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
               var isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
@@ -133,6 +131,10 @@
               disableAddToCartBtn();
             });
             
+            document.document.getElementById("ProductSubmitButton-{{ section_id }}").onclick = function() {
+                var selected = document.querySelector('input[type=radio][{{ option.name }}]:checked');
+                alert(selected.value);
+            }
 
           </script>
           
