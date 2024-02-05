@@ -74,7 +74,7 @@
     function isColorOptionSelected() {
       var selectedColor = $('input[name="Color"]:checked').val();
       var disabledColors = ["Black", "Red", "Tan"];
-
+      console.log(selectedColor);
       return disabledColors.includes(selectedColor);
     }
 
