@@ -126,6 +126,14 @@
               disableAddToCartBtn();
             });
 
+          </script>
+            
+          
+          {%- if show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+          <script>
+            
             // Function to check if any color option is selected and size is unselected
             // then grey out add to cart button
             document.addEventListener("DOMContentLoaded", function() {
@@ -160,13 +168,7 @@
               sizeDropdown.addEventListener('change', updateAddToCartButton);
             });
 
- 
           </script>
-            
-          
-          {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
-          {%- endif -%}
         </div>
       {%- endform -%}
     </product-form>
