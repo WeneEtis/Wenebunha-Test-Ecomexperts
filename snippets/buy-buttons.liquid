@@ -137,6 +137,7 @@
 
       if (colorOptions.includes(selectedColor) && isSizeUnselected) {
         addToCartButton.setAttribute('disabled', 'disabled');
+        addToCartButton.classList('disabled')
       } else {
         addToCartButton.removeAttribute('disabled');
       }
