@@ -108,19 +108,19 @@
 
             var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
             var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+            var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+
+            var isBlackColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Black';
+            var isRedColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Red';
+            var isTanColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Tan';
+
+            console.log(isBlackColorSelected);
+            console.log(isRedColorSelected);
+            console.log(isTanColorSelected);
 
             function disableAddToCartBtn() {
-              var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-              //var sizeDropdown = document.getElementById("size");
-              //var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              var isBlackColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Black';
-              var isRedColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Red';
-              var isTanColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Tan';
-
-              console.log(isBlackColorSelected);
-              if (isBlackColorSelected) {
-                //isBlackColorSelected = true;
+              if (isSizeSelected) {
                 addToCartBtn.disabled = true;
               } else {
                 addToCartBtn.disabled = false;
