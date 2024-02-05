@@ -68,24 +68,7 @@
         for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
       ><span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
-      <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    var submitButton = document.getElementById("ProductSubmitButton-{{ section_id }}");
-    
-    if (submitButton) {
-      submitButton.addEventListener("click", function(event) {
-        var selectedColor = document.querySelector('input[type=radio][name=Color]:checked').value;
 
-        // Check if the selected color is one of the specified colors
-        var disabledColors = ["Black", "Red", "Tan"];
-        if (disabledColors.includes(selectedColor)) {
-          event.preventDefault(); // Prevent the form from being submitted
-          alert("Cannot add to cart. Please select a different color.");
-        }
-      });
-    }
-  });
-</script>
       </label>
    
     {%- else -%}
