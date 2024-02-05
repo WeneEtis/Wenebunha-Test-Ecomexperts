@@ -132,12 +132,16 @@
               var colorOptions = ["Black", "Red", "Tan"];
               var sizeDropdown = document.getElementById('size');
               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+              var dynamicCheckoutButton =  document.querySelector('.payment-button');
 
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
                 var selectedSize = sizeDropdown.value;
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+
+                  dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                  dynamicCheckoutButton.classList.add('disabled');
 
                   addToCartButton.setAttribute('disabled', 'disabled');
                   addToCartButton.classList.add('disabled');
@@ -171,36 +175,6 @@
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
-          <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var sizeSelect = document.getElementById('size');
-    var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-    var dynamicCheckoutButton =  document.querySelector('.payment-button');
- // Replace with the actual ID of your dynamic checkout button
-      console.log(dynamicCheckoutButton);
-    var btns = addToCartBtn && dynamicCheckoutButton;
-    function updateButtons() {
-      if (sizeSelect.value === 'Unselected') {
-        dynamicCheckoutButton.disabled =false;
- // Disable the dynamic checkout button
-      } else {
-        dynamicCheckoutButton.disabled =false;
-        //dynamicCheckoutButton.classList.add('disabled'); // Enable the dynamic checkout button
-      }
-    }
-
-    document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                radio.addEventListener('change', updateButtons);
-              });
-
-    sizeSelect.addEventListener('change', updateButtons);
-              
-    // Disable buttons initially if size is 'Unselected'
-    updateButtons();
-  });
-</script>
-
-
         </div>
       {%- endform -%}
     </product-form>
