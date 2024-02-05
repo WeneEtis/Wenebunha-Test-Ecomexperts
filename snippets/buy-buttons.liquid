@@ -142,11 +142,12 @@
                 var selectedColor = getSelectedColor();
                 var selectedSize = sizeDropdown.value;
 
+                
+                elements.setAttribute('disabled', 'disabled');
+                  elements.classList.add('disabled');
+
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
 
-                  elements.setAttribute('disabled', 'disabled');
-                  elements.classList.add('disabled');
-                  
                   addToCartButton.setAttribute('disabled', 'disabled');
                   addToCartButton.classList.add('disabled');
 
