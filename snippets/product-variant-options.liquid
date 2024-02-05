@@ -22,33 +22,6 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
-{%- if product.template_suffix == 'custom-product' and option.name == 'Color'-%}
-
-<style>.custom-radio{margin-top:0; display:flex; gap:5px; flex-wrap:wrap}.custom-radio div{display:flex;}.custom-radio label{margin-bottom:0}</style>
-<div class="product-form__input">
-<!--label class="form__label-options">Color</label-->
-<div class="custom-radio">
-        <div>
-            <input type="radio" id="Black" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Black"  onclick="disableAddToCartBtn()" required>
-            <label class="form__label-radio" for="Black" 
-            style="background-image: url('Wenebunha-Test-Ecomexperts\assets\download.jfif');height:40px;width:40px;background-size: cover;"
-            
-            ></label>
-        </div>
-        <div>
-            <input type="radio" id="Red" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
-            <label class="form__label-radio" for="Red">Red</label>
-        </div>
-        <div>
-            <input type="radio" id="Tan" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Tan" required>
-            <label class="form__label-radio" for="Tan">Tan</label>
-        </div>
-</div>
-</div>
-    <script>
-    document.addEventListener("DOMContentLoaded", ()=>{document.querySelector("form[novalidate]").removeAttribute("novalidate")})
-    </script>
-{% endif %}
     
 {%- for value in option.values -%}
   {%- liquid
@@ -92,7 +65,7 @@
   
     {%- if product.variants[forloop.index0].image != blank and option.name == 'Color' -%}
       {% # add the bag images into the pill %}
-      {%  comment  %}  
+     
       <label
         for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
@@ -104,7 +77,7 @@
       <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" >
         {{ value -}}
         <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
-      </label>{% endcomment %}
+      </label>
     {%- endif -%}
    
   {%- elsif block.settings.picker_type == 'dropdown' -%}
