@@ -172,27 +172,28 @@
             {{ form | payment_button }}
           {%- endif -%}
           <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              // Function to enable/disable dynamic checkout button based on size selection
-              function toggleDynamicCheckoutButton() {
-                var selectedSize = document.getElementById('size').value;
-                var dynamicCheckoutButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+  document.addEventListener('DOMContentLoaded', function() {
+    var sizeSelect = document.getElementById('size');
+    var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+    var dynamicCheckoutButton = document.getElementById('checkout'); // Replace with the actual ID of your dynamic checkout button
 
-                // Disable button if size is Unselected
-                dynamicCheckoutButton.disabled = selectedSize === 'Unselected';
-              }
+    function updateButtons() {
+      if (sizeSelect.value === 'Unselected') {
+        addToCartButton.disabled = true;
+        dynamicCheckoutButton.disabled = true; // Disable the dynamic checkout button
+      } else {
+        addToCartButton.disabled = false;
+        dynamicCheckoutButton.disabled = false; // Enable the dynamic checkout button
+      }
+    }
 
-              // Event listener for color pills
-              var colorPills = document.querySelectorAll('.variant-radios input[type="radio"]');
-              colorPills.forEach(function (pill) {
-                pill.addEventListener('change', toggleDynamicCheckoutButton);
-              });
+    sizeSelect.addEventListener('change', updateButtons);
 
-              // Event listener for size dropdown
-              var sizeDropdown = document.getElementById('size');
-              sizeDropdown.addEventListener('change', toggleDynamicCheckoutButton);
-            });
-          </script>
+    // Disable buttons initially if size is 'Unselected'
+    updateButtons();
+  });
+</script>
+
 
         </div>
       {%- endform -%}
