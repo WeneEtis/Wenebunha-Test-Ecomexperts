@@ -169,7 +169,7 @@
           </script>
 
           {%- if show_dynamic_checkout -%}
-            {{ form | payment_button and form_id: 'product-form' }}
+            {{ form | payment_button }}
           {%- endif -%}
           <script>
             document.addEventListener('DOMContentLoaded', function () {
