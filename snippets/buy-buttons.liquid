@@ -148,9 +148,10 @@
       if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
         {%- if show_dynamic_checkout -%}
             show_dynamic_checkout = false;
-          {%- endif -%}
+            
         addToCartButton.setAttribute('disabled', 'disabled');
         addToCartButton.classList.add('disabled');
+          {%- endif -%}
       } else {
         addToCartButton.removeAttribute('disabled');
         addToCartButton.classList.remove('disabled');
