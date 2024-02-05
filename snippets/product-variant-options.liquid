@@ -22,6 +22,8 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
+{%- if product.template_suffix == 'custom-product' -%}
+
 <style>.custom-radio{margin-top:0; display:flex; gap:5px; flex-wrap:wrap}.custom-radio div{display:flex;}.custom-radio label{margin-bottom:0}</style>
 <div class="product-form__input">
 <!--label class="form__label-options">Color</label-->
@@ -45,6 +47,7 @@
     <script>
     document.addEventListener("DOMContentLoaded", ()=>{document.querySelector("form[novalidate]").removeAttribute("novalidate")})
     </script>
+{% endif %}
     
 {%- for value in option.values -%}
   {%- liquid
