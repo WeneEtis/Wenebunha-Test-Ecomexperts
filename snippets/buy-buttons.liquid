@@ -140,7 +140,7 @@
               var colorOptions = ["Black", "Red", "Tan"];
               var sizeDropdown = document.getElementById('size');
               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-              var buyBtn = document.getElementById(' form | payment_button ');
+              var buyButton = document.getElementById(' form | payment_button ');
 
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
@@ -150,7 +150,8 @@
               {%- if product.template_suffix == 'custom-product' -%} 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
                   //addToCartButton.disabled = true;
-                  buyBtn.setAttribute('disabled', 'disabled');
+                  buyButton.setAttribute('disabled', 'disabled');
+                  buyButton.classList.add('disabled');
                   addToCartButton.setAttribute('disabled', 'disabled');
                   addToCartButton.classList.add('disabled');
                   
