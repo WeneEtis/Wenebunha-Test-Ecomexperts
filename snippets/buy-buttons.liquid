@@ -133,31 +133,44 @@
             {{ form | payment_button }}
           {%- endif -%}
           <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              // Function to update button state based on color and size selection
-              function updateButtonState() {
-                var selectedColor = $('input[name="Color"]:checked').val();
-                var selectedSize = $('#size').val();
-          
-                // Check if one of the specified colors is selected and size is unselected
-                if ((selectedColor === 'Black' || selectedColor === 'Red' || selectedColor === 'Tan') && selectedSize === 'Unselected') {
-                  // Disable the button
-                  $('#ProductSubmitButton-{{ section_id }}').prop('disabled', true);
+            
+            // Function to check if any color option is selected and size is unselected
+            // then grey out add to cart button
+            document.addEventListener("DOMContentLoaded", function() {
+              var colorOptions = ["Black", "Red", "Tan"];
+              var sizeDropdown = document.getElementById('size');
+              var addToCartButton = document.getElementById('id');
+
+              function updateAddToCartButton() {
+                var selectedColor = getSelectedColor();
+                var selectedSize = sizeDropdown.value;
+
+                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+                  //addToCartButton.disabled = true;
+                  addToCartButton.setAttribute('disabled', 'disabled');
+                  addToCartButton.classList.add('disabled');
+                  
                 } else {
-                  // Enable the button
-                  $('#ProductSubmitButton-{{ section_id }}').prop('disabled', false);
+                  addToCartButton.removeAttribute('disabled');
+                  addToCartButton.classList.remove('disabled');
                 }
+              
               }
-          
-              // Event listeners for color and size changes
-              $('input[name="Color"]').change(updateButtonState);
-              $('#size').change(updateButtonState);
-          
-              // Initial call to set the button state on page load
-              updateButtonState();
+
+              function getSelectedColor() {
+                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
+
+              // Listen for changes in the color options and size dropdown
+              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                radio.addEventListener('change', updateAddToCartButton);
+              });
+
+              sizeDropdown.addEventListener('change', updateAddToCartButton);
             });
+
           </script>
-          
         </div>
       {%- endform -%}
     </product-form>
