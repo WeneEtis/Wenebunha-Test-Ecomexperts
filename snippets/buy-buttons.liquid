@@ -135,6 +135,24 @@
             
 
           </script>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                  var submitButton = document.getElementById("ProductSubmitButton-{{ section_id }}");
+                  
+                  if (submitButton) {
+                    submitButton.addEventListener("click", function(event) {
+                      var selectedColor = document.querySelector('input[type=radio][name=Color]:checked').value;
+              
+                      // Check if the selected color is one of the specified colors
+                      var disabledColors = ["Black", "Red", "Tan"];
+                      if (disabledColors.includes(selectedColor)) {
+                        event.preventDefault(); // Prevent the form from being submitted
+                        alert("Cannot add to cart. Please select a different color.");
+                      }
+                    });
+                  }
+                });
+              </script>
           
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
