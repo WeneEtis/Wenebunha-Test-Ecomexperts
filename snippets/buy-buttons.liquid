@@ -135,7 +135,6 @@
 
             
     // Function to check if any color option is selected and size is unselected
-    document.addEventListener('DOMContentLoaded', function() {
     // Function to check and disable the Add to Cart button
     function checkAndDisableAddToCart() {
       var colorSelected = false;
@@ -168,7 +167,10 @@
 
     var sizeDropdown = document.getElementById('size');
     sizeDropdown.addEventListener('change', checkAndDisableAddToCart);
-  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      checkAndDisableAddToCart();
+            });
  
           </script>
             
