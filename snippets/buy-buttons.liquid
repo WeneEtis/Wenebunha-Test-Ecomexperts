@@ -135,7 +135,7 @@
                var colorOptions = ["Black", "Red", "Tan"];
                var sizeDropdown = document.getElementById('size');
                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-               var dynamicCheckoutButton =  document.querySelector('.payment-button');
+               var dynamicCheckoutButton =  document.querySelector('{{ form | payment_button }}');
  
                function updateAddToCartButton() {
                  var selectedColor = getSelectedColor();
