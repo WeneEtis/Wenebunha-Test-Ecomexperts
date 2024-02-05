@@ -114,13 +114,13 @@
             var isRedColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Red';
             var isTanColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Tan';
 
-            console.log(isBlackColorSelected);
-            console.log(isRedColorSelected);
-            console.log(isTanColorSelected);
-
             function disableAddToCartBtn() {
 
               if (isSizeSelected) {
+                
+            console.log(isBlackColorSelected);
+            console.log(isRedColorSelected);
+            console.log(isTanColorSelected);
                 addToCartBtn.disabled = true;
               } else {
                 addToCartBtn.disabled = false;
