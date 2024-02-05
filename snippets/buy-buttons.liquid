@@ -136,10 +136,7 @@
             
     // Function to check if any color option is selected and size is unselected
     // Function to check and disable the Add to Cart button
-    {% comment %}
-   Add this script at the end of your Liquid template or in your theme.liquid file
-{% endcomment %}
-<script>
+    
   document.addEventListener("DOMContentLoaded", function() {
     var colorOptions = ["Black", "Red", "Tan"];
     var sizeDropdown = document.getElementById('size');
@@ -170,7 +167,6 @@
 
     sizeDropdown.addEventListener('change', updateAddToCartButton);
   });
-</script>
 
  
           </script>
