@@ -126,6 +126,40 @@
               disableAddToCartBtn();
             });
 
+            document.addEventListener("DOMContentLoaded", function() {
+              var colorOptions = ["Black", "Red", "Tan"];
+              var sizeDropdown = document.getElementById('size');
+              var addToCartButton = document.querySelector('input[name="add"]');
+
+              function updateAddToCartButton() {
+                var selectedColor = getSelectedColor();
+                var selectedSize = sizeDropdown.value;
+
+                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+                  //addToCartButton.disabled = true;
+                  addToCartButton.setAttribute('disabled', 'disabled');
+                  addToCartButton.classList.add('disabled');
+                  
+                } else {
+                  addToCartButton.removeAttribute('disabled');
+                  addToCartButton.classList.remove('disabled');
+                }
+              
+              }
+
+              function getSelectedColor() {
+                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
+
+              // Listen for changes in the color options and size dropdown
+              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                radio.addEventListener('change', updateAddToCartButton);
+              });
+
+              sizeDropdown.addEventListener('change', updateAddToCartButton);
+            });
+
           </script>
             
           
@@ -170,34 +204,7 @@
               sizeDropdown.addEventListener('change', updateAddToCartButton);
             });
 */
-document.addEventListener('DOMContentLoaded', function () {
-    var colorRadios = document.querySelectorAll('[name="Color"]');
-    var sizeDropdown = document.getElementById('size');
-    var submitButton = document.getElementById('product_form_id-{{ section_id }}');
 
-    function updateSubmitButtonState() {
-      var isColorSelected = Array.from(colorRadios).some(function (radio) {
-        return radio.checked;
-      });
-
-      var isSizeSelected = sizeDropdown.value !== 'Unselected';
-
-      if (isColorSelected && !isSizeSelected) {
-        submitButton.setAttribute('disabled', 'disabled');
-        submitButton.classList.add('disabled');
-
-      } else {
-        submitButton.removeAttribute('disabled');
-      }
-    }
-
-    // Attach change event listeners to color radios and size dropdown
-    colorRadios.forEach(function (radio) {
-      radio.addEventListener('change', updateSubmitButtonState);
-    });
-
-    sizeDropdown.addEventListener('change', updateSubmitButtonState);
-  });
           </script>
         </div>
       {%- endform -%}
