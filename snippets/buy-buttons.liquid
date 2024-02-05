@@ -103,42 +103,7 @@
             {%- render 'loading-spinner' -%}
           </button>
          
-          <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var colorOptions = ["Black", "Red", "Tan"];
-    var sizeDropdown = document.getElementById('size');
-    var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-
-    function updateAddToCartButton() {
-      var selectedColor = getSelectedColor();
-      var selectedSize = sizeDropdown.value;
-
-      if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
-        {%- if show_dynamic_checkout -%}
-            show_dynamic_checkout = false;
-            
-        addToCartButton.setAttribute('disabled', 'disabled');
-        addToCartButton.classList.add('disabled');
-          {%- endif -%}
-      } else {
-        addToCartButton.removeAttribute('disabled');
-        addToCartButton.classList.remove('disabled');
-      }
-    }
-
-    function getSelectedColor() {
-      var colorRadios = document.querySelectorAll('[name="Color"]:checked');
-      return colorRadios.length > 0 ? colorRadios[0].value : null;
-    }
-
-    // Listen for changes in the color options and size dropdown
-    document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-      radio.addEventListener('change', updateAddToCartButton);
-    });
-
-    sizeDropdown.addEventListener('change', updateAddToCartButton);
-  });
-</script>
+          
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
 
@@ -161,17 +126,45 @@
               disableAddToCartBtn();
             });
 
+            document.addEventListener("DOMContentLoaded", function() {
+              var colorOptions = ["Black", "Red", "Tan"];
+              var sizeDropdown = document.getElementById('size');
+              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+
+              function updateAddToCartButton() {
+                var selectedColor = getSelectedColor();
+                var selectedSize = sizeDropdown.value;
+
+                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+
+                  addToCartButton.setAttribute('disabled', 'disabled');
+                  addToCartButton.classList.add('disabled');
+
+                } else {
+
+                  addToCartButton.removeAttribute('disabled');
+                  addToCartButton.classList.remove('disabled');
+
+                }
+              }
+
+              function getSelectedColor() {
+                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
+
+              // Listen for changes in the color options and size dropdown
+              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                radio.addEventListener('change', updateAddToCartButton);
+              });
+
+              sizeDropdown.addEventListener('change', updateAddToCartButton);
+            });
           </script>
-            
-          
+
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
-          {% comment %}
-   Add this script at the end of your Liquid template or in your theme.liquid file
-{% endcomment %}
-
-
         </div>
       {%- endform -%}
     </product-form>
