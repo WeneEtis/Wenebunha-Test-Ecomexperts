@@ -109,7 +109,7 @@
          
          
            {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
-           <script>
+           <!--script>
 
            var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
@@ -176,7 +176,51 @@
                sizeDropdown.addEventListener('change', updateAddToCartButton);
                
              });
-           </script> 
+           </script--> 
+           <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              // Function to check if a size is selected
+              function isSizeSelected() {
+                var sizeDropdown = document.getElementById('size'); // Adjust this ID based on your actual size dropdown ID
+                return sizeDropdown.value !== 'Unselected';
+              }
+          
+              // Function to enable/disable buttons based on size selection
+              function updateButtonsState() {
+                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+                var paymentButton = document.querySelector('.payment-button'); // Adjust this selector based on your actual payment button class or ID
+          
+                var isSizeValid = isSizeSelected();
+          
+                addToCartButton.disabled = !isSizeValid;
+                if (paymentButton) {
+                  paymentButton.disabled = !isSizeValid;
+                }
+              }
+          
+              // Event listener for size dropdown change
+              var sizeDropdown = document.getElementById('size'); // Adjust this ID based on your actual size dropdown ID
+              if (sizeDropdown) {
+                sizeDropdown.addEventListener('change', function() {
+                  updateButtonsState();
+                });
+              }
+          
+              // Additional event listeners for color pills (assumed to have class 'color-pill')
+              var colorPills = document.querySelectorAll('.color-pill'); // Adjust this selector based on your actual color pill class
+              if (colorPills) {
+                colorPills.forEach(function(colorPill) {
+                  colorPill.addEventListener('click', function() {
+                    updateButtonsState();
+                  });
+                });
+              }
+          
+              // Initial state check on page load
+              updateButtonsState();
+            });
+          </script>
+          
         </div>
       {%- endform -%}
     </product-form>
