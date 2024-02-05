@@ -22,7 +22,7 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
-{%- if product.template_suffix == 'custom-product' -%}
+{%- if product.template_suffix == 'custom-product' and option.name == 'Color'-%}
 
 <style>.custom-radio{margin-top:0; display:flex; gap:5px; flex-wrap:wrap}.custom-radio div{display:flex;}.custom-radio label{margin-bottom:0}</style>
 <div class="product-form__input">
