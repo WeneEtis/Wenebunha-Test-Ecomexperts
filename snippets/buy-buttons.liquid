@@ -175,7 +175,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     var sizeSelect = document.getElementById('size');
     var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-    var dynamicCheckoutButton = document.getElementById('{{settings.show_dynamic_checkout}}'); // Replace with the actual ID of your dynamic checkout button
+    var dynamicCheckoutButton = document.getElementById('settings.show_dynamic_checkout'); // Replace with the actual ID of your dynamic checkout button
 
     var btns = addToCartBtn && dynamicCheckoutButton;
     function updateButtons() {
