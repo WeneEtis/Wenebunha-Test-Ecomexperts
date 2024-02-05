@@ -119,7 +119,8 @@
               var isTanColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Tan';
 
               console.log(isBlackColorSelected);
-              if (isSizeSelected) {
+              if (isSizeSelected && isBlackColorSelected) {
+               // isBlackColorSelected = true;
                 addToCartBtn.disabled = true;
               } else {
                 addToCartBtn.disabled = false;
