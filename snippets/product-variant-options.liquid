@@ -45,7 +45,7 @@
     <script>
     document.addEventListener("DOMContentLoaded", ()=>{document.querySelector("form[novalidate]").removeAttribute("novalidate")})
     </script>
-    {% comment %}
+    
 {%- for value in option.values -%}
   {%- liquid
     assign option_disabled = true
@@ -118,7 +118,7 @@
     </option>
   {%- endif -%}
 {%- endfor -%}
-{% endcomment %}
+
 
 
 {% # begin code: customized product template size dropdown list %} 
