@@ -104,7 +104,7 @@
   <div class="product-form__input product-form__input--dropdown">
   <label class="form__label-dropdown">Size</label>
   <div class="select">
-  <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()">
+  <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" >
           <option value="Unselected" selected="selected" disabled>Unselected</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
@@ -120,29 +120,5 @@
 {% # end code for custom-product %}
 
 
-<script>
 
-            var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-           
-              var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-              var sizeDropdown = document.getElementById("size");
-              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-              var blackColor = document.getElementById('Black')
-
-              var isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
-              var isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
-              var isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
-
-              if (sizeDropdown.value === 'Unselected' ) {
-                colorPills = true;
-                addToCartBtn.disabled = true;
-              } else {
-                addToCartBtn.disabled = false;
-              }
-            
-
-          </script>
 
