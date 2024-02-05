@@ -180,8 +180,8 @@
     var btns = addToCartBtn && dynamicCheckoutButton;
     function updateButtons() {
       if (sizeSelect.value === 'Unselected') {
-        btns.setAttribute('disabled', 'disabled');
-        btns.classList.add('disabled');
+        dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+        dynamicCheckoutButton.classList.add('disabled');
  // Disable the dynamic checkout button
       } else {
         btns.removeAttribute('disabled', 'disabled');
