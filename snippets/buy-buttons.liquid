@@ -152,6 +152,23 @@
                 }
               }
 
+              function updateBuyButton() {
+                var selectedColor = getSelectedColor();
+                var selectedSize = sizeDropdown.value;
+
+                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+
+                  elements.setAttribute('disabled', 'disabled');
+                  elements.classList.add('disabled');
+
+                } else {
+
+                  elements.removeAttribute('disabled');
+                  elements.classList.remove('disabled');
+
+                }
+              }
+
               function getSelectedColor() {
                 var colorRadios = document.querySelectorAll('[name="Color"]:checked');
                 return colorRadios.length > 0 ? colorRadios[0].value : null;
@@ -166,6 +183,12 @@
               });
 
               sizeDropdown.addEventListener('change', updateAddToCartButton);
+
+              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                radio.addEventListener('change', updateBuyButton);
+              });
+
+              sizeDropdown.addEventListener('change', updateBuyButton);
             });
           </script>
 
