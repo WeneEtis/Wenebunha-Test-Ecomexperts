@@ -75,14 +75,7 @@
             style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
             ><span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> </label>
         </div>
-        <div>
-            <input type="radio" id="Red" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
-            <label class="form__label-radio" for="Red">Red</label>
-        </div>
-        <div>
-            <input type="radio" id="Tan" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Tan" required>
-            <label class="form__label-radio" for="Tan">Tan</label>
-        </div>
+       
 </div>
 </div>
     <script>
