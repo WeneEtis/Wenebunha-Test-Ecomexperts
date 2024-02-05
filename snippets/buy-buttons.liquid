@@ -133,13 +133,20 @@
               var sizeDropdown = document.getElementById('size');
               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
+              function getElementsByAttrib(attrib) {
+                  return document.querySelectorAll('[' + attrib + ']');
+              }
+              var elements = getElementsByAttrib('type="submit"');
+
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
                 var selectedSize = sizeDropdown.value;
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
-                  document.getElementById("ProductSubmitButton-{{ section_id }}").disabled = true;
 
+                  elements.setAttribute('disabled', 'disabled');
+                  elements.classList.add('disabled');
+                  
                   addToCartButton.setAttribute('disabled', 'disabled');
                   addToCartButton.classList.add('disabled');
 
@@ -158,6 +165,7 @@
 
               // Initial state check
               updateAddToCartButton();
+
               // Listen for changes in the color options and size dropdown
               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
                 radio.addEventListener('change', updateAddToCartButton);
