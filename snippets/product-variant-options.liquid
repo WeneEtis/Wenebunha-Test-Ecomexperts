@@ -22,33 +22,7 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
-{%- if  option.name == 'Color' -%}
-  <style>.custom-radio{margin-top:0; display:flex; gap:5px; flex-wrap:wrap}.custom-radio div{display:flex;}.custom-radio label{margin-bottom:0}</style>
-  <div class="product-form__input">
-  <!--label class="form__label-options">Color</label-->
-  <div class="custom-radio">
-          <div>
-              <input type="radio" id="Black" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Black" required>
-              <label class="form__label-radio" for="Black"
-              style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
-              ></label>
-          </div>
-          <div>
-              <input type="radio" id="Red" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
-              <label class="form__label-radio" for="Red">Red</label>
-          </div>
-          <div>
-              <input type="radio" id="Tan" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Tan" required>
-              <label class="form__label-radio" for="Tan">Tan</label>
-          </div>
-  </div>
-  </div>
-      <script>
-      document.addEventListener("DOMContentLoaded", ()=>{document.querySelector("form[novalidate]").removeAttribute("novalidate")})
-      </script>
-{%- endif -%}
-
-    {% comment %}
+    
 {%- for value in option.values -%}
   {%- liquid
     assign option_disabled = true
@@ -70,7 +44,34 @@
       endcase
     endfor
   -%}
-
+  {%- if product.variants[forloop.index0].image != blank and option.name == 'Color' -%}
+    {% # add the bag images into the pill %}
+   
+<style>.custom-radio{margin-top:0; display:flex; gap:5px; flex-wrap:wrap}.custom-radio div{display:flex;}.custom-radio label{margin-bottom:0}</style>
+<div class="product-form__input">
+<!--label class="form__label-options">Color</label-->
+<div class="custom-radio">
+        <div>
+            <input type="radio" id="Black" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Black" required>
+            <label class="form__label-radio" for="Black"
+            style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
+            ></label>
+        </div>
+        <div>
+            <input type="radio" id="Red" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
+            <label class="form__label-radio" for="Red">Red</label>
+        </div>
+        <div>
+            <input type="radio" id="Tan" name="properties[Color]" form="{{ 'product-form-' | append: section.id }}" value="Tan" required>
+            <label class="form__label-radio" for="Tan">Tan</label>
+        </div>
+</div>
+</div>
+    <script>
+    document.addEventListener("DOMContentLoaded", ()=>{document.querySelector("form[novalidate]").removeAttribute("novalidate")})
+    </script>
+  {%- endif -%}
+{% comment %}
   {%- if block.settings.picker_type == 'button' -%}
     <input
       type="radio"
@@ -119,9 +120,9 @@
         {{- value -}}
       {%- endif %}
     </option>
-  {%- endif -%}
+  {%- endif -%}{% endcomment %}
 {%- endfor -%}
-{% endcomment %}
+
 
 
 {% # begin code: customized product template size dropdown list %} 
