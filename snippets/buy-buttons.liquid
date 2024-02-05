@@ -111,13 +111,14 @@
 
             function disableAddToCartBtn() {
               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-              var sizeDropdown = document.getElementById("size");
-              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+              //var sizeDropdown = document.getElementById("size");
+              //var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
 
-              var isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
-              var isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
-              var isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
+              var isBlackColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Black';
+              var isRedColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Red';
+              var isTanColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Tan';
 
+              console.log(isBlackColorSelected);
               if (isSizeSelected) {
                 addToCartBtn.disabled = true;
               } else {
