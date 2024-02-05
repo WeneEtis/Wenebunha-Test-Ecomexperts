@@ -136,7 +136,7 @@
                 var selectedSize = sizeDropdown.value;
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
-                  disableAddToCartBtn();
+
                   addToCartButton.setAttribute('disabled', 'disabled');
                   addToCartButton.classList.add('disabled');
 
@@ -157,7 +157,7 @@
               updateAddToCartButton();
               // Listen for changes in the color options and size dropdown
               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                radio.addEventListener('change', updateAddToCartButton);
+                radio.addEventListener('change', disableAddToCartBtn);
               });
 
               sizeDropdown.addEventListener('change', updateAddToCartButton);
