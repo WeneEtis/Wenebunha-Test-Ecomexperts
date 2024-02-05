@@ -139,7 +139,7 @@
             document.addEventListener("DOMContentLoaded", function() {
               var colorOptions = ["Black", "Red", "Tan"];
               var sizeDropdown = document.getElementById('size');
-              var addToCartButton = document.querySelectorAll('input[name="add"]');
+              var addToCartButton = document.querySelector('input[name="add"]');
 
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
