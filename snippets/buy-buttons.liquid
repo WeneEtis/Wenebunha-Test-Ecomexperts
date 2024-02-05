@@ -106,7 +106,7 @@
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
 
-            var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+          /*  var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
             var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
             var colorPills = document.querySelectorAll('input[name="Color"]:checked');
 
@@ -130,7 +130,26 @@
             // Call the function on page load if a default size is selected
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
-            });
+            });*/
+
+            $(document).ready(function() {
+    // Function to check if any of the specified colors are selected
+    function isColorOptionSelected() {
+      var selectedColor = $('input[name="Color"]:checked').val();
+      var disabledColors = ["Black", "Red", "Tan"];
+
+      return disabledColors.includes(selectedColor);
+    }
+
+    // Disable/Enable Add to Cart button based on color selection
+    $('input[name="Color"]').change(function() {
+      if (isColorOptionSelected()) {
+        $('#ProductSubmitButton-{{ section_id }}').prop('disabled', true);
+      } else {
+        $('#ProductSubmitButton-{{ section_id }}').prop('disabled', false);
+      }
+    });
+  });
             
 
           </script>
