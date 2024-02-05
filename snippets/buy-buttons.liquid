@@ -180,12 +180,12 @@
     var btns = addToCartBtn && dynamicCheckoutButton;
     function updateButtons() {
       if (sizeSelect.value === 'Unselected') {
-        dynamicCheckoutButton.setAttribute('disabled', 'disabled');
-        dynamicCheckoutButton.classList.add('disabled');
+        addToCartButton.setAttribute('disabled', 'disabled');
+        addToCartButton.classList.add('disabled');
  // Disable the dynamic checkout button
       } else {
-        btns.removeAttribute('disabled', 'disabled');
-        btns.classList.add('disabled'); // Enable the dynamic checkout button
+        addToCartButton.removeAttribute('disabled', 'disabled');
+        addToCartButton.classList.add('disabled'); // Enable the dynamic checkout button
       }
     }
 
