@@ -139,21 +139,20 @@
                 var selectedSize = sizeDropdown.value;
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+                
+                  addToCartButton.setAttribute('disabled', 'disabled');
+                  addToCartButton.classList.add('disabled');
 
                   dynamicCheckoutButton.setAttribute('disabled', 'disabled');
                   dynamicCheckoutButton.classList.add('disabled');
 
-                  addToCartButton.setAttribute('disabled', 'disabled');
-                  addToCartButton.classList.add('disabled');
-
                 } else {
                   
-                  dynamicCheckoutButton.removeAttribute('disabled');
-                  dynamicCheckoutButton.classList.remove('disabled');
-
                   addToCartButton.removeAttribute('disabled');
                   addToCartButton.classList.remove('disabled');
 
+                  dynamicCheckoutButton.removeAttribute('disabled');
+                  dynamicCheckoutButton.classList.remove('disabled');
                 }
               }
 
