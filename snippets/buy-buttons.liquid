@@ -101,11 +101,13 @@
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
+
+            {%- if show_dynamic_checkout -%}
+              {{ form | payment_button }}
+            {%- endif -%}
           </button>
          
-          {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
-          {%- endif -%}
+         
            {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
            <script>
 
@@ -145,16 +147,16 @@
                    addToCartButton.setAttribute('disabled', 'disabled');
                    addToCartButton.classList.add('disabled');
  
-                   dynamicCheckoutButton.setAttribute('disabled', 'disabled');
-                   dynamicCheckoutButton.classList.add('disabled');
+                  // dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                  // dynamicCheckoutButton.classList.add('disabled');
  
                  } else {
                    
                    addToCartButton.removeAttribute('disabled');
                    addToCartButton.classList.remove('disabled');
  
-                   dynamicCheckoutButton.removeAttribute('disabled');
-                   dynamicCheckoutButton.classList.remove('disabled');
+                  // dynamicCheckoutButton.removeAttribute('disabled');
+                   //dynamicCheckoutButton.classList.remove('disabled');
                  }
                }
  
