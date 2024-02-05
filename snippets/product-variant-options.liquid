@@ -68,7 +68,7 @@
       {% # add the bag images into the pill %}
      
       <label
-        
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
       ><span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
       </label>
@@ -105,7 +105,7 @@
   <label class="form__label-dropdown">Size</label>
   <div class="select">
   <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()">
-          <option value="Unselected" selected="selected" >Unselected</option>
+          <option value="Unselected" selected="selected" disabled>Unselected</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
           <option value="Large">Large</option>
