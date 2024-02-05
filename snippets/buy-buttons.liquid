@@ -126,40 +126,39 @@
               disableAddToCartBtn();
             });
 
-            document.addEventListener("DOMContentLoaded", function() {
-              var colorOptions = ["Black", "Red", "Tan"];
-              var sizeDropdown = document.getElementById('size');
-              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+            document.addEventListener('DOMContentLoaded', function () {
+    var colorOptions = ['Black', 'Red', 'Tan'];
+    var sizeDropdown = document.getElementById('size');
+    var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
-              function updateAddToCartButton() {
-                var selectedColor = getSelectedColor();
-                var selectedSize = sizeDropdown.value;
+    function updateAddToCartButtonState() {
+      var selectedColor = getSelectedColor();
+      var isSizeUnselected = sizeDropdown.value === 'Unselected';
 
-                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+      if (colorOptions.includes(selectedColor) && isSizeUnselected) {
+        addToCartButton.setAttribute('disabled', 'disabled');
+      } else {
+        addToCartButton.removeAttribute('disabled');
+      }
+    }
 
-                  addToCartButton.setAttribute('disabled', 'disabled');
-                  addToCartButton.classList.add('disabled');
+    function getSelectedColor() {
+      var radios = document.querySelectorAll('[name="options[Color]"]:checked');
+      var selectedColor = radios.length > 0 ? radios[0].value : '';
+      return selectedColor;
+    }
 
-                } else {
+    // Initial state check
+    updateAddToCartButtonState();
 
-                  addToCartButton.removeAttribute('disabled');
-                  addToCartButton.classList.remove('disabled');
+    // Attach event listeners
+    sizeDropdown.addEventListener('change', updateAddToCartButtonState);
 
-                }
-              }
-
-              function getSelectedColor() {
-                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
-                return colorRadios.length > 0 ? colorRadios[0].value : null;
-              }
-
-              // Listen for changes in the color options and size dropdown
-              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                radio.addEventListener('change', updateAddToCartButton);
-              });
-
-              sizeDropdown.addEventListener('change', updateAddToCartButton);
-            });
+    var colorRadios = document.querySelectorAll('[name="options[Color]"]');
+    colorRadios.forEach(function (radio) {
+      radio.addEventListener('change', updateAddToCartButtonState);
+    });
+  });
           </script>
 
           {%- if show_dynamic_checkout -%}
