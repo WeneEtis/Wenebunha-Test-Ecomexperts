@@ -64,44 +64,6 @@
   
     {%- if product.variants[forloop.index0].image != blank and option.name == 'Color'  and product.template_suffix == 'custom-product'-%}
       {% # add the bag images into the pill %}
-     <script>
-       and disable the Add to Cart button
-    function checkAndDisableAddToCart() {
-      var colorSelected = false;
-      var sizeSelected = false;
-
-      // Check if Black, Red, or Tan color is selected
-      var colorInputs = document.querySelectorAll('input[name="Color"]');
-      colorInputs.forEach(function(input) {
-        if (input.checked && ['Black', 'Red', 'Tan'].includes(input.value)) {
-          colorSelected = true;
-        }
-      });
-
-      // Check if a size is selected
-      var sizeDropdown = document.getElementById('size');
-      if (sizeDropdown.value !== 'Unselected') {
-        sizeSelected = true;
-      }
-
-      // Disable or enable the Add to Cart button based on conditions
-      var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-      addToCartButton.disabled = !(colorSelected && sizeSelected);
-    }
-
-    // Attach event listeners to color inputs and size dropdown
-    var colorInputs = document.querySelectorAll('input[name="Color"]');
-    colorInputs.forEach(function(input) {
-      input.addEventListener('change', checkAndDisableAddToCart);
-    });
-
-    var sizeDropdown = document.getElementById('size');
-    sizeDropdown.addEventListener('change', checkAndDisableAddToCart);
-
-    document.addEventListener("DOMContentLoaded", function () {
-      checkAndDisableAddToCart();
-            });
-     </script>
       <label
         for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
@@ -131,6 +93,44 @@
       {%- endif %}
     </option>
   {%- endif -%}
+  <script>
+    and disable the Add to Cart button
+ function checkAndDisableAddToCart() {
+   var colorSelected = false;
+   var sizeSelected = false;
+
+   // Check if Black, Red, or Tan color is selected
+   var colorInputs = document.querySelectorAll('input[name="Color"]');
+   colorInputs.forEach(function(input) {
+     if (input.checked && ['Black', 'Red', 'Tan'].includes(input.value)) {
+       colorSelected = true;
+     }
+   });
+
+   // Check if a size is selected
+   var sizeDropdown = document.getElementById('size');
+   if (sizeDropdown.value !== 'Unselected') {
+     sizeSelected = true;
+   }
+
+   // Disable or enable the Add to Cart button based on conditions
+   var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+   addToCartButton.disabled = !(colorSelected && sizeSelected);
+ }
+
+ // Attach event listeners to color inputs and size dropdown
+ var colorInputs = document.querySelectorAll('input[name="Color"]');
+ colorInputs.forEach(function(input) {
+   input.addEventListener('change', checkAndDisableAddToCart);
+ });
+
+ var sizeDropdown = document.getElementById('size');
+ sizeDropdown.addEventListener('change', checkAndDisableAddToCart);
+
+ document.addEventListener("DOMContentLoaded", function () {
+   checkAndDisableAddToCart();
+         });
+  </script>
 {%- endfor -%}
 
 
