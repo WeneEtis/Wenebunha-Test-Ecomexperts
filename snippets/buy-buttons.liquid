@@ -142,27 +142,14 @@
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
 
-                  addToCartButton.setAttribute('disabled', 'disabled');
-                  addToCartButton.classList.add('disabled');
+                dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                dynamicCheckoutButton.classList.add('disabled');
 
                 } else {
 
-                  addToCartButton.removeAttribute('disabled');
-                  addToCartButton.classList.remove('disabled');
+                dynamicCheckoutButton.removeAttribute('disabled');
+                dynamicCheckoutButton.classList.remove('disabled');
 
-                }
-              }
-
-              function updateBuyButton() {
-                var selectedColor = getSelectedColor();
-                var selectedSize = sizeDropdown.value;
-
-                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
-
-                  dynamicCheckoutButton.setAttribute('disabled', 'disabled');
-
-                } else {
-                  dynamicCheckoutButton.removeAttribute('disabled');
                 }
               }
 
@@ -173,7 +160,6 @@
 
               // Initial state check
               updateAddToCartButton();
-              updateBuyButton();
 
               // Listen for changes in the color options and size dropdown
               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
@@ -181,12 +167,6 @@
               });
 
               sizeDropdown.addEventListener('change', updateAddToCartButton);
-
-              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                radio.addEventListener('change', updateBuyButton);
-              });
-
-              sizeDropdown.addEventListener('change', updateBuyButton);
 
             });
           </script>
