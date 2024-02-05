@@ -173,7 +173,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     var colorRadios = document.querySelectorAll('[name="Color"]');
     var sizeDropdown = document.getElementById('size');
-    var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+    var submitButton = document.getElementById('product_form_id');
 
     function updateSubmitButtonState() {
       var isColorSelected = Array.from(colorRadios).some(function (radio) {
