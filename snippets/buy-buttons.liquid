@@ -133,10 +133,7 @@
               var sizeDropdown = document.getElementById('size');
               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
-              function getElementsByAttrib(attrib) {
-                  return document.querySelectorAll('[' + attrib + ']');
-              }
-              var elements = getElementsByAttrib('type="submit"');
+              var elements = document.querySelectorAll('input[name="id"]');
 
               function updateAddToCartButton() {
                 var selectedColor = getSelectedColor();
