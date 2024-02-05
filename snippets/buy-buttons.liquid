@@ -169,8 +169,36 @@
           </script>
 
           {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
+            {{ form | payment_button form_id: 'product-form' }}
           {%- endif -%}
+          <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var colorOptions = ["Black", "Red", "Tan"];
+              var sizeDropdown = document.getElementById('size');
+              var productForm = document.getElementById('product-form');
+              var dynamicCheckoutButton = productForm.querySelector('[name="checkout"]');
+
+              // Disable the dynamic checkout button initially
+              dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+
+              function getSelectedColor() {
+                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
+              // Enable the button when an item is selected
+              productForm.addEventListener('change', function () {
+                var selectedColor = getSelectedColor();
+                var selectedSize = sizeDropdown.value;
+
+                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+                  dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                } else {
+                  dynamicCheckoutButton.removeAttribute('disabled');
+                }
+              });
+            });
+          </script>
+
         </div>
       {%- endform -%}
     </product-form>
