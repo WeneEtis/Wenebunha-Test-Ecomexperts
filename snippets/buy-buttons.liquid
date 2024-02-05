@@ -126,34 +126,6 @@
               disableAddToCartBtn();
             });
 
-            document.addEventListener('DOMContentLoaded', function () {
-    var colorRadios = document.querySelectorAll('[name="Color"]');
-    var sizeDropdown = document.getElementById('size');
-    var submitButton = document.getElementById('product_form_id-{{ section_id }}');
-
-    function updateSubmitButtonState() {
-      var isColorSelected = Array.from(colorRadios).some(function (radio) {
-        return radio.checked;
-      });
-
-      var isSizeSelected = sizeDropdown.value !== 'Unselected';
-
-      if (isColorSelected && !isSizeSelected) {
-        submitButton.setAttribute('disabled', 'disabled');
-        submitButton.classList.add('disabled');
-
-      } else {
-        submitButton.removeAttribute('disabled');
-      }
-    }
-
-    // Attach change event listeners to color radios and size dropdown
-    colorRadios.forEach(function (radio) {
-      radio.addEventListener('change', updateSubmitButtonState);
-    });
-
-    sizeDropdown.addEventListener('change', updateSubmitButtonState);
-  });
           </script>
             
           
@@ -198,7 +170,34 @@
               sizeDropdown.addEventListener('change', updateAddToCartButton);
             });
 */
+document.addEventListener('DOMContentLoaded', function () {
+    var colorRadios = document.querySelectorAll('[name="Color"]');
+    var sizeDropdown = document.getElementById('size');
+    var submitButton = document.getElementById('product_form_id-{{ section_id }}');
 
+    function updateSubmitButtonState() {
+      var isColorSelected = Array.from(colorRadios).some(function (radio) {
+        return radio.checked;
+      });
+
+      var isSizeSelected = sizeDropdown.value !== 'Unselected';
+
+      if (isColorSelected && !isSizeSelected) {
+        submitButton.setAttribute('disabled', 'disabled');
+        submitButton.classList.add('disabled');
+
+      } else {
+        submitButton.removeAttribute('disabled');
+      }
+    }
+
+    // Attach change event listeners to color radios and size dropdown
+    colorRadios.forEach(function (radio) {
+      radio.addEventListener('change', updateSubmitButtonState);
+    });
+
+    sizeDropdown.addEventListener('change', updateSubmitButtonState);
+  });
           </script>
         </div>
       {%- endform -%}
