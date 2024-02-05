@@ -107,21 +107,14 @@
           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
 
-          /*  var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+          var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
             var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
             var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-
-            var isBlackColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Black';
-            var isRedColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Red';
-            var isTanColorSelected = document.querySelector('input[type=radio][name=Color]:checked').value === 'Tan';
-
+            
             function disableAddToCartBtn() {
 
               if (isSizeSelected) {
                 
-            console.log(isBlackColorSelected);
-            console.log(isRedColorSelected);
-            console.log(isTanColorSelected);
                 addToCartBtn.disabled = true;
               } else {
                 addToCartBtn.disabled = false;
@@ -131,7 +124,7 @@
             // Call the function on page load if a default size is selected
             document.addEventListener("DOMContentLoaded", function () {
               disableAddToCartBtn();
-            });*/
+            });
 
             
     // Function to check if any color option is selected and size is unselected
@@ -168,9 +161,6 @@
     sizeDropdown.addEventListener('change', updateAddToCartButton);
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    updateAddToCartButton();
-            });
  
           </script>
             
