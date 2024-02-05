@@ -136,11 +136,17 @@
             
     // Function to check if any color option is selected and size is unselected
     // Function to check and disable the Add to Cart button
-    function checkAndDisableAddToCart() {
-      var colorOptions = ["Black", "Red", "Tan"];
+    {% comment %}
+   Add this script at the end of your Liquid template or in your theme.liquid file
+{% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var colorOptions = ["Black", "Red", "Tan"];
     var sizeDropdown = document.getElementById('size');
     var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-    var selectedColor = getSelectedColor();
+
+    function updateAddToCartButton() {
+      var selectedColor = getSelectedColor();
       var selectedSize = sizeDropdown.value;
 
       if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
@@ -150,7 +156,8 @@
         addToCartButton.removeAttribute('disabled');
         addToCartButton.classList.remove('disabled');
       }
-    }  
+    }
+
     function getSelectedColor() {
       var colorRadios = document.querySelectorAll('[name="Color"]:checked');
       return colorRadios.length > 0 ? colorRadios[0].value : null;
@@ -158,14 +165,13 @@
 
     // Listen for changes in the color options and size dropdown
     document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-      radio.addEventListener('change', checkAndDisableAddToCart);
+      radio.addEventListener('change', updateAddToCartButton);
     });
 
-    sizeDropdown.addEventListener('change', checkAndDisableAddToCart);
+    sizeDropdown.addEventListener('change', updateAddToCartButton);
+  });
+</script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-      checkAndDisableAddToCart();
-            });
  
           </script>
             
