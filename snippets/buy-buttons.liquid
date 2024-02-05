@@ -103,80 +103,78 @@
             {%- render 'loading-spinner' -%}
           </button>
          
-          
-          {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
-          <script>
-
-          var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-            var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-
-            function disableAddToCartBtn() {
-
-              if (isSizeSelected) {
-                
-                addToCartBtn.disabled = true;
-              } else {
-                addToCartBtn.disabled = false;
-              }
-            }
-
-            // Call the function on page load if a default size is selected
-            document.addEventListener("DOMContentLoaded", function () {
-              disableAddToCartBtn();
-            });
-
-            /*grey out the "Add to Cart" button when any of the specified color options is selected
-             and the size is unselected */
-            document.addEventListener("DOMContentLoaded", function() {
-              var colorOptions = ["Black", "Red", "Tan"];
-              var sizeDropdown = document.getElementById('size');
-              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-              var dynamicCheckoutButton =  document.querySelector('.payment-button');
-
-              function updateAddToCartButton() {
-                var selectedColor = getSelectedColor();
-                var selectedSize = sizeDropdown.value;
-
-                if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
-                
-                  addToCartButton.setAttribute('disabled', 'disabled');
-                  addToCartButton.classList.add('disabled');
-
-                  dynamicCheckoutButton.setAttribute('disabled', 'disabled');
-                  dynamicCheckoutButton.classList.add('disabled');
-
-                } else {
-                  
-                  addToCartButton.removeAttribute('disabled');
-                  addToCartButton.classList.remove('disabled');
-
-                  dynamicCheckoutButton.removeAttribute('disabled');
-                  dynamicCheckoutButton.classList.remove('disabled');
-                }
-              }
-
-              function getSelectedColor() {
-                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
-                return colorRadios.length > 0 ? colorRadios[0].value : null;
-              }
-
-              // Initial state check
-              updateAddToCartButton();
-
-              // Listen for changes in the color options and size dropdown
-              document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                radio.addEventListener('change', updateAddToCartButton);
-              });
-
-              sizeDropdown.addEventListener('change', updateAddToCartButton);
-              
-            });
-          </script>
-
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
+           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
+           <script>
+
+           var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+             var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+             var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+ 
+             function disableAddToCartBtn() {
+ 
+               if (isSizeSelected) {
+                 
+                 addToCartBtn.disabled = true;
+               } else {
+                 addToCartBtn.disabled = false;
+               }
+             }
+ 
+             // Call the function on page load if a default size is selected
+             document.addEventListener("DOMContentLoaded", function () {
+               disableAddToCartBtn();
+             });
+ 
+             /*grey out the "Add to Cart" button when any of the specified color options is selected
+              and the size is unselected */
+             document.addEventListener("DOMContentLoaded", function() {
+               var colorOptions = ["Black", "Red", "Tan"];
+               var sizeDropdown = document.getElementById('size');
+               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+               var dynamicCheckoutButton =  document.querySelector('.payment-button');
+ 
+               function updateAddToCartButton() {
+                 var selectedColor = getSelectedColor();
+                 var selectedSize = sizeDropdown.value;
+ 
+                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+                 
+                   addToCartButton.setAttribute('disabled', 'disabled');
+                   addToCartButton.classList.add('disabled');
+ 
+                   dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                   dynamicCheckoutButton.classList.add('disabled');
+ 
+                 } else {
+                   
+                   addToCartButton.removeAttribute('disabled');
+                   addToCartButton.classList.remove('disabled');
+ 
+                   dynamicCheckoutButton.removeAttribute('disabled');
+                   dynamicCheckoutButton.classList.remove('disabled');
+                 }
+               }
+ 
+               function getSelectedColor() {
+                 var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                 return colorRadios.length > 0 ? colorRadios[0].value : null;
+               }
+ 
+               // Initial state check
+               updateAddToCartButton();
+ 
+               // Listen for changes in the color options and size dropdown
+               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                 radio.addEventListener('change', updateAddToCartButton);
+               });
+ 
+               sizeDropdown.addEventListener('change', updateAddToCartButton);
+               
+             });
+           </script> 
         </div>
       {%- endform -%}
     </product-form>
