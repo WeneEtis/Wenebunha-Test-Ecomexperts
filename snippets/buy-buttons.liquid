@@ -172,8 +172,8 @@
             });
           </script>
 
-          {%- if show_dynamic_checkout -%}
-           
+          {%- if show_dynamic_checkouts -%}
+            {{ form | payment_button }}
           {%- endif -%}
         </div>
       {%- endform -%}
