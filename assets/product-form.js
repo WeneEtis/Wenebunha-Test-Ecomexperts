@@ -159,3 +159,32 @@ if (!customElements.get('product-form')) {
     }
   );
 }
+
+
+var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+
+function disableAddToCartBtn() {
+  var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+  var sizeDropdown = document.getElementById("size");
+  var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+
+  var blackColor = document.getElementById('Black')
+
+  var isBlackColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+  var isRedColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Red';
+  var isTanColorSelected = document.querySelector('input[name="Color"]:checked').value === 'Tan';
+
+  if (sizeDropdown.value === 'Unselected' ) {
+    colorPills = true;
+    addToCartBtn.disabled = true;
+  } else {
+    addToCartBtn.disabled = false;
+  }
+}
+
+// Call the function on page load if a default size is selected
+document.addEventListener("DOMContentLoaded", function () {
+  disableAddToCartBtn();
+});
+
