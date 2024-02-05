@@ -119,7 +119,7 @@
 {% # end code for custom-product %}
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+ 
     // Function to check if any color option is selected and size is unselected
     function isAddToCartDisabled() {
       var colorInputs = document.querySelectorAll('input[name="Color"]');
@@ -147,8 +147,9 @@
 
     sizeDropdown.addEventListener('change', isAddToCartDisabled);
 
-    // Initial check on page load
-    isAddToCartDisabled();
-  });
+    // Initial check on page load 
+    document.addEventListener("DOMContentLoaded", function () {
+      isAddToCartDisabled();
+    });
 </script>
 
