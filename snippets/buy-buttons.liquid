@@ -101,11 +101,11 @@
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
-
-            {%- if show_dynamic_checkout -%}
-              {{ form | payment_button }}
-            {%- endif -%}
+            
           </button>
+          {%- if show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
          
          
            {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
