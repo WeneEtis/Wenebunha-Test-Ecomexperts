@@ -103,39 +103,7 @@
             {%- render 'loading-spinner' -%}
           </button>
          
-          
-          {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
           <script>
-
-          var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-            var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-
-            function disableAddToCartBtn() {
-
-              if (isSizeSelected) {
-                
-                addToCartBtn.disabled = true;
-              } else {
-                addToCartBtn.disabled = false;
-              }
-            }
-
-            // Call the function on page load if a default size is selected
-            document.addEventListener("DOMContentLoaded", function () {
-              disableAddToCartBtn();
-            });
-
-          </script>
-            
-          
-          {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
-          {%- endif -%}
-          {% comment %}
-   Add this script at the end of your Liquid template or in your theme.liquid file
-{% endcomment %}
-<script>
   document.addEventListener("DOMContentLoaded", function() {
     var colorOptions = ["Black", "Red", "Tan"];
     var sizeDropdown = document.getElementById('size');
@@ -171,6 +139,38 @@
     sizeDropdown.addEventListener('change', updateAddToCartButton);
   });
 </script>
+          {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
+          <script>
+
+          var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+            var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+
+            function disableAddToCartBtn() {
+
+              if (isSizeSelected) {
+                
+                addToCartBtn.disabled = true;
+              } else {
+                addToCartBtn.disabled = false;
+              }
+            }
+
+            // Call the function on page load if a default size is selected
+            document.addEventListener("DOMContentLoaded", function () {
+              disableAddToCartBtn();
+            });
+
+          </script>
+            
+          
+          {%- if show_dynamic_checkout -%}
+            {{ form | payment_button }}
+          {%- endif -%}
+          {% comment %}
+   Add this script at the end of your Liquid template or in your theme.liquid file
+{% endcomment %}
+
 
         </div>
       {%- endform -%}
