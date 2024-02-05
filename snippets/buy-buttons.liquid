@@ -158,14 +158,10 @@
 
                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
 
-                  elements.setAttribute('disabled', 'disabled');
-                  elements.classList.add('disabled');
+                  elements.disabled = true;
 
                 } else {
-
-                  elements.removeAttribute('disabled');
-                  elements.classList.remove('disabled');
-
+                  elements.disabled = false;
                 }
               }
 
