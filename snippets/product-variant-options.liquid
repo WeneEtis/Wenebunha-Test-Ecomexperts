@@ -102,7 +102,9 @@
 <div class="custom-radio">
         <div>
             <input type="radio" id="Black" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Black" required>
-            <label class="form__label-radio" for="Black">Black</label>
+            <label class="form__label-radio" for="Black"
+            style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
+            >Black</label>
         </div>
         <div>
             <input type="radio" id="Red" name="properties[Color2]" form="{{ 'product-form-' | append: section.id }}" value="Red" required>
