@@ -139,13 +139,16 @@
   document.addEventListener("DOMContentLoaded", function() {
     var colorOptions = ["Black", "Red", "Tan"];
     var sizeDropdown = document.getElementById('size');
-    var addToCartButton = document.getElementById('product_form_id');
+    var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
     function updateAddToCartButton() {
       var selectedColor = getSelectedColor();
       var selectedSize = sizeDropdown.value;
 
       if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
+        {%- if show_dynamic_checkout -%}
+            show_dynamic_checkout = false;
+          {%- endif -%}
         addToCartButton.setAttribute('disabled', 'disabled');
         addToCartButton.classList.add('disabled');
       } else {
