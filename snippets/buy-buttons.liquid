@@ -177,41 +177,30 @@
              });
            </script> 
            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-              var colorButtons = document.querySelectorAll('.product-form__buttons label');
-              var sizeDropdown = document.getElementById('size');
-              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+            document.addEventListener('DOMContentLoaded', function () {
+              var colorSelect = document.querySelectorAll('input[name="Color"]:checked'); // Replace 'Color' with the actual ID of your color dropdown
+              var sizeSelect = document.getElementById('size'); // Replace 'size' with the actual ID of your size dropdown
+              var addButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
           
-              // Disable add to cart button and size dropdown initially
-              addToCartButton.disabled = true;
-              sizeDropdown.disabled = true;
+              function updateButtonState() {
+                var colorSelected = colorSelect.value !== 'Unselected';
+                var sizeSelected = sizeSelect.value !== 'Unselected';
           
-              // Add event listeners to color buttons
-              colorButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                  // Enable size dropdown when a color is selected
-                  sizeDropdown.setAttribute('disabled', 'disabled');
-                    sizeDropdown.classList.add('disabled');          
-                  // Check if size dropdown has a selected value
-                  if (sizeDropdown.value !== 'Unselected') {
-                    // Enable add to cart button if both color and size are selected
-                    addToCartButton.setAttribute('disabled', 'disabled');
-                    addToCartButton.classList.add('disabled');                  }
-                });
-              });
-          
-              // Add event listener to size dropdown
-              sizeDropdown.addEventListener('change', function() {
-                // Enable add to cart button when size is selected
-                if (sizeDropdown.value !== 'Unselected') {
-                  addToCartButton.disabled = false;
+                if (colorSelected && sizeSelected) {
+                  addButton.removeAttribute('disabled');
                 } else {
-                  // Disable add to cart button if size is unselected
-                  addToCartButton.disabled = true;
+                  addButton.setAttribute('disabled', 'disabled');
                 }
-              });
+              }
+          
+              colorSelect.addEventListener('change', updateButtonState);
+              sizeSelect.addEventListener('change', updateButtonState);
+          
+              // Initial state check
+              updateButtonState();
             });
           </script>
+          
           
            
         </div>
