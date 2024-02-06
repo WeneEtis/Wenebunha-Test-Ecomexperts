@@ -128,6 +128,10 @@
              document.addEventListener("DOMContentLoaded", function () {
                disableAddToCartBtn();
              });
+
+            document.getElementById("ProductSubmitButton-{{ section_id }}").addEventListener("click", function(event){
+              event.preventDefault()
+            });
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
