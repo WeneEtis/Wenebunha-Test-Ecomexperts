@@ -132,6 +132,9 @@
             document.getElementById("ProductSubmitButton-{{ section_id }}").addEventListener("change", function(event){
               event.preventDefault()
             });
+            document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                 radio.addEventListener('change', disableAddToCartBtn);
+               });
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
