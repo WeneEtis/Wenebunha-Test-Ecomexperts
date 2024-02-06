@@ -116,13 +116,16 @@
               function disableAddToCartBtn() {
                 var selectedColor = getSelectedColor();
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
-                //var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-                var addToCartBtn = document.getElementsByClassName('product-form__submit');
+                var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+                var buyBtn = document.querySelectorAll('[name="add"]');
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected) {
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
+
+                  buyBtn.setAttribute('disabled', 'disabled');
+                  buyBtn.classList.add('disabled');
                 } else {
                   addToCartBtn.removeAttribute('disabled');
                   addToCartBtn.classList.remove('disabled');
