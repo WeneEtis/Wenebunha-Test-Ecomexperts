@@ -143,8 +143,7 @@
  
                  if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
                  
-                    addToCartButton.setAttribute('disabled', 'disabled');
-                    addToCartButton.classList.add('disabled');
+                    addToCartButton.disabled = true;
  
                     dynamicCheckoutButton.setAttribute('disabled', 'disabled');
                     dynamicCheckoutButton.classList.add('disabled');
