@@ -131,7 +131,7 @@
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
-            document.addEventListener("DOMContentLoaded", function() {
+            /*document.addEventListener("DOMContentLoaded", function() {
                var colorOptions = ["Black", "Red", "Tan"];
                var sizeDropdown = document.getElementById('size');
                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
@@ -176,6 +176,43 @@
                
              });
            </script> 
+           <script>
+            document.addEventListener('DOMContentLoaded', function() {
+              var colorButtons = document.querySelectorAll('.product-form__buttons label');
+              var sizeDropdown = document.getElementById('size');
+              var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+          
+              // Disable add to cart button and size dropdown initially
+              addToCartButton.disabled = true;
+              sizeDropdown.disabled = true;
+          
+              // Add event listeners to color buttons
+              colorButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                  // Enable size dropdown when a color is selected
+                  sizeDropdown.disabled = false;
+          
+                  // Check if size dropdown has a selected value
+                  if (sizeDropdown.value !== 'Unselected') {
+                    // Enable add to cart button if both color and size are selected
+                    addToCartButton.disabled = false;
+                  }
+                });
+              });
+          
+              // Add event listener to size dropdown
+              sizeDropdown.addEventListener('change', function() {
+                // Enable add to cart button when size is selected
+                if (sizeDropdown.value !== 'Unselected') {
+                  addToCartButton.disabled = false;
+                } else {
+                  // Disable add to cart button if size is unselected
+                  addToCartButton.disabled = true;
+                }
+              });
+            });
+          </script>
+          
            
         </div>
       {%- endform -%}
