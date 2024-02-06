@@ -120,15 +120,14 @@
                 //var buyBtn = document.getElementsByClassName("shopify-payment-button__button shopify-payment-button__button--unbranded BUz42FHpSPncCPJ4Pr_f jjzYeefyWpPZLH9pIgyw RWJ0IfBjxIhflh4AIrUw");
                 var bBtn = document.getElementsByClassName("product-form__buttons");
                 var isSizeSelected = selectedSize === 'Unselected';
-                
-                addToCartBtn.disable = true;
-
-
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected ) {
                   
-                  addToCartBtn.setAttribute('disabled', 'disabled');
-                  addToCartBtn.classList.add('disabled');
+                  addToCartBtn.disable = true;
+                  bBtn.disabled = true;
+
+                  //addToCartBtn.setAttribute('disabled', 'disabled');
+                  //addToCartBtn.classList.add('disabled');
 
                   if (bBtn) {
     bBtn.disabled = true;
