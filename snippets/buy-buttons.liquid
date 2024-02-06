@@ -118,13 +118,14 @@
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
                 var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
                 var buyBtn = document.getElementsByClassName("shopify-payment-button__button shopify-payment-button__button--unbranded BUz42FHpSPncCPJ4Pr_f jjzYeefyWpPZLH9pIgyw RWJ0IfBjxIhflh4AIrUw");
+                var bBtn = document.querySelector("[data-test-id='Checkout-button']");
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected) {
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
 
-                  buyBtn.setAttr();
+                  bBtn.disable = true;;
                   //buyBtn.classList.add('disabled');
                 } else {
                   addToCartBtn.removeAttribute('disabled');
@@ -154,10 +155,6 @@
               sizeSelect.addEventListener('change', function () {
                 disableAddToCartBtn();
               });
-
-              function setAttr(){
-                buyBtn.disabled = true;
-              }
 
           </script>
           
