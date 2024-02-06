@@ -124,7 +124,7 @@
                 if (colorOptions.includes(selectedColor) && isSizeSelected ) {
                   
                   addToCartBtn.disable = true;
-                  bBtn.disabled = true;
+                  //bBtn.disabled = true;
 
                   //addToCartBtn.setAttribute('disabled', 'disabled');
                   //addToCartBtn.classList.add('disabled');
@@ -133,8 +133,10 @@
     bBtn.disabled = true;
 }
                 } else {
-                  addToCartBtn.removeAttribute('disabled');
-                  addToCartBtn.classList.remove('disabled');
+                  addToCartBtn.disable = false;
+
+                  //addToCartBtn.removeAttribute('disabled');
+                  //addToCartBtn.classList.remove('disabled');
                 }
               }
 
