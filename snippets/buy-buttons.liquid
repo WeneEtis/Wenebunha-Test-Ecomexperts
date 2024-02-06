@@ -112,7 +112,7 @@
            <!-- Add the following script at the end of your code -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var colorSelect = document.getElementById('{{ section.id }}-Color');
+    var colorSelect = document.querySelectorAll('input[name="Color"]:checked');
     var sizeSelect = document.getElementById('size');
     var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
@@ -140,6 +140,92 @@
   });
 </script>
 
+           <script>
+
+          /*  var colorOptions = ["Black", "Red", "Tan"];
+            var selectedColor = getSelectedColor();
+
+
+             function disableAddToCartBtn() {
+              var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+              var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+ 
+ 
+               if (colorOptions.includes(selectedColor) && isSizeSelected) {
+                  addToCartBtn.setAttribute('disabled', 'disabled');
+                 //addToCartBtn.disabled = true;
+                 addToCartBtn.classList.add('disabled');
+               } else {
+                addToCartBtn.disabled = false;
+               }
+             }
+ 
+              function getSelectedColor() {
+                 var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                 return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
+             // Call the function on page load if a default size is selected
+             document.addEventListener("DOMContentLoaded", function () {
+               disableAddToCartBtn();
+             });
+
+           
+               // Listen for changes in the color options and size dropdown
+               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                radio.addEventListener('change', disableAddToCartBtn);
+               });
+ 
+               sizeDropdown.addEventListener('change', disableAddToCartBtn);*/
+               //document.querySelectorAll('[name="Color"]').forEach((radio)=>{ radio.setAttribute("disabled", "disabled"); });
+ 
+             /*grey out the "Add to Cart" button when any of the specified color options is selected
+              and the size is unselected */
+            /*document.addEventListener("DOMContentLoaded", function() {
+               var colorOptions = ["Black", "Red", "Tan"];
+               var sizeDropdown = document.getElementById('size');
+               var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+               var dynamicCheckoutButton =  document.querySelectorAll('input[type="button"]');
+ 
+               function updateAddToCartButton() {
+                 var selectedColor = getSelectedColor();
+                 var selectedSize = sizeDropdown.value;
+ 
+                 if (colorOptions.includes(selectedColor) && selectedSize !== 'Unselected') {
+                    
+                    addToCartButton.removeAttribute('disabled');
+                    addToCartButton.classList.remove('disabled');
+ 
+                    dynamicCheckoutButton.removeAttribute('disabled');
+                    dynamicCheckoutButton.classList.remove('disabled');
+ 
+                 } else {
+                   
+                    addToCartButton.setAttribute('disabled', 'disabled');
+                    addToCartButton.classList.add('disabled');
+ 
+                    dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                    dynamicCheckoutButton.classList.add('disabled');
+                 }
+               }
+ 
+               function getSelectedColor() {
+                 var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                 return colorRadios.length > 0 ? colorRadios[0].value : null;
+               }
+ 
+               // Initial state check
+               updateAddToCartButton();
+ 
+               // Listen for changes in the color options and size dropdown
+               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                 radio.addEventListener('change', updateAddToCartButton);
+               });
+ 
+               sizeDropdown.addEventListener('change', updateAddToCartButton);
+               
+             });*/
+           </script> 
            
         </div>
       {%- endform -%}
