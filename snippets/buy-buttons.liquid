@@ -117,7 +117,7 @@
                 var selectedColor = getSelectedColor();
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
                 var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-                var buyBtn = document.getElementsByClassName("product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}");
+                var buyBtn = document.getElementsByClassName("shopify-payment-button__button shopify-payment-button__button--unbranded BUz42FHpSPncCPJ4Pr_f jjzYeefyWpPZLH9pIgyw RWJ0IfBjxIhflh4AIrUw");
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected) {
