@@ -141,20 +141,21 @@
                  var selectedColor = getSelectedColor();
                  var selectedSize = sizeDropdown.value;
  
-                 if (colorOptions.includes(selectedColor) && selectedSize === 'Unselected') {
-                 
-                    addToCartButton.disabled = true;
- 
-                    dynamicCheckoutButton.setAttribute('disabled', 'disabled');
-                    dynamicCheckoutButton.classList.add('disabled');
- 
-                 } else {
-                   
-                    addToCartButton.disabled = false;
-                    //addToCartButton.classList.remove('disabled');
+                 if (colorOptions.includes(selectedColor) && selectedSize !== 'Unselected') {
+                    
+                    addToCartButton.removeAttribute('disabled');
+                    addToCartButton.classList.remove('disabled');
  
                     dynamicCheckoutButton.removeAttribute('disabled');
                     dynamicCheckoutButton.classList.remove('disabled');
+ 
+                 } else {
+                   
+                    addToCartButton.setAttribute('disabled', 'disabled');
+                    addToCartButton.classList.add('disabled');
+ 
+                    dynamicCheckoutButton.setAttribute('disabled', 'disabled');
+                    dynamicCheckoutButton.classList.add('disabled');
                  }
                }
  
