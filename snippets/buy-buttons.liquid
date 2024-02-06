@@ -131,7 +131,7 @@
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
-            /*document.addEventListener("DOMContentLoaded", function() {
+            document.addEventListener("DOMContentLoaded", function() {
                var colorOptions = ["Black", "Red", "Tan"];
                var sizeDropdown = document.getElementById('size');
                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
@@ -174,34 +174,8 @@
  
                sizeDropdown.addEventListener('change', updateAddToCartButton);
                
-             });*/
+             });
            </script> 
-           <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              var colorSelect = document.querySelectorAll('input[name="Color"]') // Replace 'Color' with the actual ID of your color dropdown
-              var sizeSelect = document.getElementById('size'); // Replace 'size' with the actual ID of your size dropdown
-              var addButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-          
-              function updateButtonState() {
-                var colorSelected = colorSelect.value !== 'Unselected';
-                var sizeSelected = sizeSelect.value !== 'Unselected';
-          
-                if (colorSelected && sizeSelected) {
-                  addButton.removeAttribute('disabled');
-                } else {
-                  addButton.setAttribute('disabled', 'disabled');
-                }
-              }
-          
-              colorSelect.addEventListener('change', updateButtonState);
-              sizeSelect.addEventListener('change', updateButtonState);
-          
-              // Initial state check
-              updateButtonState();
-            });
-          </script>
-          
-          
            
         </div>
       {%- endform -%}
