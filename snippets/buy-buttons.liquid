@@ -190,13 +190,13 @@
               colorButtons.forEach(function(button) {
                 button.addEventListener('click', function() {
                   // Enable size dropdown when a color is selected
-                  sizeDropdown.disabled = false;
-          
+                  sizeDropdown.setAttribute('disabled', 'disabled');
+                    sizeDropdown.classList.add('disabled');          
                   // Check if size dropdown has a selected value
                   if (sizeDropdown.value !== 'Unselected') {
                     // Enable add to cart button if both color and size are selected
-                    addToCartButton.disabled = false;
-                  }
+                    addToCartButton.setAttribute('disabled', 'disabled');
+                    addToCartButton.classList.add('disabled');                  }
                 });
               });
           
