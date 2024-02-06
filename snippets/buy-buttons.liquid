@@ -117,25 +117,30 @@
                 var selectedColor = getSelectedColor();
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
                 var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-                var buyBtn = document.getElementsByClassName("shopify-payment-button");
-                //var bBtn = document.getElementsByClassName("product-form__buttons");
+                var buyBtn = document.querySelector(".shopify-payment-button"); // Use querySelector to get a single element
                 var isSizeSelected = selectedSize === 'Unselected';
 
-                if (colorOptions.includes(selectedColor) && isSizeSelected ) {
-                  
+                if (colorOptions.includes(selectedColor) && isSizeSelected) {
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
 
-                  buyBtn.setAttribute('disabled', 'disabled');
-                  buyBtn.classList.add('disabled');
-
-                  buyBtn.disable = true;
+                  if (buyBtn) {
+                    buyBtn.setAttribute('disabled', 'disabled');
+                    buyBtn.classList.add('disabled');
+                    buyBtn.disable = true;
+                  }
                 } else {
                   addToCartBtn.removeAttribute('disabled');
                   addToCartBtn.classList.remove('disabled');
-                  buyBtn.disable = false;
+
+                  if (buyBtn) {
+                    buyBtn.removeAttribute('disabled');
+                    buyBtn.classList.remove('disabled');
+                    buyBtn.disable = false;
+                  }
                 }
               }
+
 
               function getSelectedColor() {
                 var colorRadios = document.querySelectorAll('[name="Color"]:checked');
