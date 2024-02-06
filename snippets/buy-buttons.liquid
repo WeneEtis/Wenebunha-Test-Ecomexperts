@@ -145,7 +145,7 @@
                });
  
                sizeDropdown.addEventListener('change', disableAddToCartBtn);
-               document.getElementsByName({{ option.name }}).forEach((radio)=>{ radio.setAttribute("disabled", "disabled"); });
+               document.querySelector('[name="Color"]').forEach((radio)=>{ radio.setAttribute("disabled", "disabled"); });
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
