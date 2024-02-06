@@ -111,43 +111,46 @@
            {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
            <!-- Add the following script at the end of your code -->
            <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              var colorRadioButtons = document.querySelectorAll('[name="Color"]');
-              var sizeDropdown = document.getElementById('size');
-              var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-          
-              function updateButtonState() {
-                var selectedColor = '';
-                var selectedSize = '';
-          
-                colorRadioButtons.forEach(function (radioButton) {
-                  if (radioButton.checked) {
-                    selectedColor = radioButton.value;
-                  }
-                });
-          
-                if (sizeDropdown) {
-                  selectedSize = sizeDropdown.value;
-                }
-          
-                var isButtonDisabled = !(selectedColor && selectedSize);
-          
-                submitButton.disabled = isButtonDisabled;
-              }
-          
-              // Add event listeners for color radio buttons
-              colorRadioButtons.forEach(function (radioButton) {
-                radioButton.addEventListener('change', updateButtonState);
-              });
-          
-              // Add event listener for size dropdown
-              if (sizeDropdown) {
-                sizeDropdown.addEventListener('change', updateButtonState);
-              }
-          
-              // Initial update on page load
-              updateButtonState();
-            });
+           var colorOptions = ["Black", "Red", "Tan"];
+
+function disableAddToCartBtn() {
+  var selectedColor = getSelectedColor();
+  var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
+  var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+  var isSizeSelected = selectedSize === 'Unselected';
+
+  if (colorOptions.includes(selectedColor) && isSizeSelected) {
+    addToCartBtn.setAttribute('disabled', 'disabled');
+    addToCartBtn.classList.add('disabled');
+  } else {
+    addToCartBtn.removeAttribute('disabled');
+    addToCartBtn.classList.remove('disabled');
+  }
+}
+
+function getSelectedColor() {
+  var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+  return colorRadios.length > 0 ? colorRadios[0].value : null;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  disableAddToCartBtn();
+});
+
+// Add event listeners to color and size elements to update button status
+var colorRadios = document.querySelectorAll('[name="Color"]');
+var sizeSelect = document.querySelector('select[name="properties[Size]"]');
+
+colorRadios.forEach(function (radio) {
+  radio.addEventListener('change', function () {
+    disableAddToCartBtn();
+  });
+});
+
+sizeSelect.addEventListener('change', function () {
+  disableAddToCartBtn();
+});
+
           </script>
           
 
