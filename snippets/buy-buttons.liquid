@@ -117,7 +117,7 @@
     var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
 
     function updateButtonState() {
-      if (colorSelect && sizeSelect && submitButton) {
+      if (colorSelect && sizeSelect) {
         if (colorSelect.value !== 'Unselected' && sizeSelect.value !== 'Unselected') {
           submitButton.removeAttribute('disabled');
         } else {
