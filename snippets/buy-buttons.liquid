@@ -128,6 +128,13 @@
              document.addEventListener("DOMContentLoaded", function () {
                disableAddToCartBtn();
              });
+
+                // Listen for changes in the color options and size dropdown
+                document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+                 radio.addEventListener('change', disableAddToCartBtn);
+               });
+ 
+               sizeDropdown.addEventListener('change', disableAddToCartBtn);
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
