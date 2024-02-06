@@ -113,43 +113,44 @@
            <script>
            var colorOptions = ["Black", "Red", "Tan"];
 
-function disableAddToCartBtn() {
-  var selectedColor = getSelectedColor();
-  var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
-  var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-  var isSizeSelected = selectedSize === 'Unselected';
+              function disableAddToCartBtn() {
+                var selectedColor = getSelectedColor();
+                var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
+                //var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+                var addToCartBtn = document.getElementsByClassName('product_form__submit');
+                var isSizeSelected = selectedSize === 'Unselected';
 
-  if (colorOptions.includes(selectedColor) && isSizeSelected) {
-    addToCartBtn.setAttribute('disabled', 'disabled');
-    addToCartBtn.classList.add('disabled');
-  } else {
-    addToCartBtn.removeAttribute('disabled');
-    addToCartBtn.classList.remove('disabled');
-  }
-}
+                if (colorOptions.includes(selectedColor) && isSizeSelected) {
+                  addToCartBtn.setAttribute('disabled', 'disabled');
+                  addToCartBtn.classList.add('disabled');
+                } else {
+                  addToCartBtn.removeAttribute('disabled');
+                  addToCartBtn.classList.remove('disabled');
+                }
+              }
 
-function getSelectedColor() {
-  var colorRadios = document.querySelectorAll('[name="Color"]:checked');
-  return colorRadios.length > 0 ? colorRadios[0].value : null;
-}
+              function getSelectedColor() {
+                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
 
-document.addEventListener("DOMContentLoaded", function () {
-  disableAddToCartBtn();
-});
+              document.addEventListener("DOMContentLoaded", function () {
+                disableAddToCartBtn();
+              });
 
-// Add event listeners to color and size elements to update button status
-var colorRadios = document.querySelectorAll('[name="Color"]');
-var sizeSelect = document.querySelector('select[name="properties[Size]"]');
+              // Add event listeners to color and size elements to update button status
+              var colorRadios = document.querySelectorAll('[name="Color"]');
+              var sizeSelect = document.querySelector('select[name="properties[Size]"]');
 
-colorRadios.forEach(function (radio) {
-  radio.addEventListener('change', function () {
-    disableAddToCartBtn();
-  });
-});
+              colorRadios.forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                  disableAddToCartBtn();
+                });
+              });
 
-sizeSelect.addEventListener('change', function () {
-  disableAddToCartBtn();
-});
+              sizeSelect.addEventListener('change', function () {
+                disableAddToCartBtn();
+              });
 
           </script>
           
