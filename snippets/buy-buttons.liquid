@@ -121,13 +121,14 @@
                 var bBtn = document.querySelector("[data-test-id='Checkout-button']");
                 var isSizeSelected = selectedSize === 'Unselected';
 
-                if (colorOptions.includes(selectedColor) && isSizeSelected && bBtn === null) {
+                if (colorOptions.includes(selectedColor) && isSizeSelected ) {
                   addToCartBtn.disable = true;
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
 
-                  bBtn.disable = true;;
-                  //buyBtn.classList.add('disabled');
+                  if (bBtn) {
+    bBtn.disabled = true;
+}
                 } else {
                   addToCartBtn.removeAttribute('disabled');
                   addToCartBtn.classList.remove('disabled');
