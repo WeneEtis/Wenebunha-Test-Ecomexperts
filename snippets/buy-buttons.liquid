@@ -177,30 +177,36 @@
              });
            </script> 
            <script>
-            document.addEventListener('DOMContentLoaded', function () {
-              var colorSelect = document.querySelectorAll('input[name="Color"]:checked'); // Replace 'Color' with the actual ID of your color dropdown
-              var sizeSelect = document.getElementById('size'); // Replace 'size' with the actual ID of your size dropdown
-              var addButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+            document.addEventListener('DOMContentLoaded', function() {
+              // Get the size dropdown element
+              var sizeDropdown = document.getElementById('size');
           
-              function updateButtonState() {
-                var colorSelected = colorSelect.value !== 'Unselected';
-                var sizeSelected = sizeSelect.value !== 'Unselected';
+              // Get the form, payment button, and add-to-cart button elements
+              var form = document.querySelector('.product-form__input--dropdown');
+              var paymentButton = document.querySelector('.payment-button');
+              var addToCartButton = document.querySelector('.product-form__submit');
           
-                if (colorSelected && sizeSelected) {
-                  addButton.removeAttribute('disabled');
+              // Disable the form, payment button, and add-to-cart button initially
+              form.style.pointerEvents = 'none';
+              paymentButton.disabled = true;
+              addToCartButton.disabled = true;
+          
+              // Add event listener to the size dropdown
+              sizeDropdown.addEventListener('change', function() {
+                // Enable the form, payment button, and add-to-cart button if a size is selected
+                if (sizeDropdown.value !== 'Unselected') {
+                  form.style.pointerEvents = 'auto';
+                  paymentButton.disabled = false;
+                  addToCartButton.disabled = false;
                 } else {
-                  addButton.setAttribute('disabled', 'disabled');
+                  // Disable the form, payment button, and add-to-cart button if no size is selected
+                  form.style.pointerEvents = 'none';
+                  paymentButton.disabled = true;
+                  addToCartButton.disabled = true;
                 }
-              }
-          
-              colorSelect.addEventListener('change', updateButtonState);
-              sizeSelect.addEventListener('change', updateButtonState);
-          
-              // Initial state check
-              updateButtonState();
+              });
             });
           </script>
-          
           
            
         </div>
