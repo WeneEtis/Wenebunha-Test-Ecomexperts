@@ -135,7 +135,7 @@
                var colorOptions = ["Black", "Red", "Tan"];
                var sizeDropdown = document.getElementById('size');
                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-               var dynamicCheckoutButton =  document.getElementById('shopify-dynamic-checkout');
+               var dynamicCheckoutButton =  document.querySelector('payment-button__button--unbranded');
  
                function updateAddToCartButton() {
                  var selectedColor = getSelectedColor();
@@ -151,11 +151,11 @@
  
                  } else {
                    
-                   addToCartButton.removeAttribute('disabled');
-                   addToCartButton.classList.remove('disabled');
+                    addToCartButton.removeAttribute('disabled');
+                    addToCartButton.classList.remove('disabled');
  
-                  // dynamicCheckoutButton.removeAttribute('disabled');
-                   //dynamicCheckoutButton.classList.remove('disabled');
+                    dynamicCheckoutButton.removeAttribute('disabled');
+                    dynamicCheckoutButton.classList.remove('disabled');
                  }
                }
  
