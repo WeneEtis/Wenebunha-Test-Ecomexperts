@@ -122,10 +122,11 @@
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected) {
-                  buyBtn.setAttribute('disabled', 'disabled');
-                  buyBtn.classList.add('disabled');
 
-                 
+                  if (buyBtn) {
+                    buyBtn.setAttribute('disabled', 'disabled');
+                    buyBtn.classList.add('disabled');
+                  }
                 } else {
                   addToCartBtn.removeAttribute('disabled');
                   addToCartBtn.classList.remove('disabled');
