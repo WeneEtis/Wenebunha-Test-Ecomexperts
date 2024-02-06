@@ -110,35 +110,46 @@
          
            {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
            <!-- Add the following script at the end of your code -->
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var colorSelect = document.querySelectorAll('input[name="Color"]:checked');
-    var sizeSelect = document.getElementById('size');
-    var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
-
-    function updateButtonState() {
-      if (colorSelect && sizeSelect) {
-        if (colorSelect.value !== 'Black' && sizeSelect.value !== 'Unselected') {
-          submitButton.removeAttribute('disabled');
-        } else {
-          submitButton.setAttribute('disabled', 'disabled');
-        }
-      }
-    }
-
-    // Add event listeners for color and size selection changes
-    if (colorSelect) {
-      colorSelect.addEventListener('change', updateButtonState);
-    }
-
-    if (sizeSelect) {
-      sizeSelect.addEventListener('change', updateButtonState);
-    }
-
-    // Initial state check
-    updateButtonState();
-  });
-</script>
+           <script>
+            document.addEventListener('DOMContentLoaded', function () {
+              var colorRadioButtons = document.querySelectorAll('[name="Color"]');
+              var sizeDropdown = document.getElementById('size');
+              var submitButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
+          
+              function updateButtonState() {
+                var selectedColor = '';
+                var selectedSize = '';
+          
+                colorRadioButtons.forEach(function (radioButton) {
+                  if (radioButton.checked) {
+                    selectedColor = radioButton.value;
+                  }
+                });
+          
+                if (sizeDropdown) {
+                  selectedSize = sizeDropdown.value;
+                }
+          
+                var isButtonDisabled = !(selectedColor && selectedSize);
+          
+                submitButton.disabled = isButtonDisabled;
+              }
+          
+              // Add event listeners for color radio buttons
+              colorRadioButtons.forEach(function (radioButton) {
+                radioButton.addEventListener('change', updateButtonState);
+              });
+          
+              // Add event listener for size dropdown
+              if (sizeDropdown) {
+                sizeDropdown.addEventListener('change', updateButtonState);
+              }
+          
+              // Initial update on page load
+              updateButtonState();
+            });
+          </script>
+          
 
            <script>
 
