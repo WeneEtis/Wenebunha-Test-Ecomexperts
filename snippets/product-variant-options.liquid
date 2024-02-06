@@ -115,44 +115,44 @@
   fill="currentColor">
   </path></svg>
   </div></div>
-
-  <script>
-
-            var colorOptions = ["Black", "Red", "Tan"];
-            var selectedColor = getSelectedColor();
-
-
-             function disableAddToCartBtn() {
-              var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
-              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-              var colorPills = document.querySelectorAll('input[name="Color"]:checked');
- 
- 
-               if (colorOptions.includes(selectedColor) && isSizeSelected) {
-                // addToCartBtn.setAttribute('disabled', 'disabled');
-                 addToCartBtn.disabled = true;
-               } else {
-                addToCartBtn.disabled = false;
-               }
-             }
- 
-              function getSelectedColor() {
-                 var colorRadios = document.querySelectorAll('[name="Color"]:checked');
-                 return colorRadios.length > 0 ? colorRadios[0].value : null;
-              }
-             // Call the function on page load if a default size is selected
-             document.addEventListener("DOMContentLoaded", function () {
-               disableAddToCartBtn();
-             });
-
-           
-               // Listen for changes in the color options and size dropdown
-               document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                 radio.addEventListener('change', disableAddToCartBtn);
-               });
- 
-               sizeDropdown.addEventListener('change', disableAddToCartBtn);
- </script>
 {% endif %}
 {% # end code for custom-product %}
 
+
+<script>
+
+var colorOptions = ["Black", "Red", "Tan"];
+var selectedColor = getSelectedColor();
+
+
+ function disableAddToCartBtn() {
+  var isSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Unselected';
+  var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+  var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+
+
+   if (colorOptions.includes(selectedColor) && isSizeSelected) {
+    // addToCartBtn.setAttribute('disabled', 'disabled');
+     addToCartBtn.disabled = true;
+   } else {
+    addToCartBtn.disabled = false;
+   }
+ }
+
+  function getSelectedColor() {
+     var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+     return colorRadios.length > 0 ? colorRadios[0].value : null;
+  }
+ // Call the function on page load if a default size is selected
+ document.addEventListener("DOMContentLoaded", function () {
+   disableAddToCartBtn();
+ });
+
+
+   // Listen for changes in the color options and size dropdown
+   document.querySelectorAll('[name="Color"]').forEach(function(radio) {
+     radio.addEventListener('change', disableAddToCartBtn);
+   });
+
+   sizeDropdown.addEventListener('change', disableAddToCartBtn);
+</script>
