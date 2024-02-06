@@ -131,7 +131,7 @@
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
-            document.addEventListener("DOMContentLoaded", function() {
+            /*document.addEventListener("DOMContentLoaded", function() {
                var colorOptions = ["Black", "Red", "Tan"];
                var sizeDropdown = document.getElementById('size');
                var addToCartButton = document.getElementById('ProductSubmitButton-{{ section_id }}');
@@ -151,8 +151,8 @@
  
                  } else {
                    
-                    //addToCartButton.setAttribute('disabled', 'disabled');
-                    //addToCartButton.classList.add('disabled');
+                    addToCartButton.setAttribute('disabled', 'disabled');
+                    addToCartButton.classList.add('disabled');
  
                     dynamicCheckoutButton.setAttribute('disabled', 'disabled');
                     dynamicCheckoutButton.classList.add('disabled');
@@ -169,12 +169,12 @@
  
                // Listen for changes in the color options and size dropdown
                document.querySelectorAll('[name="Color"]').forEach(function(radio) {
-                 radio.addEventListener('change', disableAddToCartBtn);
+                 radio.addEventListener('change', updateAddToCartButton);
                });
  
-               sizeDropdown.addEventListener('change', disableAddToCartBtn);
+               sizeDropdown.addEventListener('change', updateAddToCartButton);
                
-             });
+             });*/
            </script> 
            
         </div>
