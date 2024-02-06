@@ -117,7 +117,7 @@
                 var selectedColor = getSelectedColor();
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
                 //var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-                var addToCartBtn = document.getElementsByClassName('product_form__submit');
+                var addToCartBtn = document.getElementsByClassName('product-form__submit');
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected) {
