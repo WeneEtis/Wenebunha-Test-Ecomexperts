@@ -118,7 +118,7 @@
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
                 var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
                 //var buyBtn = document.getElementsByClassName("shopify-payment-button__button shopify-payment-button__button--unbranded BUz42FHpSPncCPJ4Pr_f jjzYeefyWpPZLH9pIgyw RWJ0IfBjxIhflh4AIrUw");
-                var bBtn = document.querySelector("[data-test-id='Checkout-button']");
+                var bBtn = document.getElementsByClassName("product-form__buttons");
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected ) {
