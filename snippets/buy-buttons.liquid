@@ -124,8 +124,8 @@
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
 
-                  buyBtn.setAttribute('disabled', 'disabled');
-                  buyBtn.classList.add('disabled');
+                  //buyBtn.setAttribute('disabled', 'disabled');
+                  //buyBtn.classList.add('disabled');
                 } else {
                   addToCartBtn.removeAttribute('disabled');
                   addToCartBtn.classList.remove('disabled');
@@ -152,6 +152,10 @@
               });
 
               sizeSelect.addEventListener('change', function () {
+                disableAddToCartBtn();
+              });
+
+              buyBtn.addEventListener('change', function () {
                 disableAddToCartBtn();
               });
 
