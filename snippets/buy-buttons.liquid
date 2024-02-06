@@ -121,18 +121,13 @@
                 var bBtn = document.getElementsByClassName("product-form__buttons");
                 var isSizeSelected = selectedSize === 'Unselected';
 
-                if ( isSizeSelected ) {
+                if (colorOptions.includes(selectedColor) && isSizeSelected ) {
                   
-                 // addToCartBtn.disable = true;
-                  bBtn.disabled = true;
-
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
                 } else {
-                  addToCartBtn.disable = false;
-
-                  //addToCartBtn.removeAttribute('disabled');
-                  //addToCartBtn.classList.remove('disabled');
+                  addToCartBtn.removeAttribute('disabled');
+                  addToCartBtn.classList.remove('disabled');
                 }
               }
 
