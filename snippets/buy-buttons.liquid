@@ -145,6 +145,15 @@
                });
  
                sizeDropdown.addEventListener('change', disableAddToCartBtn);
+               var colorPills = document.querySelectorAll('input[name="Color"]:checked');
+
+
+               $("colorPills").click(function() {
+        $(this).attr("disabled", true);
+        setTimeout(function() {
+            $('colorPills').removeAttr("disabled");      
+        }, 30000);
+    });
  
              /*grey out the "Add to Cart" button when any of the specified color options is selected
               and the size is unselected */
