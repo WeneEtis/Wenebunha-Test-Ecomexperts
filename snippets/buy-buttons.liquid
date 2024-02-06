@@ -111,21 +111,22 @@
            {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
            <!-- Add the following script at the end of your code -->
            <script>
-           var colorOptions = ["Black", "Red", "Tan"];
+              var colorOptions = ["Black", "Red", "Tan"];
 
               function disableAddToCartBtn() {
                 var selectedColor = getSelectedColor();
                 var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
                 var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-                var buyBtn = document.getElementsByClassName("shopify-payment-button__button shopify-payment-button__button--unbranded BUz42FHpSPncCPJ4Pr_f jjzYeefyWpPZLH9pIgyw RWJ0IfBjxIhflh4AIrUw");
+                //var buyBtn = document.getElementsByClassName("shopify-payment-button__button shopify-payment-button__button--unbranded BUz42FHpSPncCPJ4Pr_f jjzYeefyWpPZLH9pIgyw RWJ0IfBjxIhflh4AIrUw");
                 var bBtn = document.querySelector("[data-test-id='Checkout-button']");
                 var isSizeSelected = selectedSize === 'Unselected';
 
                 if (colorOptions.includes(selectedColor) && isSizeSelected) {
+                  addToCartBtn.disable = true;
                   addToCartBtn.setAttribute('disabled', 'disabled');
                   addToCartBtn.classList.add('disabled');
 
-                  buyBtn.disable = true;;
+                  bBtn.disable = true;;
                   //buyBtn.classList.add('disabled');
                 } else {
                   addToCartBtn.removeAttribute('disabled');
