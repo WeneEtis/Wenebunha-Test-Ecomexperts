@@ -61,7 +61,7 @@
       {% endif %}
     >
   
-    {%- if product.variants[forloop.index0].image != blank and option.name == 'Color'  and product.template_suffix == 'custom-product'-%}
+    {%- if product.variants[forloop.index0].image != blank and option.name == 'Color'-%}
       {% # add the bag images into the pill %}
       <label
         for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
