@@ -87,6 +87,49 @@ if (!customElements.get('product-form')) {
             } else {
               this.cart.renderContents(response);
             }
+
+            /*
+              script to check if products been added to the cart are the actual gift parent item (black medium size bag), 
+              then check if the free gift (soft winter jacket) is not already in the cart.
+            */
+            const isBlackBagSelected = document.querySelector('input[name="Color"]:checked').value === 'Black';
+            const isMediumSizeSelected = document.querySelector('select[name="properties[Size]"]').value === 'Medium';
+
+            
+            console.log(isBlackBagSelected);
+            console.log(isMediumSizeSelected);
+
+            if (isBlackBagSelected && isMediumSizeSelected) {
+              // Add soft winter jacket to the cart
+              const freeGiftId = localStorage.getItem("freeGiftId");
+              let giftItemAvailableInCart = localStorage.getItem("giftItemAvailableInCart")
+            
+              if (!giftItemAvailableInCart && freeGiftParentIDs?.length && freeGiftId) {
+                fetch(window.Shopify.routes.root + 'cart/add.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    'items': [{
+                      'id': freeGiftId,
+                      'quantity': 1
+                    }]
+                  })
+                })
+                .then(response => response.json())
+                .then(response => {
+                  console.log({ response });
+                  localStorage.setItem("giftItemAvailableInCart", true);
+                })
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+
+              }
+            }
+            // end script to add free gifts
+            
           })
           .catch((e) => {
             console.error(e);

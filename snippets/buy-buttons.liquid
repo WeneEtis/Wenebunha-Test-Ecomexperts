@@ -78,12 +78,17 @@
             endif
           -%}
          
+          {% # line 91 to 93 contains the custom code to disable the add to cart button for the soft winter jacket   %}
           <button
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
             class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
             {% if product.selected_or_first_available_variant.available == false or quantity_rule_soldout %}
+              disabled
+            {% endif %}
+            
+            {%- if product.template_suffix == 'custom' -%} 
               disabled
             {% endif %}
             
@@ -96,51 +101,71 @@
               {%- endif -%}
             </span>
             {%- render 'loading-spinner' -%}
-          </button>
-         
-          {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
-          <script>
-            /*document.addEventListener('DOMContentLoaded', function() {
-            var colorPills = document.querySelectorAll('.color-pill-input');
-            var sizeDropdown = document.getElementById("size");
-            var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-            colorPills.forEach(function(pill) {
-              pill.addEventListener('change', function() {
-                disableAddToCartBtn();
-              });
-            });
-
-            function disableAddToCartBtn() {
-              var selectedColorPill = document.querySelector('.color-pill-input:checked');
-              addToCartButton.disabled = !selectedColorPill;
-            }
-
-            // Initial state update
-            disableAddToCartBtn();
-          });*/
-            function disableAddToCartBtn() {
-              var colorPills = document.querySelectorAll('input[name="Color"]:checked');
-              var sizeDropdown = document.getElementById("size");
-              var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
-
-              if (sizeDropdown.value !== 'Unselected') {
-                addToCartBtn.disabled = false;
-              } else {
-                addToCartBtn.disabled = true;
-              }
-            }
             
-            // Call the function on page load if a default size is selected
-            document.addEventListener("DOMContentLoaded", function () {
-              disableAddToCartBtn();
-            });
-          </script>
-          {% # end code:  function to disable buttons when size value is unselected and vice versa%}
-
+          </button>
           {%- if show_dynamic_checkout -%}
             {{ form | payment_button }}
           {%- endif -%}
+         
+         
+           {% # begin code:  function to disable buttons when size value is unselected and vice versa%}
+           <script>
+            /*grey out the "Add to Cart" button when any of the specified color options is selected
+              and the size is unselected */
+              var colorOptions = ["Black", "Red", "Tan"];
+
+              function disableAddToCartBtn() {
+                var selectedColor = getSelectedColor();
+                var selectedSize = document.querySelector('select[name="properties[Size]"]').value;
+                var addToCartBtn = document.getElementById("ProductSubmitButton-{{ section_id }}");
+                var buyBtn = document.querySelector(".shopify-payment-button"); // Use querySelector to get a single element
+                var isSizeSelected = selectedSize === 'Unselected';
+
+                if (colorOptions.includes(selectedColor) && isSizeSelected) {
+                  addToCartBtn.setAttribute('disabled', 'disabled');
+                  addToCartBtn.classList.add('disabled');
+
+                  if (buyBtn) {
+                    buyBtn.setAttribute('disabled', 'disabled');
+                    buyBtn.classList.add('disabled');
+                  }
+                } else {
+                  addToCartBtn.removeAttribute('disabled');
+                  addToCartBtn.classList.remove('disabled');
+
+                  if (buyBtn) {
+                    buyBtn.removeAttribute('disabled');
+                    buyBtn.classList.remove('disabled');
+                  }
+                }
+              }
+
+              function getSelectedColor() {
+                var colorRadios = document.querySelectorAll('[name="Color"]:checked');
+                return colorRadios.length > 0 ? colorRadios[0].value : null;
+              }
+
+              document.addEventListener("DOMContentLoaded", function () {
+                disableAddToCartBtn();
+              });
+
+              // Add event listeners to color and size elements to update button status
+              var colorRadios = document.querySelectorAll('[name="Color"]');
+              var sizeSelect = document.querySelector('select[name="properties[Size]"]');
+
+              colorRadios.forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                  disableAddToCartBtn();
+                });
+              });
+
+              sizeSelect.addEventListener('change', function () {
+                disableAddToCartBtn();
+              });
+
+          </script>
+          {% # end code:  function to disable buttons when size value is unselected and vice versa%}
+
         </div>
       {%- endform -%}
     </product-form>
@@ -149,6 +174,7 @@
       <div class="product-form__buttons form">
         <button
           type="submit"
+          id="checkoutBtn"
           name="add"
           class="product-form__submit button button--full-width button--primary"
           disabled

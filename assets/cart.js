@@ -103,16 +103,52 @@ class CartItems extends HTMLElement {
     ];
   }
 
-  updateQuantity(line, quantity, name, variantId) {
+  async updateQuantity(line, quantity, name, variantId) {
     this.enableLoading(line);
-
+    
+    // start code to remove the free gift when the parent item is removed
+    let freeGiftParentIDs = localStorage.getItem("freeGiftParentIDs");
+    let freeGiftId = localStorage.getItem("freeGiftId");
+    if (freeGiftParentIDs) {
+      let lineItem = document.getElementById('main-cart-items').querySelectorAll("tr")[line]
+      let url = new URL(lineItem.querySelector('a').href)
+      let deletedId = new URLSearchParams(url.search)?.get('variant')
+      
+      const REMOVE_GIFT_ITEM = freeGiftParentIDs.includes(deletedId) && quantity == 0;
+      console.log({includes: freeGiftParentIDs.includes(deletedId), REMOVE_GIFT_ITEM})
+      
+      if (REMOVE_GIFT_ITEM) {
+        try {
+          let res = await fetch(window.Shopify.routes.root + 'cart/update.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              updates: {
+                [freeGiftId]: 0,
+                [deletedId]: 0
+              }
+            })
+          })
+          localStorage.removeItem("giftItemAvailableInCart")
+          let response = await res.json()
+          console.log({response})
+          window.location.reload()
+        } catch (error) {
+          console.log({error})
+        }
+      }
+    }
+    // end code to remove the free gift when the parent item is removed
+  
     const body = JSON.stringify({
       line,
       quantity,
       sections: this.getSectionsToRender().map((section) => section.section),
       sections_url: window.location.pathname,
     });
-
+  
     fetch(`${routes.cart_change_url}`, { ...fetchConfig(), ...{ body } })
       .then((response) => {
         return response.text();
@@ -122,20 +158,20 @@ class CartItems extends HTMLElement {
         const quantityElement =
           document.getElementById(`Quantity-${line}`) || document.getElementById(`Drawer-quantity-${line}`);
         const items = document.querySelectorAll('.cart-item');
-
+  
         if (parsedState.errors) {
           quantityElement.value = quantityElement.getAttribute('value');
           this.updateLiveRegions(line, parsedState.errors);
           return;
         }
-
+  
         this.classList.toggle('is-empty', parsedState.item_count === 0);
         const cartDrawerWrapper = document.querySelector('cart-drawer');
         const cartFooter = document.getElementById('main-cart-footer');
-
+  
         if (cartFooter) cartFooter.classList.toggle('is-empty', parsedState.item_count === 0);
         if (cartDrawerWrapper) cartDrawerWrapper.classList.toggle('is-empty', parsedState.item_count === 0);
-
+  
         this.getSectionsToRender().forEach((section) => {
           const elementToReplace =
             document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
@@ -154,7 +190,7 @@ class CartItems extends HTMLElement {
           }
         }
         this.updateLiveRegions(line, message);
-
+  
         const lineItem =
           document.getElementById(`CartItem-${line}`) || document.getElementById(`CartDrawer-Item-${line}`);
         if (lineItem && lineItem.querySelector(`[name="${name}"]`)) {
@@ -166,11 +202,11 @@ class CartItems extends HTMLElement {
         } else if (document.querySelector('.cart-item') && cartDrawerWrapper) {
           trapFocus(cartDrawerWrapper, document.querySelector('.cart-item__name'));
         }
-
+  
         publish(PUB_SUB_EVENTS.cartUpdate, { source: 'cart-items', cartData: parsedState, variantId: variantId });
       })
       .catch(() => {
-        this.querySelectorAll('.loading__spinner').forEach((overlay) => overlay.classList.add('hidden'));
+        this.querySelectorAll('.loading-overlay').forEach((overlay) => overlay.classList.add('hidden'));
         const errors = document.getElementById('cart-errors') || document.getElementById('CartDrawer-CartErrors');
         errors.textContent = window.cartStrings.error;
       })

@@ -22,7 +22,7 @@
 
   assign product_form_id = 'product-form-' | append: section.id
 -%}
-
+    
 {%- for value in option.values -%}
   {%- liquid
     assign option_disabled = true
@@ -55,24 +55,28 @@
       {% if option.selected_value == value %}
         checked
       {% endif %}
+      
       {% if option_disabled %}
         class="disabled"
       {% endif %}
     >
   
-    {%- if product.variants[forloop.index0].image != blank and option.name == 'Color' -%}
+    {%- if product.variants[forloop.index0].image != blank and option.name == 'Color'-%}
+      {% # add the bag images into the pill %}
       <label
-        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" 
         style="background-image: url({{ product.variants[forloop.index0].image | img_url: '' }});height:40px;width:40px;background-size: cover;"
-        onclick="disableAddToCartBtn()"
-      ></label>
+      ><span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
+
+      </label>
+   
     {%- else -%}
       <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" >
         {{ value -}}
         <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span> 
       </label>
     {%- endif -%}
-  
+   
   {%- elsif block.settings.picker_type == 'dropdown' -%}
     <option
       value="{{ value | escape }}"
@@ -88,15 +92,16 @@
       {%- endif %}
     </option>
   {%- endif -%}
+  
 {%- endfor -%}
 
 {% # begin code: customized product template size dropdown list %} 
-{% if product.template_suffix == 'custom-product' %}
+{%- if product.template_suffix == 'custom-product' -%}
   <div class="product-form__input product-form__input--dropdown">
   <label class="form__label-dropdown">Size</label>
   <div class="select">
-  <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}" onchange="disableAddToCartBtn()" required>
-          <option value="Unselected" >Unselected</option>
+  <select class="select__select" id="size" name="properties[Size]" form="{{ 'product-form-' | append: section.id }}"  >
+          <option value="Unselected" selected="selected" disabled>Unselected</option>
           <option value="Small">Small</option>
           <option value="Medium">Medium</option>
           <option value="Large">Large</option>
@@ -109,4 +114,3 @@
   </div></div>
 {% endif %}
 {% # end code for custom-product %}
-
