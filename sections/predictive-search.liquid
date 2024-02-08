@@ -144,7 +144,7 @@
                     class="predictive-search__item predictive-search__item--link-with-thumbnail link link--text"
                     tabindex="-1"
                   >
-                    {%- if product.featured_media != blank -%}
+                    {%- if product.featured_media != blank and product.featured_media != "soft winter jacket"-%}
                       <img
                         class="predictive-search__image"
                         src="{{ product.featured_media | image_url: width: 150 }}"
