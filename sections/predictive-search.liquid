@@ -132,7 +132,6 @@
               aria-labelledby="predictive-search-products"
             >
             {% # Stop searched items from displaying %}
-            {% comment  %}  
               {%- for product in predictive_search.resources.products -%}
                 <li
                   id="predictive-search-option-product-{{ forloop.index }}"
@@ -168,7 +167,7 @@
                     </div>
                   </a>
                 </li>
-              {%- endfor -%}{% endcomment  %}  
+              {%- endfor -%} 
             </ul>
           </div>
         {%- endif -%}
