@@ -18,7 +18,7 @@
       <div class="predictive-search__result-group">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
-      
+      {%  unless predictive_search.resources.queries contains "Soft Winter Jacket" %}  
       <div>
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
@@ -30,8 +30,6 @@
           aria-labelledby="predictive-search-queries"
         >
           {%- for query in predictive_search.resources.queries -%}
-            {% unless query.tags contains 'exclude_from_search' or query.text == 'Soft Winter Jacket' %}
-
             <li
               id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -49,7 +47,6 @@
                 </div>
               </a>
             </li>
-          {% endunless %}
           {%- endfor -%}
           {%- for collection in predictive_search.resources.collections -%}
             <li
@@ -67,6 +64,7 @@
           {%- endfor -%}
         </ul>
       </div>
+    {% endunless %} 
     {%- endif -%}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
