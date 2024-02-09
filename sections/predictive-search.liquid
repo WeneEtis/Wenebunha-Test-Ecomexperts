@@ -19,9 +19,7 @@
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
       <div>
-        <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
-          {{- 'templates.search.suggestions' | t -}}
-        </h2>
+        
         <ul
         {% unless product.tags contains 'exclude_from_search' %}
           id="predictive-search-results-queries-list"
