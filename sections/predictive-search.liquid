@@ -17,19 +17,23 @@
     {%- if first_column_results_size > 0 -%}
       <div class="predictive-search__result-group">
     {%- endif -%}
+    
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
       <div>
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
         <ul
-        {% unless predictive_search.resources.queries.tags contains 'exclude_from_search' %}
           id="predictive-search-results-queries-list"
           class="predictive-search__results-list list-unstyled"
           role="group"
           aria-labelledby="predictive-search-queries"
         >
           {%- for query in predictive_search.resources.queries -%}
+            {%- assign product = query.object -%}
+            {%- if product.tags contains 'exclude_from_search' -%}
+              {%- continue -%}
+            {%- endif -%}
             <li
               id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -62,10 +66,10 @@
               </a>
             </li>
           {%- endfor -%}
-        {% endunless %}
         </ul>
       </div>
     {%- endif -%}
+    
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
         <h2
