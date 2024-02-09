@@ -30,7 +30,7 @@
           aria-labelledby="predictive-search-queries"
         >
           {%- for query in predictive_search.resources.queries -%}
-            {% unless query.tags contains 'exclude_from_search' %}
+            {% unless query.tags contains 'exclude_from_search' or query.text == 'Soft Winter Jacket' %}
 
             <li
               id="predictive-search-option-query-{{ forloop.index }}"

@@ -170,12 +170,12 @@ class PredictiveSearch extends SearchForm {
   getSearchResults(searchTerm) {
     const queryKey = searchTerm.replace(' ', '-').toLowerCase();
     this.setLiveRegionLoadingState();
-  
+
     if (this.cachedResults[queryKey]) {
       this.renderSearchResults(this.cachedResults[queryKey]);
       return;
     }
-  
+
     fetch(`${routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&section_id=predictive-search`, {
       signal: this.abortController.signal,
     })
@@ -185,19 +185,18 @@ class PredictiveSearch extends SearchForm {
           this.close();
           throw error;
         }
-  
+
         return response.text();
       })
       .then((text) => {
-        // Filter out results related to the soft winter jacket product
-        const filteredResultsMarkup = this.filterResults(text, 'soft winter jacket');
-        
+        const resultsMarkup = new DOMParser()
+          .parseFromString(text, 'text/html')
+          .querySelector('#shopify-section-predictive-search').innerHTML;
         // Save bandwidth keeping the cache in all instances synced
         this.allPredictiveSearchInstances.forEach((predictiveSearchInstance) => {
-          predictiveSearchInstance.cachedResults[queryKey] = filteredResultsMarkup;
+          predictiveSearchInstance.cachedResults[queryKey] = resultsMarkup;
         });
-  
-        this.renderSearchResults(filteredResultsMarkup);
+        this.renderSearchResults(resultsMarkup);
       })
       .catch((error) => {
         if (error?.code === 20) {
@@ -208,16 +207,6 @@ class PredictiveSearch extends SearchForm {
         throw error;
       });
   }
-  
-  filterResults(resultsMarkup, excludedProduct) {
-    // Add your logic here to filter out results related to the excluded product
-    // For example, you can use regular expressions to remove specific product entries
-  
-    // For demonstration, let's assume the product name is part of the HTML markup
-    const regex = new RegExp(`<div class="product-name">${excludedProduct}<\\/div>`, 'g');
-    return resultsMarkup.replace(regex, '');
-  }
-  
 
   setLiveRegionLoadingState() {
     this.statusElement = this.statusElement || this.querySelector('.predictive-search-status');
