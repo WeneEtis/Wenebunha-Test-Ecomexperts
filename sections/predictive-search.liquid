@@ -24,13 +24,6 @@
         </h2>
         
         {% # Function to check if a product should be excluded from search results %}
-        {%- assign excludedProductIds = "6929083531339" | split: "," -%}
-        {% assign shouldExcludeProduct = false %}
-        {% assign productId = product.id | default: "" %}
-        {% if excludedProductIds contains productId %}
-          {% assign shouldExcludeProduct = true %}
-        {% endif %}
-        {{ shouldExcludeProduct }}
         <ul
         id="predictive-search-results-queries-list"
         class="predictive-search__results-list list-unstyled"
@@ -38,7 +31,13 @@
         aria-labelledby="predictive-search-queries"
       >
         {%- for query in predictive_search.resources.queries -%}
-          {%- unless shouldExcludeProduct(query.product_id) -%}
+          {%- assign exclude_product = false -%}
+          {%- for tag in product.tags -%}
+            {%- if tag == 'exclude_from_search' -%}
+              {%- assign exclude_product = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- unless exclude_product -%}
             <li
               id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -60,7 +59,7 @@
         {%- endfor -%}
       
         {%- for collection in predictive_search.resources.collections -%}
-          {%- unless shouldExcludeProduct(collection.product_id) -%}
+          {%- unless exclude_product -%}
             <li
               id="predictive-search-option-collection-{{ forloop.index }}"
               class="predictive-search__list-item"
