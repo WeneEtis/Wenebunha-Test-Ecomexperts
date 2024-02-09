@@ -18,7 +18,8 @@
       <div class="predictive-search__result-group">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
-
+      {% comment %}
+        
       {%  # Begin code to hide suggestions when "Soft Winter Jacket" is searched %} 
       {%- assign skipSuggestions = false -%} {% # variable that states whether or not the suggestion should be skipped %}
       
@@ -76,6 +77,7 @@
         </div>
       {%- endif -%}
       {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
+      {% endcomment %}
     {%- endif -%}
     
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
