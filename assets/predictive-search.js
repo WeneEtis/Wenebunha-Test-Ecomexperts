@@ -169,6 +169,16 @@ class PredictiveSearch extends SearchForm {
 
   getSearchResults(searchTerm) {
     const queryKey = searchTerm.replace(' ', '-').toLowerCase();
+
+    
+    // Check if the searchTerm is related to a soft winter jacket
+    const isSoftWinterJacketSearch = searchTerm.toLowerCase().includes('soft winter jacket');
+
+    if (isSoftWinterJacketSearch) {
+      // If it's related to a soft winter jacket, do not fetch suggestions
+      this.close();
+      return;
+    }
     this.setLiveRegionLoadingState();
 
     if (this.cachedResults[queryKey]) {
