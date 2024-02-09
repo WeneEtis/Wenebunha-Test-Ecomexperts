@@ -8,8 +8,6 @@
     | plus: predictive_search.resources.articles.size
   %}
   <div id="predictive-search-results" role="listbox">
-    
-    {% comment %}
     {%- if first_column_results_size > 0 or predictive_search.resources.products.size > 0 -%}
       <div
         id="predictive-search-results-groups-wrapper"
@@ -81,7 +79,6 @@
       {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
     {%- endif -%}
     
-      {% endcomment %}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
         <h2
