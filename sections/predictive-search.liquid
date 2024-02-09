@@ -91,7 +91,7 @@
         {%- endif -%}
       {%- endfor -%}
     
-      {%-  # if skipSuggestions == false -%}
+      {%-  if skipSuggestions == false -%}
         <div>
           <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
             {{- 'templates.search.suggestions' | t -}}
@@ -137,7 +137,7 @@
             {%- endfor -%}
           </ul>
         </div>
-      {%- #endif -%}
+      {%- endif -%}
       {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
     {%- endif -%}
     
