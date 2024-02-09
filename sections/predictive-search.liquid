@@ -18,8 +18,10 @@
       <div class="predictive-search__result-group">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
-      {%- if product.template_suffix != 'custom' -%} 
-        <div>
+      {%- if product.template_suffix == 'custom' -%} 
+        
+      {% endif %}
+      <div>
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
@@ -64,8 +66,6 @@
           {%- endfor -%}
         </ul>
       </div>
-      {% endif %}
-      
     {%- endif -%}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
