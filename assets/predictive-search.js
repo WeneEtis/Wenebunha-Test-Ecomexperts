@@ -169,14 +169,12 @@ class PredictiveSearch extends SearchForm {
 
   getSearchResults(searchTerm) {
     const queryKey = searchTerm.replace(' ', '-').toLowerCase();
-    
-    // Add a regex pattern for "Soft Winter Jacket"
-    const softWinterJacketRegex = /(s|o|f|t|w|i|n|t|e|r|j|a|c|k|e|t)/i;
 
-    // Check if the search term matches the regex pattern
+    // Check if the searchTerm matches the regex for "Soft Winter Jacket"
+    const softWinterJacketRegex = /Soft\s*Winter\s*Jacket/i;
     if (softWinterJacketRegex.test(searchTerm)) {
-        // Skip suggestions for "Soft Winter Jacket"
-        this.closeResults();
+        // Do not show search results for "Soft Winter Jacket"
+        this.close();
         return;
     }
 
