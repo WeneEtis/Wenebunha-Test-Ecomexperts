@@ -263,7 +263,7 @@
                 {%- assign exclude_product = false -%}
                 
                 {%- for tag in item.tags -%}
-                  {%- if item.object_type == 'product' and item.tags == 'exclude_from_search' -%}
+                  {%- if item.object_type == 'product' and item.tags contains 'exclude_from_search' -%}
                     {%- assign exclude_product = true -%}
                   {%- endif -%}
                 {%- endfor -%}
