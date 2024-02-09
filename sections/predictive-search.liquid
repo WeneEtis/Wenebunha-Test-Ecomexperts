@@ -22,6 +22,15 @@
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
+        
+        {% # Function to check if a product should be excluded from search results %}
+        {%- assign excludedProductIds = "6929083531339" | split: "," -%}
+        {% assign shouldExcludeProduct = false %}
+        {% assign productId = product.id | default: "" %}
+        {% if excludedProductIds contains productId %}
+          {% assign shouldExcludeProduct = true %}
+        {% endif %}
+        {{ shouldExcludeProduct }}
         <ul
         id="predictive-search-results-queries-list"
         class="predictive-search__results-list list-unstyled"
@@ -29,16 +38,7 @@
         aria-labelledby="predictive-search-queries"
       >
         {%- for query in predictive_search.resources.queries -%}
-          {%- assign is_soft_winter_jacket = false -%}
-          {%- # Check if the product is a soft winter jacket -%}
-            {%- for product in query.products -%}
-              {%- if product.is_soft_winter_jacket == 'soft winter jacket' -%}
-                {%- assign is_soft_winter_jacket = true -%}
-                {%- break -%}
-              {%- endif -%}
-            {%- endfor -%}
-      
-          {%- unless is_soft_winter_jacket -%}
+          {%- unless shouldExcludeProduct(query.product_id) -%}
             <li
               id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -60,18 +60,20 @@
         {%- endfor -%}
       
         {%- for collection in predictive_search.resources.collections -%}
-          <li
-            id="predictive-search-option-collection-{{ forloop.index }}"
-            class="predictive-search__list-item"
-            role="option"
-            aria-selected="false"
-          >
-            <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
-              <div class="predictive-search__item-content predictive-search__item-content--centered">
-                <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
-              </div>
-            </a>
-          </li>
+          {%- unless shouldExcludeProduct(collection.product_id) -%}
+            <li
+              id="predictive-search-option-collection-{{ forloop.index }}"
+              class="predictive-search__list-item"
+              role="option"
+              aria-selected="false"
+            >
+              <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                <div class="predictive-search__item-content predictive-search__item-content--centered">
+                  <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
+                </div>
+              </a>
+            </li>
+          {%- endunless -%}
         {%- endfor -%}
       </ul>
       
