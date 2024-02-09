@@ -2,7 +2,8 @@
 
 {%- if predictive_search.performed -%}
   
-  {% assign first_column_results_size = predictive_search.resources.queries.size
+  {% assign first_column_results_size = predictive_search.resources.products.size
+    | plus: predictive_search.resources.queries.size
     | plus: predictive_search.resources.collections.size
     | plus: predictive_search.resources.pages.size
     | plus: predictive_search.resources.articles.size
@@ -28,7 +29,7 @@
         {%- endif -%}
       {%- endfor -%}
     
-      {%- if skipSuggestions == false -%}
+      {%-  # if skipSuggestions == false -%}
         <div>
           <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
             {{- 'templates.search.suggestions' | t -}}
@@ -74,7 +75,7 @@
             {%- endfor -%}
           </ul>
         </div>
-      {%- endif -%}
+      {%- # endif -%}
       {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
     {%- endif -%}
     
