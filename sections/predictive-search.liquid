@@ -22,17 +22,14 @@
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
-        
-        {% # Function to check if a product should be excluded from search results %}
         <ul
-        id="predictive-search-results-queries-list"
-        class="predictive-search__results-list list-unstyled"
-        role="group"
-        aria-labelledby="predictive-search-queries"
-      >
-        {%- for query in predictive_search.resources.queries -%}
-
-          {% unless product.tags contains 'exclude_from_search' %}
+        {% unless predictive_search.resources.queries.tags contains 'exclude_from_search' %}
+          id="predictive-search-results-queries-list"
+          class="predictive-search__results-list list-unstyled"
+          role="group"
+          aria-labelledby="predictive-search-queries"
+        >
+          {%- for query in predictive_search.resources.queries -%}
             <li
               id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -50,11 +47,8 @@
                 </div>
               </a>
             </li>
-          {%- endunless -%}
-        {%- endfor -%}
-      
-        {%- for collection in predictive_search.resources.collections -%}
-          {% unless product.tags contains 'exclude_from_search' %}
+          {%- endfor -%}
+          {%- for collection in predictive_search.resources.collections -%}
             <li
               id="predictive-search-option-collection-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -67,10 +61,9 @@
                 </div>
               </a>
             </li>
-          {%- endunless -%}
-        {%- endfor -%}
-      </ul>
-      
+          {%- endfor -%}
+        {% endunless %}
+        </ul>
       </div>
     {%- endif -%}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
