@@ -19,10 +19,11 @@
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
 
-      {%- assign skipSuggestions = false -%}
+      {%  # Begin code to hide suggestions when "Soft Winter Jacket" is searched %} 
+      {%- assign skipSuggestions = false -%} {% # variable that states whether or not the suggestion should be skipped %}
       
       {%- for query in predictive_search.resources.queries -%}
-        {%- if query.text contains 'soft winter jacket' -%}
+        {%- if query.text contains 'soft winter jacket' -%} {% # check if soft winter jacket is queried %}
           {%- assign skipSuggestions = true -%}
         {%- endif -%}
       {%- endfor -%}
@@ -74,6 +75,7 @@
           </ul>
         </div>
       {%- endif -%}
+      {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
     {%- endif -%}
     
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
@@ -143,9 +145,10 @@
               role="group"
               aria-labelledby="predictive-search-products"
             >
-            {% # Stop searched items from displaying %}
+              {% # Begin code to disable soft winter jacket product from being searched %}
               {%- for product in predictive_search.resources.products -%}
-                {% unless product.tags contains 'exclude_from_search' %}
+                {%  # created a new tag 'exclude_from_search' and tagged it to the soft winter jacket product  %}
+                {% unless product.tags contains 'exclude_from_search' %} 
                 <li
                   id="predictive-search-option-product-{{ forloop.index }}"
                   class="predictive-search__list-item"
@@ -182,6 +185,7 @@
                 </li>
                 {% endunless %}
               {%- endfor -%} 
+              {% # end code to disable soft winter jacket product from being searched %}
             </ul>
           </div>
         {%- endif -%}
