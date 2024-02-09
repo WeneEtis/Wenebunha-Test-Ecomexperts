@@ -260,6 +260,16 @@
                 role="list"
               >
                 {%- for item in search.results -%}
+
+                  {%- assign exclude_product = false -%}
+  
+                  {%- for tag in item.tags -%}
+                    {%- if tag == 'exclude_from_search' -%}
+                      {%- assign exclude_product = true -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- unless exclude_product -%}
                   {% assign lazy_load = false %}
                   {%- if forloop.index > 2 -%}
                     {%- assign lazy_load = true -%}
@@ -317,6 +327,7 @@
                         </div>
                     {%- endcase -%}
                   </li>
+                {%- endunless -%}
                 {%- endfor -%}
               </ul>
               {%- if paginate.pages > 1 -%}
