@@ -14,11 +14,12 @@
         class="predictive-search__results-groups-wrapper{% unless predictive_search.resources.products.size > 0 %} predictive-search__results-groups-wrapper--no-products{% endunless %}{% unless predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 %} predictive-search__results-groups-wrapper--no-suggestions{% endunless %}"
       >
     {%- endif -%}
+    {% comment %}
     {%- if first_column_results_size > 0 -%}
       <div class="predictive-search__result-group">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
-      {% comment %}
+      
         
       {%  # Begin code to hide suggestions when "Soft Winter Jacket" is searched %} 
       {%- assign skipSuggestions = false -%} {% # variable that states whether or not the suggestion should be skipped %}
@@ -77,9 +78,9 @@
         </div>
       {%- endif -%}
       {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
-      {% endcomment %}
     {%- endif -%}
     
+      {% endcomment %}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
         <h2
