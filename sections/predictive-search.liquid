@@ -33,7 +33,7 @@
         {%- for query in predictive_search.resources.queries -%}
           {%- assign exclude_product = false -%}
           {%- for tag in product.tags -%}
-            {%- if tag == 'exclude_from_search' -%}
+            {%- if product.tags contains 'exclude_from_search' -%}
               {%- assign exclude_product = true -%}
             {%- endif -%}
           {%- endfor -%}
