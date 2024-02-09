@@ -18,52 +18,66 @@
       <div class="predictive-search__result-group">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
-      <div>
-        <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
-          {{- 'templates.search.suggestions' | t -}}
-        </h2>
-        <ul
-          id="predictive-search-results-queries-list"
-          class="predictive-search__results-list list-unstyled"
-          role="group"
-          aria-labelledby="predictive-search-queries"
-        >
-          {%- for query in predictive_search.resources.queries -%}
-            <li
-              id="predictive-search-option-query-{{ forloop.index }}"
-              class="predictive-search__list-item"
-              role="option"
-              aria-selected="false"
-            >
-              <a href="{{ query.url }}" class="predictive-search__item link link--text" tabindex="-1">
-                <div class="predictive-search__item-content predictive-search__item-content--centered">
-                  <p
-                    class="predictive-search__item-heading predictive-search__item-query-result h5"
-                    aria-label="{{ query.text }}"
-                  >
-                    {{ query.styled_text }}
-                  </p>
-                </div>
-              </a>
-            </li>
-          {%- endfor -%}
-          {%- for collection in predictive_search.resources.collections -%}
-            <li
-              id="predictive-search-option-collection-{{ forloop.index }}"
-              class="predictive-search__list-item"
-              role="option"
-              aria-selected="false"
-            >
-              <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
-                <div class="predictive-search__item-content predictive-search__item-content--centered">
-                  <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
-                </div>
-              </a>
-            </li>
-          {%- endfor -%}
-        </ul>
-      </div>
+
+      {%  # Begin code to hide suggestions when "Soft Winter Jacket" is searched %} 
+      {%- assign skipSuggestions = false -%} {% # variable that states whether or not the suggestion should be skipped %}
+      
+      {%- for query in predictive_search.resources.queries -%}
+        {%- if query.text contains 'soft winter jacket' -%} {% # check if soft winter jacket is queried %}
+          {%- assign skipSuggestions = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+    
+      {%- if skipSuggestions == false -%}
+        <div>
+          <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
+            {{- 'templates.search.suggestions' | t -}}
+          </h2>
+          <ul
+            id="predictive-search-results-queries-list"
+            class="predictive-search__results-list list-unstyled"
+            role="group"
+            aria-labelledby="predictive-search-queries"
+          >
+            {%- for query in predictive_search.resources.queries -%}
+              <li
+                id="predictive-search-option-query-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a href="{{ query.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                  <div class="predictive-search__item-content predictive-search__item-content--centered">
+                    <p
+                      class="predictive-search__item-heading predictive-search__item-query-result h5"
+                      aria-label="{{ query.text }}"
+                    >
+                      {{ query.styled_text }}
+                    </p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+            {%- for collection in predictive_search.resources.collections -%}
+              <li
+                id="predictive-search-option-collection-{{ forloop.index }}"
+                class="predictive-search__list-item"
+                role="option"
+                aria-selected="false"
+              >
+                <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                  <div class="predictive-search__item-content predictive-search__item-content--centered">
+                    <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
+                  </div>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+      {%  # end code to hide suggestions when "Soft Winter Jacket" is searched %} 
     {%- endif -%}
+    
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
         <h2
@@ -131,9 +145,10 @@
               role="group"
               aria-labelledby="predictive-search-products"
             >
-            {% # Stop searched items from displaying %}
-            {% comment  %}  
+              {% # Begin code to disable soft winter jacket product from being searched %}
               {%- for product in predictive_search.resources.products -%}
+                {%  # created a new tag 'exclude_from_search' and tagged it to the soft winter jacket product  %}
+                {% unless product.tags contains 'exclude_from_search' %} 
                 <li
                   id="predictive-search-option-product-{{ forloop.index }}"
                   class="predictive-search__list-item"
@@ -168,7 +183,9 @@
                     </div>
                   </a>
                 </li>
-              {%- endfor -%}{% endcomment  %}  
+                {% endunless %}
+              {%- endfor -%} 
+              {% # end code to disable soft winter jacket product from being searched %}
             </ul>
           </div>
         {%- endif -%}
