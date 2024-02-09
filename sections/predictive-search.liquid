@@ -19,35 +19,62 @@
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
       <div>
-        
-      {% unless product.tags contains 'exclude_from_search' %}
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
         <ul
-          id="predictive-search-results-queries-list"
-          class="predictive-search__results-list list-unstyled"
-          role="group"
-          aria-labelledby="predictive-search-queries"
-        >
-          
-          {%- for collection in predictive_search.resources.collections -%}
+        id="predictive-search-results-queries-list"
+        class="predictive-search__results-list list-unstyled"
+        role="group"
+        aria-labelledby="predictive-search-queries"
+      >
+        {%- for query in predictive_search.resources.queries -%}
+          {%- assign is_soft_winter_jacket = false -%}
+          {%- # Check if the product is a soft winter jacket -%}
+            {%- for product in query.products -%}
+              {%- if product.is_soft_winter_jacket == 'soft winter jacket' -%}
+                {%- assign is_soft_winter_jacket = true -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+      
+          {%- unless is_soft_winter_jacket -%}
             <li
-              id="predictive-search-option-collection-{{ forloop.index }}"
+              id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
               role="option"
               aria-selected="false"
             >
-              <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
+              <a href="{{ query.url }}" class="predictive-search__item link link--text" tabindex="-1">
                 <div class="predictive-search__item-content predictive-search__item-content--centered">
-                  <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
+                  <p
+                    class="predictive-search__item-heading predictive-search__item-query-result h5"
+                    aria-label="{{ query.text }}"
+                  >
+                    {{ query.styled_text }}
+                  </p>
                 </div>
               </a>
             </li>
-          {%- endfor -%}
-        </ul>
-        
-      {% endunless %}
+          {%- endunless -%}
+        {%- endfor -%}
+      
+        {%- for collection in predictive_search.resources.collections -%}
+          <li
+            id="predictive-search-option-collection-{{ forloop.index }}"
+            class="predictive-search__list-item"
+            role="option"
+            aria-selected="false"
+          >
+            <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
+              <div class="predictive-search__item-content predictive-search__item-content--centered">
+                <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
+              </div>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      
       </div>
     {%- endif -%}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
