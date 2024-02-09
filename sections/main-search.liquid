@@ -259,12 +259,21 @@
                 class="grid product-grid  grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop"
                 role="list"
               >
-                {%- for item in search.results -%}
-                  {% assign lazy_load = false %}
+              {%- for item in search.results -%}
+                {%- assign exclude_product = false -%}
+                
+                {%- for tag in item.tags -%}
+                  {%- if item.object_type == 'product' and item.tags == 'exclude_from_search' -%}
+                    {%- assign exclude_product = true -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              
+                {%- unless exclude_product -%}
+                  {%- assign lazy_load = false -%}
                   {%- if forloop.index > 2 -%}
                     {%- assign lazy_load = true -%}
                   {%- endif -%}
-
+              
                   <li
                     class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                     {% if settings.animations_reveal_on_scroll %}
@@ -317,7 +326,8 @@
                         </div>
                     {%- endcase -%}
                   </li>
-                {%- endfor -%}
+                {%- endunless -%}
+              {%- endfor -%}              
               </ul>
               {%- if paginate.pages > 1 -%}
                 {% render 'pagination', paginate: paginate %}
