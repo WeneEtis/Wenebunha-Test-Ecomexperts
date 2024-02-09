@@ -18,7 +18,8 @@
       <div class="predictive-search__result-group">
     {%- endif -%}
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
-      <div>
+      {%- if product.template_suffix != 'custom' -%} 
+        <div>
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
@@ -29,46 +30,43 @@
           aria-labelledby="predictive-search-queries"
         >
           {%- for query in predictive_search.resources.queries -%}
-            {%- if query.url != 'https://wenebunha-mac-vincent-test.myshopify.com/search?q=soft+winter+jacket&_pos=1&_psq=soft&_ss=e&_v=1.0' -%}
-              <li
-                id="predictive-search-option-query-{{ forloop.index }}"
-                class="predictive-search__list-item"
-                role="option"
-                aria-selected="false"
-              >
-                <a href="{{ query.url }}" class="predictive-search__item link link--text" tabindex="-1">
-                  <div class="predictive-search__item-content predictive-search__item-content--centered">
-                    <p
-                      class="predictive-search__item-heading predictive-search__item-query-result h5"
-                      aria-label="{{ query.text }}"
-                    >
-                      {{ query.styled_text }}
-                    </p>
-                  </div>
-                </a>
-              </li>
-            {%- endif -%}
+            <li
+              id="predictive-search-option-query-{{ forloop.index }}"
+              class="predictive-search__list-item"
+              role="option"
+              aria-selected="false"
+            >
+              <a href="{{ query.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                <div class="predictive-search__item-content predictive-search__item-content--centered">
+                  <p
+                    class="predictive-search__item-heading predictive-search__item-query-result h5"
+                    aria-label="{{ query.text }}"
+                  >
+                    {{ query.styled_text }}
+                  </p>
+                </div>
+              </a>
+            </li>
           {%- endfor -%}
           {%- for collection in predictive_search.resources.collections -%}
-            {%- if collection.url != 'https://wenebunha-mac-vincent-test.myshopify.com/search?q=soft+winter+jacket&_pos=1&_psq=soft&_ss=e&_v=1.0' -%}
-              <li
-                id="predictive-search-option-collection-{{ forloop.index }}"
-                class="predictive-search__list-item"
-                role="option"
-                aria-selected="false"
-              >
-                <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
-                  <div class="predictive-search__item-content predictive-search__item-content--centered">
-                    <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
-                  </div>
-                </a>
-              </li>
-            {%- endif -%}
+            <li
+              id="predictive-search-option-collection-{{ forloop.index }}"
+              class="predictive-search__list-item"
+              role="option"
+              aria-selected="false"
+            >
+              <a href="{{ collection.url }}" class="predictive-search__item link link--text" tabindex="-1">
+                <div class="predictive-search__item-content predictive-search__item-content--centered">
+                  <p class="predictive-search__item-heading h5">{{ collection.title }}</p>
+                </div>
+              </a>
+            </li>
           {%- endfor -%}
         </ul>
       </div>
+      {% endif %}
+      
     {%- endif -%}
-    
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
         <h2
