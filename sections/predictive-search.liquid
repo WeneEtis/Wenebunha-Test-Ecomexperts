@@ -31,13 +31,8 @@
         aria-labelledby="predictive-search-queries"
       >
         {%- for query in predictive_search.resources.queries -%}
-          {%- assign exclude_product = false -%}
-          {%- for tag in product.tags -%}
-            {%- if product.tags contains 'exclude_from_search' -%}
-              {%- assign exclude_product = true -%}
-            {%- endif -%}
-          {%- endfor -%}
-          {%- unless exclude_product -%}
+
+          {% unless product.tags contains 'exclude_from_search' %}
             <li
               id="predictive-search-option-query-{{ forloop.index }}"
               class="predictive-search__list-item"
@@ -59,7 +54,7 @@
         {%- endfor -%}
       
         {%- for collection in predictive_search.resources.collections -%}
-          {%- unless exclude_product -%}
+          {% unless product.tags contains 'exclude_from_search' %}
             <li
               id="predictive-search-option-collection-{{ forloop.index }}"
               class="predictive-search__list-item"
