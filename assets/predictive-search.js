@@ -169,54 +169,55 @@ class PredictiveSearch extends SearchForm {
 
   getSearchResults(searchTerm) {
     const queryKey = searchTerm.replace(' ', '-').toLowerCase();
-
-    // Check if the searchTerm matches the regex for "Soft Winter Jacket"
-    const softWinterJacketRegex = /Soft\s*Winter\s*Jacket/i;
-    if (softWinterJacketRegex.test(searchTerm)) {
-        // Do not show search results for "Soft Winter Jacket"
-        this.close();
-        return;
-    }
-
     this.setLiveRegionLoadingState();
-
+  
     if (this.cachedResults[queryKey]) {
-        this.renderSearchResults(this.cachedResults[queryKey]);
-        return;
+      this.renderSearchResults(this.cachedResults[queryKey]);
+      return;
     }
-
+  
     fetch(`${routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&section_id=predictive-search`, {
-        signal: this.abortController.signal,
+      signal: this.abortController.signal,
     })
-        .then((response) => {
-            if (!response.ok) {
-                var error = new Error(response.status);
-                this.close();
-                throw error;
-            }
-
-            return response.text();
-        })
-        .then((text) => {
-            const resultsMarkup = new DOMParser()
-                .parseFromString(text, 'text/html')
-                .querySelector('#shopify-section-predictive-search').innerHTML;
-            // Save bandwidth keeping the cache in all instances synced
-            this.allPredictiveSearchInstances.forEach((predictiveSearchInstance) => {
-                predictiveSearchInstance.cachedResults[queryKey] = resultsMarkup;
-            });
-            this.renderSearchResults(resultsMarkup);
-        })
-        .catch((error) => {
-            if (error?.code === 20) {
-                // Code 20 means the call was aborted
-                return;
-            }
-            this.close();
-            throw error;
+      .then((response) => {
+        if (!response.ok) {
+          var error = new Error(response.status);
+          this.close();
+          throw error;
+        }
+  
+        return response.text();
+      })
+      .then((text) => {
+        // Filter out results related to the soft winter jacket product
+        const filteredResultsMarkup = this.filterResults(text, 'soft winter jacket');
+        
+        // Save bandwidth keeping the cache in all instances synced
+        this.allPredictiveSearchInstances.forEach((predictiveSearchInstance) => {
+          predictiveSearchInstance.cachedResults[queryKey] = filteredResultsMarkup;
         });
-}
-
+  
+        this.renderSearchResults(filteredResultsMarkup);
+      })
+      .catch((error) => {
+        if (error?.code === 20) {
+          // Code 20 means the call was aborted
+          return;
+        }
+        this.close();
+        throw error;
+      });
+  }
+  
+  filterResults(resultsMarkup, excludedProduct) {
+    // Add your logic here to filter out results related to the excluded product
+    // For example, you can use regular expressions to remove specific product entries
+  
+    // For demonstration, let's assume the product name is part of the HTML markup
+    const regex = new RegExp(`<div class="product-name">${excludedProduct}<\\/div>`, 'g');
+    return resultsMarkup.replace(regex, '');
+  }
+  
 
   setLiveRegionLoadingState() {
     this.statusElement = this.statusElement || this.querySelector('.predictive-search-status');
