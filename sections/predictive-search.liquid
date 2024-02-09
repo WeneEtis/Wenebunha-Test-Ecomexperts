@@ -17,14 +17,13 @@
     {%- if first_column_results_size > 0 -%}
       <div class="predictive-search__result-group">
     {%- endif -%}
-    {% unless product.tags contains 'exclude_from_search' %}
-
     {%- if predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 -%}
       <div>
         <h2 id="predictive-search-queries" class="predictive-search__heading text-body caption-with-letter-spacing">
           {{- 'templates.search.suggestions' | t -}}
         </h2>
         <ul
+        {% unless product.tags contains 'exclude_from_search' %}
           id="predictive-search-results-queries-list"
           class="predictive-search__results-list list-unstyled"
           role="group"
@@ -63,10 +62,10 @@
               </a>
             </li>
           {%- endfor -%}
+          {% endunless %}
         </ul>
       </div>
     {%- endif -%}
-    {% endunless %}
     {%- if predictive_search.resources.articles.size > 0 or predictive_search.resources.pages.size > 0 -%}
       <div class="predictive-search__pages-wrapper">
         <h2
