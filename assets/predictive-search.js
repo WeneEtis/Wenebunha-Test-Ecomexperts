@@ -169,54 +169,56 @@ class PredictiveSearch extends SearchForm {
 
   getSearchResults(searchTerm) {
     const queryKey = searchTerm.replace(' ', '-').toLowerCase();
-
     
-    // Check if the searchTerm is related to a soft winter jacket
-    const isSoftWinterJacketSearch = searchTerm.toLowerCase().includes('soft winter jacket');
+    // Add a regex pattern for "Soft Winter Jacket"
+    const softWinterJacketRegex = /(s|o|f|t|w|i|n|t|e|r|j|a|c|k|e|t)/i;
 
-    if (isSoftWinterJacketSearch) {
-      // If it's related to a soft winter jacket, do not fetch suggestions
-      this.close();
-      return;
+    // Check if the search term matches the regex pattern
+    if (softWinterJacketRegex.test(searchTerm)) {
+        // Skip suggestions for "Soft Winter Jacket"
+        this.closeResults();
+        return;
     }
+
     this.setLiveRegionLoadingState();
 
     if (this.cachedResults[queryKey]) {
-      this.renderSearchResults(this.cachedResults[queryKey]);
-      return;
+        this.renderSearchResults(this.cachedResults[queryKey]);
+        return;
     }
 
     fetch(`${routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&section_id=predictive-search`, {
-      signal: this.abortController.signal,
+        signal: this.abortController.signal,
     })
-      .then((response) => {
-        if (!response.ok) {
-          var error = new Error(response.status);
-          this.close();
-          throw error;
-        }
+        .then((response) => {
+            if (!response.ok) {
+                var error = new Error(response.status);
+                this.close();
+                throw error;
+            }
 
-        return response.text();
-      })
-      .then((text) => {
-        const resultsMarkup = new DOMParser()
-          .parseFromString(text, 'text/html')
-          .querySelector('#shopify-section-predictive-search').innerHTML;
-        // Save bandwidth keeping the cache in all instances synced
-        this.allPredictiveSearchInstances.forEach((predictiveSearchInstance) => {
-          predictiveSearchInstance.cachedResults[queryKey] = resultsMarkup;
+            return response.text();
+        })
+        .then((text) => {
+            const resultsMarkup = new DOMParser()
+                .parseFromString(text, 'text/html')
+                .querySelector('#shopify-section-predictive-search').innerHTML;
+            // Save bandwidth keeping the cache in all instances synced
+            this.allPredictiveSearchInstances.forEach((predictiveSearchInstance) => {
+                predictiveSearchInstance.cachedResults[queryKey] = resultsMarkup;
+            });
+            this.renderSearchResults(resultsMarkup);
+        })
+        .catch((error) => {
+            if (error?.code === 20) {
+                // Code 20 means the call was aborted
+                return;
+            }
+            this.close();
+            throw error;
         });
-        this.renderSearchResults(resultsMarkup);
-      })
-      .catch((error) => {
-        if (error?.code === 20) {
-          // Code 20 means the call was aborted
-          return;
-        }
-        this.close();
-        throw error;
-      });
-  }
+}
+
 
   setLiveRegionLoadingState() {
     this.statusElement = this.statusElement || this.querySelector('.predictive-search-status');
